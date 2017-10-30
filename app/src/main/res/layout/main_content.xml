@@ -8,7 +8,8 @@
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        />
 
     <View
         android:background="#FF6A6A"
@@ -16,38 +17,50 @@
         android:layout_height="1dp"/>
     <RadioGroup
         android:id="@+id/rg_group"
-        android:gravity="center_vertical"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="55dp">
+        android:layout_height="wrap_content">
         <RadioButton
             android:id="@+id/rb_gift"
-            android:drawableTop="@drawable/x_libao"
+            android:drawableTop="@drawable/main_guide_selector"
+            android:text="礼包"
             android:layout_weight="1"
             android:button="@null"
-            android:layout_width="5dp"
-            android:layout_height="48dp" />
+            android:layout_width="0dp"
+            android:gravity="center_horizontal"
+
+            android:layout_height="wrap_content"
+            android:checked="false" />
         <RadioButton
             android:id="@+id/rb_openservice"
-            android:drawableTop="@drawable/x_youxi"
+            android:drawableTop="@drawable/main_category_selector"
+            android:text="开服"
             android:layout_weight="1"
+            android:paddingTop="@dimen/dp_4"
             android:button="@null"
-            android:layout_width="5dp"
-            android:layout_height="48dp" />
+            android:layout_width="0dp"
+            android:gravity="center_horizontal"
+
+            android:layout_height="wrap_content" />
         <RadioButton
             android:id="@+id/rb_hot"
-            android:drawableTop="@drawable/x_tese"
+            android:drawableTop="@drawable/main_hot_selector"
+            android:text="热门"
+            android:gravity="center_horizontal"
             android:layout_weight="1"
             android:button="@null"
-            android:layout_width="5dp"
-            android:layout_height="48dp" />
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
         <RadioButton
             android:id="@+id/rb_feature"
-            android:drawableTop="@drawable/x_tese1"
+            android:drawableTop="@drawable/main_mine_selector"
+            android:text="特色"
             android:layout_weight="1"
+            android:gravity="center_horizontal"
+
             android:button="@null"
-            android:layout_width="5dp"
-            android:layout_height="48dp" />
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
     </RadioGroup>
 
 </LinearLayout>
