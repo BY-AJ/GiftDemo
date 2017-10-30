@@ -1,5 +1,6 @@
 package com.itcast.yb.packelves.fragment;
 
+import android.graphics.Color;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,7 +25,7 @@ import retrofit2.Response;
  * Created by yb on 2017/10/30.
  */
 
-public class BeatenFragment extends BaseFragment{
+public class BeatenFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener{
 
     @BindView(R.id.swipe_refresh) SwipeRefreshLayout mSwipeRefreshLayout;
     @BindView(R.id.recycler_View) RecyclerView mRecyclerView;
@@ -37,6 +38,11 @@ public class BeatenFragment extends BaseFragment{
     public View initView() {
         View view = UIUtils.inflate(R.layout.fragment_beaten);
         ButterKnife.bind(this,view);
+
+        mSwipeRefreshLayout.setColorSchemeColors(Color.BLUE,Color.RED,Color.YELLOW,Color.BLACK);
+        mSwipeRefreshLayout.setProgressBackgroundColorSchemeColor(Color.WHITE);
+        mSwipeRefreshLayout.setDistanceToTriggerSync(50);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(mActivity);
         mRecyclerView.setLayoutManager(layoutManager);
@@ -69,5 +75,13 @@ public class BeatenFragment extends BaseFragment{
         mRecyclerView.setAdapter(mAdapter);
     }
 
-
+    @Override
+    public void onRefresh() {
+        UIUtils.getHandler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        },4000);
+    }
 }

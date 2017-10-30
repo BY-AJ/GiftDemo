@@ -48,7 +48,8 @@ public class FeatureFragment extends BaseFragment{
         llroot.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
         llroot.setDividerDrawable(ContextCompat.getDrawable(mActivity,R.drawable.tablayout_divider_vertical));
         mTabLayout.setupWithViewPager(mViewPager);
-        //TODO有点小bug
+        //TODO
+        // 有点小bug--多此点击其他的radiobutton再点击特色的radiobutton，数据加载不出来。
     }
 
     @OnClick(R.id.iv_menu)
