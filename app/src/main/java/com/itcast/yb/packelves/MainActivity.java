@@ -37,8 +37,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ///YAMEIDEI
-        ///HEHEHHEHEH
         initBasic();
         initData();
     }
@@ -48,7 +46,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         mRadioGroup.setOnCheckedChangeListener(MainActivity.this);
         mViewPager.setAdapter(new MyViewPagerAdapter(mFm));
         mRadioGroup.check(mRbIds[0]);
-
     }
 
     private void initBasic() {

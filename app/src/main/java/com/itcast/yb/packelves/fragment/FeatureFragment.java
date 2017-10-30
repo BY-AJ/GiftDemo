@@ -1,10 +1,12 @@
 package com.itcast.yb.packelves.fragment;
 
 import android.support.design.widget.TabLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.itcast.yb.packelves.MainActivity;
@@ -26,8 +28,7 @@ public class FeatureFragment extends BaseFragment{
     @BindView(R.id.feature_tab_layout) TabLayout mTabLayout;
     @BindView(R.id.feature_viewpager) ViewPager mViewPager;
 
-    private static final String BEAT_METHOD ="bdxqs";
-    private static final String GAME_METHOD ="getWeekll";
+   // private static final String GAME_METHOD ="getWeekll";
 
     @Override
     public View initView() {
@@ -42,7 +43,12 @@ public class FeatureFragment extends BaseFragment{
     @Override
     public void initData() {
         mViewPager.setAdapter(new MyTabViewPagerAdapter(getFragmentManager()));
+        //给TabLayout添加分割线
+        LinearLayout llroot = (LinearLayout) mTabLayout.getChildAt(0);
+        llroot.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
+        llroot.setDividerDrawable(ContextCompat.getDrawable(mActivity,R.drawable.tablayout_divider_vertical));
         mTabLayout.setupWithViewPager(mViewPager);
+        //TODO有点小bug
     }
 
     @OnClick(R.id.iv_menu)

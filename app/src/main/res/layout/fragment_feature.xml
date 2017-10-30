@@ -11,6 +11,7 @@
         android:id="@+id/feature_tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:tabMode="fixed"
         app:tabTextColor="#FF6A6A"
         app:tabSelectedTextColor="#FF6A6A"
         app:tabIndicatorColor="#FF6A6A"/>
