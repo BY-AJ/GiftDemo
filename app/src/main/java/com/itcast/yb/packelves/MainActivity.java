@@ -45,6 +45,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         mRbIds = new int[]{R.id.rb_gift,R.id.rb_openservice,R.id.rb_hot,R.id.rb_feature};
         mRadioGroup.setOnCheckedChangeListener(MainActivity.this);
         mViewPager.setAdapter(new MyViewPagerAdapter(mFm));
+        mViewPager.setOffscreenPageLimit(3);//防止viewpager里面Fragement被销毁;
         mRadioGroup.check(mRbIds[0]);
     }
 
@@ -87,7 +88,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         for (int i=0;i<mRbIds.length;i++) {
             if(checkedId == mRbIds[i]) {
-                mViewPager.setCurrentItem(i,false);
+                mViewPager.setCurrentItem(i,true);
                 break;
             }
         }
