@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.itcast.yb.packelves.view.NoScrollViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <View
+        android:background="#FF6A6A"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+    <RadioGroup
+        android:id="@+id/rg_group"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="55dp">
+        <RadioButton
+            android:id="@+id/rb_gift"
+            android:drawableTop="@drawable/x_libao"
+            android:layout_weight="1"
+            android:button="@null"
+            android:layout_width="5dp"
+            android:layout_height="48dp" />
+        <RadioButton
+            android:id="@+id/rb_openservice"
+            android:drawableTop="@drawable/x_youxi"
+            android:layout_weight="1"
+            android:button="@null"
+            android:layout_width="5dp"
+            android:layout_height="48dp" />
+        <RadioButton
+            android:id="@+id/rb_hot"
+            android:drawableTop="@drawable/x_tese"
+            android:layout_weight="1"
+            android:button="@null"
+            android:layout_width="5dp"
+            android:layout_height="48dp" />
+        <RadioButton
+            android:id="@+id/rb_feature"
+            android:drawableTop="@drawable/x_tese1"
+            android:layout_weight="1"
+            android:button="@null"
+            android:layout_width="5dp"
+            android:layout_height="48dp" />
+    </RadioGroup>
+
+</LinearLayout>

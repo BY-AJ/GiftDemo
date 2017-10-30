@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/menu_title_bar"/>
+
+    <View
+        android:background="#EBEBEB"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
+
+    <EditText
+        android:id="@+id/et_input"
+        android:gravity="left"
+        android:hint="告诉我们有啥做的不好，不方便的地方，我们会努力改进，我们会给提出的好的建议的玩家奖励神秘礼品哦~"
+        android:layout_width="match_parent"
+        android:layout_height="180dp" />
+
+    <View
+        android:background="#EBEBEB"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="手机/QQ:"
+            android:textSize="16sp"
+            android:textColor="#888888"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/et_qq"
+            android:layout_marginLeft="10dp"
+            android:singleLine="true"
+            android:maxLength="16"
+            android:gravity="center"
+            android:background="@drawable/icon6"
+            android:hint="联系方式/手机号码或QQ号码"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_submit"
+        android:background="#FF6A6A"
+        android:text="速度改进"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>
