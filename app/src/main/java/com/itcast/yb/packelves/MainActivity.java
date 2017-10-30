@@ -38,6 +38,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ///YAMEIDEI
+        ///HEHEHHEHEH
         initBasic();
         initData();
     }
