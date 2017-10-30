@@ -38,7 +38,6 @@ public class FeatureFragment extends BaseFragment{
     public View initView() {
         View view = LayoutInflater.from(mActivity).inflate(R.layout.fragment_feature,null);
         ButterKnife.bind(this,view);
-
         tvTitle.setText("独家企划");
         tvSearch.setVisibility(View.GONE);
         return view;
