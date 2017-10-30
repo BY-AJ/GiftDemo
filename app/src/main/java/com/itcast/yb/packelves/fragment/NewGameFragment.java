@@ -32,8 +32,8 @@ public class NewGameFragment extends BaseFragment implements SwipeRefreshLayout.
     private List<NewGameInfoBean.ListEntity> mDatas=new ArrayList<>();
     private NewGameQuickAdapter mAdapter;
 
-    @BindView(R.id.swipe_refresh) SwipeRefreshLayout swipeRefreshLayout;
-    @BindView(R.id.recycler_View) RecyclerView recyclerView;
+    @BindView(R.id.swipe_refresh1) SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.recycler_View1) RecyclerView recyclerView;
 
     @Override
     public void initData() {
@@ -46,7 +46,7 @@ public class NewGameFragment extends BaseFragment implements SwipeRefreshLayout.
         View view= UIUtils.inflate(R.layout.fragment_newgame);
         ButterKnife.bind(this,view);
         swipeRefreshLayout.setColorSchemeColors(Color.BLUE,Color.RED,Color.YELLOW,Color.BLACK);
-        swipeRefreshLayout.setProgressBackgroundColor(Color.WHITE);
+        swipeRefreshLayout.setProgressBackgroundColorSchemeColor(Color.WHITE);
         swipeRefreshLayout.setDistanceToTriggerSync(50);
         swipeRefreshLayout.setOnRefreshListener(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
