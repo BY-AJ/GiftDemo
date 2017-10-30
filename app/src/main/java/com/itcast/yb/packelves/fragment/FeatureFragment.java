@@ -45,8 +45,7 @@ public class FeatureFragment extends BaseFragment{
 
     @Override
     public void initData() {
-        fragmentList.add( FragmentFactory.createFeatureFg(0));
-        fragmentList.add( FragmentFactory.createFeatureFg(1));
+
         mViewPager.setAdapter(new MyTabViewPagerAdapter(getFragmentManager()));
         //给TabLayout添加分割线
         LinearLayout llroot = (LinearLayout) mTabLayout.getChildAt(0);

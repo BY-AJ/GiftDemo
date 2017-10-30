@@ -37,6 +37,7 @@ public class NewGameFragment extends BaseFragment implements SwipeRefreshLayout.
 
     @Override
     public void initData() {
+        getDataForServer();
 
     }
 
@@ -54,12 +55,15 @@ public class NewGameFragment extends BaseFragment implements SwipeRefreshLayout.
 
     @Override
     public void onRefresh() {
-        getDataForServer();
-
+        UIUtils.getHandler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        },4000);
     }
 
     private void getDataForServer() {
-
         HttpUtils.creat().querGift(pageno).enqueue(new Callback<NewGameInfoBean>() {
             @Override
             public void onResponse(Call<NewGameInfoBean> call, Response<NewGameInfoBean> response) {
