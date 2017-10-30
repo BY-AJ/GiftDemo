@@ -1,6 +1,7 @@
 package com.itcast.yb.packelves.fragment;
 
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
@@ -12,6 +13,9 @@ import android.widget.TextView;
 import com.itcast.yb.packelves.MainActivity;
 import com.itcast.yb.packelves.R;
 import com.itcast.yb.packelves.adapter.MyTabViewPagerAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,7 +31,7 @@ public class FeatureFragment extends BaseFragment{
     @BindView(R.id.tv_search) TextView tvSearch;
     @BindView(R.id.feature_tab_layout) TabLayout mTabLayout;
     @BindView(R.id.feature_viewpager) ViewPager mViewPager;
-
+    private List<Fragment> fragmentList=new ArrayList<>();
    // private static final String GAME_METHOD ="getWeekll";
 
     @Override
@@ -42,6 +46,8 @@ public class FeatureFragment extends BaseFragment{
 
     @Override
     public void initData() {
+        fragmentList.add( FragmentFactory.createFeatureFg(0));
+        fragmentList.add( FragmentFactory.createFeatureFg(1));
         mViewPager.setAdapter(new MyTabViewPagerAdapter(getFragmentManager()));
         //给TabLayout添加分割线
         LinearLayout llroot = (LinearLayout) mTabLayout.getChildAt(0);
