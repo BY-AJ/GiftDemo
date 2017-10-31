@@ -33,9 +33,9 @@ public class MyTabViewPagerAdapter extends FragmentPagerAdapter{
     @Override
     public Fragment getItem(int position) {
         if(mflag==1){
-                return FragmentFactory.createFeatureFg(position);
+            return FragmentFactory.createFeatureFg(position);
         }else if(mflag==0){
-             return FragmentFactory.createOpengameFg(position);
+            return FragmentFactory.createOpengameFg(position);
         }
         return null;
     }
@@ -44,11 +44,5 @@ public class MyTabViewPagerAdapter extends FragmentPagerAdapter{
     public int getCount() {
         return mTitle.length;
     }
-//
-//    @Override
-//    public Object instantiateItem(ViewGroup container, int position) {
-//        Fragment fragment = (Fragment) super.instantiateItem(container, position);
-//            mTags  = fragment.getTag();
-//        return fragment;
-//    }
+
 }
