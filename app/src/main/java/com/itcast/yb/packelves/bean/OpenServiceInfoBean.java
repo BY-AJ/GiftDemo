@@ -17,6 +17,5 @@ public class OpenServiceInfoBean {
         public String iconurl;
         public String linkurl;
         public String operators;
-
     }
 }

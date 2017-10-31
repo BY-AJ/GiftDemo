@@ -1,7 +1,6 @@
 package com.itcast.yb.packelves.fragment;
 
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
@@ -13,9 +12,6 @@ import android.widget.TextView;
 import com.itcast.yb.packelves.MainActivity;
 import com.itcast.yb.packelves.R;
 import com.itcast.yb.packelves.adapter.MyTabViewPagerAdapter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,8 +27,6 @@ public class FeatureFragment extends BaseFragment{
     @BindView(R.id.tv_search) TextView tvSearch;
     @BindView(R.id.feature_tab_layout) TabLayout mTabLayout;
     @BindView(R.id.feature_viewpager) ViewPager mViewPager;
-    private List<Fragment> fragmentList=new ArrayList<>();
-   // private static final String GAME_METHOD ="getWeekll";
 
     @Override
     public View initView() {
@@ -53,8 +47,6 @@ public class FeatureFragment extends BaseFragment{
         llroot.setDividerDrawable(ContextCompat.getDrawable(mActivity,
                 R.drawable.tablayout_divider_vertical));
         mTabLayout.setupWithViewPager(mViewPager);
-        //TODO
-        // 有点小bug--多此点击其他的radiobutton再点击特色的radiobutton，数据加载不出来。
     }
 
     @OnClick(R.id.iv_menu)
