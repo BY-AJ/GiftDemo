@@ -14,7 +14,7 @@ public interface HttpService {
     @GET("/majax.action?method=getWeekll")
     Call<NewGameInfoBean> querGift(@Query("pageNo") int pageNo);
 
-    @GET("//majax.action?method=getWebfutureTest")
+    @GET("/majax.action?method=getWebfutureTest")
     Call<KaiCeInfoBean> queryKaiCe();
 
 
