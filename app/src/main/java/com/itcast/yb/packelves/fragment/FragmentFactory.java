@@ -74,7 +74,7 @@ public class FragmentFactory {
                 default:
                     break;
             }
-            featureMap.put(pos,fragment);
+            opengameMap.put(pos,fragment);
         }
         return fragment;
     }
