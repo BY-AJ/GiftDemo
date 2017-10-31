@@ -16,7 +16,6 @@ import android.widget.TextView;
 import com.itcast.yb.packelves.MainActivity;
 import com.itcast.yb.packelves.R;
 import com.itcast.yb.packelves.adapter.MyTabViewPagerAdapter;
-import com.itcast.yb.packelves.utils.UIUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,14 +26,11 @@ import butterknife.OnClick;
  */
 
 public class OpenGameFragment extends BaseFragment{
-    @BindView(R.id.tv_title)
-    TextView tv_title;
-    @BindView(R.id.tv_search)
-    TextView tvSearch;
-    @BindView(R.id.open_game_tab_layout)
-    TabLayout mTabLayout;
-    @BindView(R.id.open_game_viewpager)
-    ViewPager mViewPager;
+    @BindView(R.id.tv_title) TextView tv_title;
+    @BindView(R.id.tv_search) TextView tvSearch;
+    @BindView(R.id.open_game_tab_layout) TabLayout mTabLayout;
+    @BindView(R.id.open_game_viewpager) ViewPager mViewPager;
+
     private String[] mTitle = new String[]{"开服","开测"};
 
     @Override
@@ -56,9 +52,9 @@ public class OpenGameFragment extends BaseFragment{
         mTabLayout.setupWithViewPager(mViewPager);
     }
 
-        @OnClick(R.id.iv_menu)
-         public void openmenu(){
-            MainActivity mainActivity = (MainActivity) this.mActivity;
-            mainActivity.getDrawerLayout().openDrawer(GravityCompat.START);
-            }
+    @OnClick(R.id.iv_menu)
+    public void openmenu(){
+        MainActivity mainActivity = (MainActivity) this.mActivity;
+        mainActivity.getDrawerLayout().openDrawer(GravityCompat.START);
+    }
 }

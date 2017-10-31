@@ -14,7 +14,6 @@ import com.itcast.yb.packelves.utils.HttpUtils;
 import com.itcast.yb.packelves.utils.UIUtils;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,9 +26,9 @@ import retrofit2.Response;
  * Created by yb on 2017/10/30.
  */
 
-public class KaiCeFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
+public class KaiCeFragment extends BaseFragment{
     private int pageno=0;
-    private List<KaiCeInfoBean.InfoEntity> mDatas=new ArrayList<>();
+    private ArrayList<KaiCeInfoBean.InfoEntity> mDatas;
     private KaiCeQuickAdapter mAdapter;
 
     @BindView(R.id.swipe_refresh) SwipeRefreshLayout mswipeRefreshLayout;
@@ -68,19 +67,9 @@ public class KaiCeFragment extends BaseFragment implements SwipeRefreshLayout.On
     }
 
     private void parseData(KaiCeInfoBean body) {
-        mDatas = body.getInfo();
+        mDatas = body.info;
         mAdapter = new KaiCeQuickAdapter(mDatas);
         mrecyclerView.setAdapter(mAdapter);
-
     }
 
-    @Override
-    public void onRefresh(){
-        UIUtils.getHandler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mswipeRefreshLayout.setRefreshing(false);
-            }
-        },4000);
-    }
 }

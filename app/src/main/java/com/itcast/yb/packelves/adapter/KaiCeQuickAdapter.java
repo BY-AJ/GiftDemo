@@ -8,8 +8,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.itcast.yb.packelves.R;
 import com.itcast.yb.packelves.bean.KaiCeInfoBean;
-import com.itcast.yb.packelves.bean.NewGameInfoBean;
-import com.itcast.yb.packelves.utils.HttpUtils;
+import com.itcast.yb.packelves.network.RequestNetwork;
 
 import java.util.List;
 
@@ -24,15 +23,13 @@ public class KaiCeQuickAdapter extends BaseQuickAdapter<KaiCeInfoBean.InfoEntity
 
     @Override
     protected void convert(BaseViewHolder helper, KaiCeInfoBean.InfoEntity item) {
-             helper.setText(R.id.second_kaice_gname,item.getGname());
-             helper.setText(R.id.second_addtimeAndGettime_txt,item.getAddtime()+item.getLinkurl());
-             helper.setText(R.id.second_kaice_operators_txt,item.getOperators());
-
-            ImageView icons = (ImageView) helper.itemView.findViewById(R.id.second_kaice_ImageView);
-            Glide.with(helper.itemView.getContext()).
-                         load(HttpUtils.BASE_URL+item.getIconurl()).
-                         into(icons);
+        helper.setText(R.id.tv_kaice_title,item.gname);
+        helper.setText(R.id.tv_kaice_store,"运营商:"+item.operators);
+        helper.setText(R.id.tv_kaice_time,item.addtime);
+        ImageView icons = (ImageView) helper.itemView.findViewById(R.id.iv_kaice_icon);
+        Glide.with(helper.itemView.getContext())
+                .load(RequestNetwork.SERVER_URL+item.iconurl)
+                .into(icons);
     }
-
 
 }
