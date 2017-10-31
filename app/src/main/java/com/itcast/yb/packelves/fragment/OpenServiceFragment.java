@@ -22,11 +22,6 @@ public class OpenServiceFragment extends BaseFragment{
     @BindView(R.id.tv_search) TextView tvSearch;
 
     @Override
-    public void initData() {
-
-    }
-
-    @Override
     public View initView() {
         View view = LayoutInflater.from(mActivity).inflate(R.layout.fragment_openserver, null);
         ButterKnife.bind(this,view);
@@ -34,6 +29,11 @@ public class OpenServiceFragment extends BaseFragment{
         tvTitle.setText("开服");
         tvSearch.setVisibility(View.GONE);
         return view;
+    }
+
+    @Override
+    public void initData() {
+
     }
 
     @OnClick(R.id.iv_menu)
