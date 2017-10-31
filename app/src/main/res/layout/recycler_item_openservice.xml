@@ -74,7 +74,7 @@
         android:layout_height="25dp" />
     <View
         android:background="#aa888888"
-        android:layout_alignBottom="@+id/iv_openserver_icon"
+        android:layout_alignBottom="@+id/tv_openserver_store"
         android:layout_width="match_parent"
         android:layout_height="1dp"/>
 
