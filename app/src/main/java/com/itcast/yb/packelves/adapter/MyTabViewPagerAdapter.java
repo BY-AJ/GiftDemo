@@ -3,8 +3,6 @@ package com.itcast.yb.packelves.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-
-import com.itcast.yb.packelves.fragment.BaseFragment;
 import com.itcast.yb.packelves.fragment.FragmentFactory;
 
 /**
@@ -12,11 +10,13 @@ import com.itcast.yb.packelves.fragment.FragmentFactory;
  */
 
 public class MyTabViewPagerAdapter extends FragmentPagerAdapter{
+    private String[] mTitle ;
+    private int mflag=0;
 
-    private String[] mTitle = new String[]{"暴打星期三","新游周刊"};
-
-    public MyTabViewPagerAdapter(FragmentManager fm) {
+    public MyTabViewPagerAdapter(FragmentManager fm,String[] Title,int flag) {
         super(fm);
+        mTitle=Title;
+        mflag=flag;
     }
 
     @Override
@@ -24,14 +24,31 @@ public class MyTabViewPagerAdapter extends FragmentPagerAdapter{
         return mTitle[position];
     }
 
+    /**
+     * mflag==0  开服开测
+     *  mflag==1 特色界面
+     * @param position
+     * @return
+     */
     @Override
     public Fragment getItem(int position) {
-        BaseFragment fragment = FragmentFactory.createFeatureFg(position);
-        return fragment;
+        if(mflag==1){
+                return FragmentFactory.createFeatureFg(position);
+        }else if(mflag==0){
+             return FragmentFactory.createOpengameFg(position);
+        }
+        return null;
     }
 
     @Override
     public int getCount() {
         return mTitle.length;
     }
+//
+//    @Override
+//    public Object instantiateItem(ViewGroup container, int position) {
+//        Fragment fragment = (Fragment) super.instantiateItem(container, position);
+//            mTags  = fragment.getTag();
+//        return fragment;
+//    }
 }
