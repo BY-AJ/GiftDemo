@@ -1,7 +1,6 @@
 package com.itcast.yb.packelves.fragment;
 
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
@@ -13,9 +12,6 @@ import android.widget.TextView;
 import com.itcast.yb.packelves.MainActivity;
 import com.itcast.yb.packelves.R;
 import com.itcast.yb.packelves.adapter.MyTabViewPagerAdapter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

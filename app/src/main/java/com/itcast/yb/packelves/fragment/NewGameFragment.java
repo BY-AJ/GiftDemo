@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.itcast.yb.packelves.R;
-import com.itcast.yb.packelves.adapter.FeatureQuickAdapter;
 import com.itcast.yb.packelves.adapter.NewGameQuickAdapter;
 import com.itcast.yb.packelves.bean.NewGameInfoBean;
 import com.itcast.yb.packelves.utils.HttpUtils;

@@ -2,8 +2,10 @@ package com.itcast.yb.packelves.network;
 
 import com.itcast.yb.packelves.bean.FeatureInfoBean;
 import com.itcast.yb.packelves.bean.GiftInfoBean;
+import com.itcast.yb.packelves.bean.OpenServiceInfoBean;
 import com.itcast.yb.packelves.module.FeatureClient;
 import com.itcast.yb.packelves.module.GiftClient;
+import com.itcast.yb.packelves.module.OpenServiceClient;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
@@ -21,6 +23,7 @@ public class RequestNetwork {
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
     private static Converter.Factory gsonConverterFactory = GsonConverterFactory.create();
 
+    //获取礼物数据
     public static Call<GiftInfoBean> getGiftClient() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(SERVER_URL)
@@ -31,6 +34,7 @@ public class RequestNetwork {
         return client.getGiftDataForServer();
     }
 
+    //获取特色数据
     public static Call<FeatureInfoBean> getFeatureClient(String method) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(SERVER_URL)
@@ -39,5 +43,16 @@ public class RequestNetwork {
                 .build();
         FeatureClient client = retrofit.create(FeatureClient.class);
         return client.getFeatureDataForServer(method);
+    }
+
+    //获取开服数据
+    public static Call<OpenServiceInfoBean> getOpenServiceClient(String method) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(SERVER_URL)
+                .addConverterFactory(gsonConverterFactory)
+                .client(httpClient.build())
+                .build();
+        OpenServiceClient client = retrofit.create(OpenServiceClient.class);
+        return client.getOpenServiceDataForService(method);
     }
 }
