@@ -14,7 +14,9 @@ import com.itcast.yb.packelves.bean.SectionBean;
 import com.itcast.yb.packelves.network.RequestNetwork;
 import com.orhanobut.logger.Logger;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -69,7 +71,11 @@ public class KaiFuFragment extends BaseFragment {
             mDatas = new ArrayList<>();
             for (int i=0; i<headList.size();i++) {
                 String headerTime = headList.get(i);
-                mDatas.add(new MySectionEntity(true,headerTime));
+                if(headerTime.equals(getTime())) {
+                    mDatas.add(new MySectionEntity(true,headerTime+"  今日开服"));
+                }else {
+                    mDatas.add(new MySectionEntity(true,headerTime));
+                }
                 for (int j=0;j<mInfo.size();j++) {
                     OpenServiceInfoBean.EntityInfo info = mInfo.get(j);
                     String addtime = info.addtime;
@@ -105,4 +111,10 @@ public class KaiFuFragment extends BaseFragment {
         return headList;
     }
 
+    //获取当天的时间
+    private String getTime() {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date(System.currentTimeMillis());
+        return formatter.format(date);
+    }
 }
