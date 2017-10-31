@@ -31,9 +31,9 @@ public class OpenGameFragment extends BaseFragment{
     TextView tv_title;
     @BindView(R.id.tv_search)
     TextView tvSearch;
-    @BindView(R.id.opeangame_tab_layout)
+    @BindView(R.id.open_game_tab_layout)
     TabLayout mTabLayout;
-    @BindView(R.id.opeangame_viewpager)
+    @BindView(R.id.open_game_viewpager)
     ViewPager mViewPager;
     private String[] mTitle = new String[]{"开服","开测"};
 
