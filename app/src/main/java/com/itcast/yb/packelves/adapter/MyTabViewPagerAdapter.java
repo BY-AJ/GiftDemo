@@ -12,11 +12,13 @@ import com.itcast.yb.packelves.fragment.FragmentFactory;
  */
 
 public class MyTabViewPagerAdapter extends FragmentPagerAdapter{
-
-    private String[] mTitle = new String[]{"暴打星期三","新游周刊"};
-
-    public MyTabViewPagerAdapter(FragmentManager fm) {
+    private String[] mTitle = null;
+    private int mflag=0;
+    BaseFragment fragment=null;
+    public MyTabViewPagerAdapter(FragmentManager fm,String[] Title,int flag) {
         super(fm);
+        mTitle=Title;
+        mflag=flag;
     }
 
     @Override
@@ -24,9 +26,19 @@ public class MyTabViewPagerAdapter extends FragmentPagerAdapter{
         return mTitle[position];
     }
 
+    /**
+     * mflag==0  开服开测
+     *  mflag==1 特色界面
+     * @param position
+     * @return
+     */
     @Override
     public Fragment getItem(int position) {
-        BaseFragment fragment = FragmentFactory.createFeatureFg(position);
+        if(mflag==1){
+             fragment = FragmentFactory.createFeatureFg(position);
+        }else if(mflag==0){
+             fragment = FragmentFactory.createOpengameFg(position);
+        }
         return fragment;
     }
 

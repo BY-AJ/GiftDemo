@@ -11,6 +11,7 @@ import java.util.Map;
 public class FragmentFactory {
     private static Map<Integer,BaseFragment> map=new HashMap<>();
     private static Map<Integer,BaseFragment> featureMap = new HashMap<>();
+    private static Map<Integer,BaseFragment> opengameMap = new HashMap<>();
 
     public static BaseFragment createFragment(int pos) {
         BaseFragment fragment = map.get(pos);
@@ -20,7 +21,7 @@ public class FragmentFactory {
                     fragment = new GiftFragment();
                     break;
                 case 1:
-                    fragment = new OpenServiceFragment();
+                    fragment = new OpenGameFragment();
                     break;
                 case 2:
                     fragment = new HotFragment();
@@ -45,6 +46,30 @@ public class FragmentFactory {
                     break;
                 case 1:
                     fragment = new NewGameFragment();
+                    break;
+                default:
+                    break;
+            }
+            featureMap.put(pos,fragment);
+        }
+        return fragment;
+    }
+
+
+    /**
+     * 开服开测
+     * @param pos
+     * @return
+     */
+    public static BaseFragment createOpengameFg(int pos) {
+        BaseFragment fragment = opengameMap.get(pos);
+        if(fragment == null) {
+            switch (pos) {
+                case 0 :
+                    fragment = new KaiFuFragment();
+                    break;
+                case 1:
+                    fragment = new KaiCeFragment();
                     break;
                 default:
                     break;

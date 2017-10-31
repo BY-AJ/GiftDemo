@@ -31,8 +31,9 @@ public class FeatureFragment extends BaseFragment{
     @BindView(R.id.tv_search) TextView tvSearch;
     @BindView(R.id.feature_tab_layout) TabLayout mTabLayout;
     @BindView(R.id.feature_viewpager) ViewPager mViewPager;
-    private List<Fragment> fragmentList=new ArrayList<>();
+//    private List<Fragment> fragmentList=new ArrayList<>();
    // private static final String GAME_METHOD ="getWeekll";
+   private String[] mTitle = new String[]{"暴打星期三","新游周刊"};
 
     @Override
     public View initView() {
@@ -46,7 +47,7 @@ public class FeatureFragment extends BaseFragment{
     @Override
     public void initData() {
 
-        mViewPager.setAdapter(new MyTabViewPagerAdapter(getFragmentManager()));
+        mViewPager.setAdapter(new MyTabViewPagerAdapter(getFragmentManager(),mTitle,1));
         //给TabLayout添加分割线
         LinearLayout llroot = (LinearLayout) mTabLayout.getChildAt(0);
         llroot.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
