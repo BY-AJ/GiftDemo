@@ -17,7 +17,6 @@ import butterknife.OnClick;
  */
 
 public class HotFragment extends BaseFragment{
-
     @BindView(R.id.tv_title) TextView tvTitle;
     @BindView(R.id.tv_search) TextView tvSearch;
 
