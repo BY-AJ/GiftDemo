@@ -45,6 +45,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         mRbIds = new int[]{R.id.rb_gift,R.id.rb_openservice,R.id.rb_hot,R.id.rb_feature};
         mRadioGroup.setOnCheckedChangeListener(MainActivity.this);
         mViewPager.setAdapter(new MyViewPagerAdapter(mFm));
+        mViewPager.setOffscreenPageLimit(3);//防止viewpager加载fragment不出的数据
         mRadioGroup.check(mRbIds[0]);
     }
 
