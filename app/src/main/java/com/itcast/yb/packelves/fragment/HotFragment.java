@@ -53,6 +53,7 @@ public class HotFragment extends BaseFragment{
         tvSearch.setVisibility(View.GONE);
 
         CustomLinearLayoutManager linearLayoutManager=new CustomLinearLayoutManager(mActivity);
+        linearLayoutManager.setScrollEnabled(false);
         mRecyclerView.setLayoutManager(linearLayoutManager);
 
         GridLayoutManager gridLayoutManager=new GridLayoutManager(mActivity,3);
