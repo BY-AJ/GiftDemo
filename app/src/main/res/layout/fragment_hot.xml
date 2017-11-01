@@ -6,7 +6,7 @@
     <include layout="@layout/main_title_bar"/>
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_View"
+            android:id="@+id/recycler_View_hot"
             android:overScrollMode="never"
             android:fadingEdge="none"
             android:layout_width="match_parent"
@@ -14,7 +14,7 @@
             android:layout_weight="1"/>
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler2_View"
+            android:id="@+id/recycler2_View_hot"
             android:overScrollMode="never"
             android:fadingEdge="none"
             android:layout_width="match_parent"
