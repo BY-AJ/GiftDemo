@@ -33,8 +33,9 @@
             android:layout_marginLeft="200dp"
             android:layout_alignRight="@id/xinyou_iconl__item_iv"
             android:layout_alignBottom="@id/xinyou_iconl__item_iv"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:scaleType="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             />
     </LinearLayout>
 </RelativeLayout>
