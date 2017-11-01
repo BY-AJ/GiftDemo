@@ -26,7 +26,7 @@ import retrofit2.Response;
  * Created by yb on 2017/10/30.
  */
 
-public class KaiCeFragment extends BaseFragment{
+public class KaiCeFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener{
     private int pageno=0;
     private ArrayList<KaiCeInfoBean.InfoEntity> mDatas;
     private KaiCeQuickAdapter mAdapter;
@@ -72,4 +72,13 @@ public class KaiCeFragment extends BaseFragment{
         mrecyclerView.setAdapter(mAdapter);
     }
 
+    @Override
+    public void onRefresh() {
+        UIUtils.getHandler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mswipeRefreshLayout.setRefreshing(false);
+            }
+        },4000);
+    }
 }

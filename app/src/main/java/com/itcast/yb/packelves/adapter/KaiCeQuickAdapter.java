@@ -26,7 +26,6 @@ public class KaiCeQuickAdapter extends BaseQuickAdapter<KaiCeInfoBean.InfoEntity
         helper.setText(R.id.tv_kaice_title,item.gname);
         helper.setText(R.id.tv_kaice_store,"运营商:"+item.operators);
         helper.setText(R.id.tv_kaice_time,item.addtime);
-
         ImageView icons = (ImageView) helper.itemView.findViewById(R.id.iv_kaice_icon);
         Glide.with(helper.itemView.getContext())
                 .load(RequestNetwork.SERVER_URL+item.iconurl)
