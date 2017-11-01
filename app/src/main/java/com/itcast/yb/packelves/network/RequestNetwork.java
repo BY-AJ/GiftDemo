@@ -3,9 +3,11 @@ package com.itcast.yb.packelves.network;
 import com.itcast.yb.packelves.bean.FeatureInfoBean;
 import com.itcast.yb.packelves.bean.GiftInfoBean;
 import com.itcast.yb.packelves.bean.OpenServiceInfoBean;
+import com.itcast.yb.packelves.bean.WeekDetailsBean;
 import com.itcast.yb.packelves.module.FeatureClient;
 import com.itcast.yb.packelves.module.GiftClient;
 import com.itcast.yb.packelves.module.OpenServiceClient;
+import com.itcast.yb.packelves.module.WeekDetailsClient;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
@@ -54,5 +56,16 @@ public class RequestNetwork {
                 .build();
         OpenServiceClient client = retrofit.create(OpenServiceClient.class);
         return client.getOpenServiceDataForService(method);
+    }
+
+    //获取暴打星期三详情页数据
+    public static Call<WeekDetailsBean> getWeekDetailsClient(int id) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(SERVER_URL)
+                .addConverterFactory(gsonConverterFactory)
+                .client(httpClient.build())
+                .build();
+        WeekDetailsClient client = retrofit.create(WeekDetailsClient.class);
+        return client.getWeekDetailsDatasForServer(id);
     }
 }

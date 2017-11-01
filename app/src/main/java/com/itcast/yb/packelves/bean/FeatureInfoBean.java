@@ -19,14 +19,14 @@ public class FeatureInfoBean {
         public String name;
         public String iconurl;
         public String descs;
-        public String sid;
+        public int sid;
 
         protected EntityInfo(Parcel in) {
             addtime = in.readString();
             name = in.readString();
             iconurl = in.readString();
             descs = in.readString();
-            sid = in.readString();
+            sid = in.readInt();
         }
 
         public static final Creator<EntityInfo> CREATOR = new Creator<EntityInfo>() {
@@ -52,7 +52,7 @@ public class FeatureInfoBean {
             dest.writeString(name);
             dest.writeString(iconurl);
             dest.writeString(descs);
-            dest.writeString(sid);
+            dest.writeInt(sid);
         }
     }
 }
