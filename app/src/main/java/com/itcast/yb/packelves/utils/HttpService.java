@@ -1,5 +1,6 @@
 package com.itcast.yb.packelves.utils;
 
+import com.itcast.yb.packelves.bean.HotBean;
 import com.itcast.yb.packelves.bean.KaiCeInfoBean;
 import com.itcast.yb.packelves.bean.NewGameInfoBean;
 
@@ -16,6 +17,10 @@ public interface HttpService {
 
     @GET("/majax.action?method=getWebfutureTest")
     Call<KaiCeInfoBean> queryKaiCe();
+
+    @GET("/majax.action?method=hotpushForAndroid")
+    Call<HotBean> queryHot();
+
 
 
 }
