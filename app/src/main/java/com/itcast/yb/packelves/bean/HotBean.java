@@ -196,6 +196,15 @@ public class HotBean {
             private String typename;
             private String logo;
             private String addtime;
+            private String size;
+
+            public String getSize() {
+                return size;
+            }
+
+            public void setSize(String size) {
+                this.size = size;
+            }
 
             public void setId(int id) {
                 this.id = id;
