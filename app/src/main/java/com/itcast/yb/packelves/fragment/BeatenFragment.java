@@ -1,5 +1,6 @@
 package com.itcast.yb.packelves.fragment;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,7 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.itcast.yb.packelves.R;
+import com.itcast.yb.packelves.activity.BeatenDetailsActivity;
 import com.itcast.yb.packelves.adapter.FeatureQuickAdapter;
 import com.itcast.yb.packelves.bean.FeatureInfoBean;
 import com.itcast.yb.packelves.network.RequestNetwork;
@@ -73,6 +76,17 @@ public class BeatenFragment extends BaseFragment implements SwipeRefreshLayout.O
         mDatas = body.list;
         mAdapter = new FeatureQuickAdapter(mDatas);
         mRecyclerView.setAdapter(mAdapter);
+        //设置条目的点击事件
+        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                FeatureInfoBean.EntityInfo entityInfo = mDatas.get(position);
+
+                Intent intent = new Intent(mActivity, BeatenDetailsActivity.class);
+                intent.putExtra("details",entityInfo);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

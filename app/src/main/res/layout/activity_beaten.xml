@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/details_title_bar"/>
+
+        <RelativeLayout
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="180dp">
+            <ImageView
+                android:id="@+id/iv_details_icon"
+                android:background="@drawable/def_loading"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <TextView
+                android:id="@+id/tv_details_time"
+                android:layout_alignParentBottom="true"
+                android:text="2017-10-25"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:layout_marginLeft="5dp"
+                android:drawableLeft="@drawable/g_biao"
+                android:drawablePadding="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_details_des"
+            android:text="导读:"
+            android:textColor="#8000"
+            android:textSize="14sp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_details"
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+
+</ScrollView>

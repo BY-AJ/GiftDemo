@@ -19,6 +19,7 @@
         <activity android:name=".MainActivity"/>
         <activity android:name=".activity.AboutActivity"/>
         <activity android:name=".activity.SuggestActivity"/>
+        <activity android:name=".activity.BeatenDetailsActivity"/>
     </application>
 
 </manifest>

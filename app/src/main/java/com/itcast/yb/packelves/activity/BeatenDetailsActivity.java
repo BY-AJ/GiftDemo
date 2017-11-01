@@ -1,0 +1,59 @@
+package com.itcast.yb.packelves.activity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.itcast.yb.packelves.BaseActivity;
+import com.itcast.yb.packelves.R;
+import com.itcast.yb.packelves.bean.FeatureInfoBean;
+import com.itcast.yb.packelves.network.RequestNetwork;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+/**
+ * 暴打星期三-详情页
+ * Created by yb on 2017/11/1.
+ */
+
+public class BeatenDetailsActivity extends BaseActivity{
+    @BindView(R.id.tv_details_title) TextView tvDetailsTitle;//标题
+    @BindView(R.id.iv_details_share) ImageView ivDetailsShare;//分享
+    @BindView(R.id.iv_details_icon) ImageView ivDetailsIcon;//背景图
+    @BindView(R.id.tv_details_time) TextView tvDetailsTime;//时间
+    @BindView(R.id.tv_details_des) TextView tvDetailsDes;//描述
+    @BindView(R.id.recycler_details) RecyclerView recyclerDetails;
+    private FeatureInfoBean.EntityInfo mDatas;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_beaten);
+        Intent intent = getIntent();
+        mDatas = intent.getParcelableExtra("details");
+        //初始化基本信息
+        initBasic();
+    }
+
+    private void initBasic() {
+        ButterKnife.bind(this);
+        tvDetailsTitle.setText(mDatas.name);
+        tvDetailsTime.setText(mDatas.addtime);
+        tvDetailsDes.setText("导读:"+mDatas.descs);
+        Glide.with(this)
+                .load(RequestNetwork.SERVER_URL + mDatas.iconurl)
+                .into(ivDetailsIcon);
+    }
+
+    //返回按钮
+    @OnClick(R.id.iv_details_back)
+    public void backPreActivity() {
+        finish();
+    }
+}
