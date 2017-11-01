@@ -40,7 +40,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         setContentView(R.layout.activity_main);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-
         initBasic();
         initData();
     }
