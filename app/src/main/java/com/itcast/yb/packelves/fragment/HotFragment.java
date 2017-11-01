@@ -5,6 +5,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.itcast.yb.packelves.MainActivity;
 import com.itcast.yb.packelves.R;
@@ -77,7 +78,7 @@ public class HotFragment extends BaseFragment{
             }
             @Override
             public void onFailure(Call<HotBean> call, Throwable t) {
-
+                Toast.makeText(mActivity,"网络请求失败",Toast.LENGTH_SHORT).show();
             }
         });
     }
