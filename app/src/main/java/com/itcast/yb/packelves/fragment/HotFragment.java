@@ -90,6 +90,8 @@ public class HotFragment extends BaseFragment{
      *  */
     private void parseData(HotBean.InfoEntity initData) {
         List<HotBean.InfoEntity.Push1Entity>  push1= initData.getPush1();
+        mInfoEntityList.clear();
+        mInfoEntityList2.clear();
         mInfoEntityList.add(new MyHotSectionEntity(true,"精品推荐"));
         for (int i = 0; i <push1.size() ; i++) {
             HotSectionBean hotSectionDatas=new HotSectionBean();
