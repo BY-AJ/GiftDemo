@@ -15,6 +15,8 @@
         android:layout_alignBottom="@id/xinyou_iconl__item_iv"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_10"
         android:background="#43734c4c">
         <TextView
             android:id="@+id/xinyou_name_item_tv"
@@ -28,7 +30,7 @@
         <ImageView
             android:id="@+id/xinyou_authord__item_iv"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="220dp"
+            android:layout_marginLeft="200dp"
             android:layout_alignRight="@id/xinyou_iconl__item_iv"
             android:layout_alignBottom="@id/xinyou_iconl__item_iv"
             android:layout_width="50dp"
