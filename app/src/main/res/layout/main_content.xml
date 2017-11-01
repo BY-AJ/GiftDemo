@@ -4,6 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="#FF6A6A"
+        android:fitsSystemWindows="true" />
+
     <com.itcast.yb.packelves.view.NoScrollViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
