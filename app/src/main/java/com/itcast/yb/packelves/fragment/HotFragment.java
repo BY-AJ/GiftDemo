@@ -38,6 +38,8 @@ public class HotFragment extends BaseFragment{
 
     HotBean.InfoEntity mInfoEntity;
     private List<MyHotSectionEntity> mInfoEntityList=new ArrayList<>();
+    private List<MyHotSectionEntity> mInfoEntityList2=new ArrayList<>();
+
     private HotSectionAdapter mAdapter;
 
     @Override
@@ -97,10 +99,33 @@ public class HotFragment extends BaseFragment{
             hotSectionDatas.typename="类型:"+push1.get(i).getTypename();
             mInfoEntityList.add(new MyHotSectionEntity(hotSectionDatas));
         }
-
         mAdapter = new HotSectionAdapter(R.layout.recycler_item_hot_jp,
                 R.layout.recyler_item_head_hot_jp, mInfoEntityList);
         mRecyclerView.setAdapter(mAdapter);
+
+
+
+
+        List<HotBean.InfoEntity.Push2Entity>  push2= initData.getPush2();
+        mInfoEntityList2.add(new MyHotSectionEntity(true,"热门推荐"));
+        for (int i = 0; i <push2.size() ; i++) {
+            HotSectionBean hotSectionDatas=new HotSectionBean();
+            hotSectionDatas.appId=push2.get(i).getAppid();
+            hotSectionDatas.clicks=push2.get(i).getClicks()+"";
+            hotSectionDatas.logo=push2.get(i).getLogo();
+            hotSectionDatas.name=push2.get(i).getName();
+            hotSectionDatas.typename=push2.get(i).getTypename();
+            hotSectionDatas.size=push2.get(i).getSize()==null?"大小:不大":"大小:"+push1.get(i).getSize();
+            hotSectionDatas.typename="类型:"+push1.get(i).getTypename();
+            mInfoEntityList2.add(new MyHotSectionEntity(hotSectionDatas));
+        }
+
+        mAdapter = new HotSectionAdapter(R.layout.recycler_item_hot_tj,
+                R.layout.recyler_item_head_hot_jp, mInfoEntityList2);
+        mRecyclerView.setAdapter(mAdapter);
+
+
+
 
     }
 
