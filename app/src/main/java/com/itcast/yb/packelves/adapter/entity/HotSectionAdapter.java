@@ -36,7 +36,7 @@ public class HotSectionAdapter extends BaseSectionQuickAdapter<MyHotSectionEntit
     //加载条目的数据
     @Override
     protected void convert(BaseViewHolder helper, MyHotSectionEntity item) {
-        helper.setText(R.id.tv_openserver_title,item.t.name);
+        helper.setText(R.id.tv_hotname_title,item.t.name);
         helper.setText(R.id.tv_hot_typename,item.t.typename);
         helper.setText(R.id.tv_hot_size,item.t.size);
         helper.setText(R.id.tv_hotnum_click,item.t.clicks);
