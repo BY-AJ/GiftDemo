@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.itcast.yb.packelves.MainActivity;
 import com.itcast.yb.packelves.R;
+import com.itcast.yb.packelves.adapter.entity.HotSection2Adapter;
 import com.itcast.yb.packelves.adapter.entity.HotSectionAdapter;
 import com.itcast.yb.packelves.adapter.entity.MyHotSectionEntity;
 import com.itcast.yb.packelves.bean.HotBean;
@@ -41,6 +42,7 @@ public class HotFragment extends BaseFragment{
     private List<MyHotSectionEntity> mInfoEntityList2=new ArrayList<>();
 
     private HotSectionAdapter mAdapter;
+    private HotSection2Adapter mAdapter2;
 
     @Override
     public View initView() {
@@ -115,14 +117,14 @@ public class HotFragment extends BaseFragment{
             hotSectionDatas.logo=push2.get(i).getLogo();
             hotSectionDatas.name=push2.get(i).getName();
             hotSectionDatas.typename=push2.get(i).getTypename();
-            hotSectionDatas.size=push2.get(i).getSize()==null?"大小:不大":"大小:"+push1.get(i).getSize();
-            hotSectionDatas.typename="类型:"+push1.get(i).getTypename();
+            hotSectionDatas.size=push2.get(i).getSize()==null?"大小:不大":"大小:"+push2.get(i).getSize();
+            hotSectionDatas.typename="类型:"+push2.get(i).getTypename();
             mInfoEntityList2.add(new MyHotSectionEntity(hotSectionDatas));
         }
 
-        mAdapter = new HotSectionAdapter(R.layout.recycler_item_hot_tj,
+        mAdapter2 = new HotSection2Adapter(R.layout.recycler_item_hot_tj,
                 R.layout.recyler_item_head_hot_jp, mInfoEntityList2);
-        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView2.setAdapter(mAdapter2);
 
 
 
