@@ -14,6 +14,7 @@ import com.itcast.yb.packelves.adapter.entity.HotSectionAdapter;
 import com.itcast.yb.packelves.adapter.entity.MyHotSectionEntity;
 import com.itcast.yb.packelves.bean.HotBean;
 import com.itcast.yb.packelves.bean.HotSectionBean;
+import com.itcast.yb.packelves.utils.CustomLinearLayoutManager;
 import com.itcast.yb.packelves.utils.HttpUtils;
 import com.itcast.yb.packelves.utils.UIUtils;
 
@@ -51,7 +52,7 @@ public class HotFragment extends BaseFragment{
         tvTitle.setText("热门游戏");
         tvSearch.setVisibility(View.GONE);
 
-        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(mActivity);
+        CustomLinearLayoutManager linearLayoutManager=new CustomLinearLayoutManager(mActivity);
         mRecyclerView.setLayoutManager(linearLayoutManager);
 
         GridLayoutManager gridLayoutManager=new GridLayoutManager(mActivity,3);
