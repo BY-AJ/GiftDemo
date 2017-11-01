@@ -2,7 +2,6 @@ package com.itcast.yb.packelves.fragment;
 
 import android.support.v4.view.GravityCompat;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
@@ -76,14 +75,11 @@ public class HotFragment extends BaseFragment{
                 mInfoEntity=(HotBean.InfoEntity)response.body().getInfo();
                 parseData(mInfoEntity);
             }
-
             @Override
             public void onFailure(Call<HotBean> call, Throwable t) {
 
             }
         });
-
-
     }
 
     /**
@@ -109,9 +105,6 @@ public class HotFragment extends BaseFragment{
                 R.layout.recyler_item_head_hot_jp, mInfoEntityList);
         mRecyclerView.setAdapter(mAdapter);
 
-
-
-
         List<HotBean.InfoEntity.Push2Entity>  push2= initData.getPush2();
         mInfoEntityList2.add(new MyHotSectionEntity(true,"热门推荐"));
         for (int i = 0; i <push2.size() ; i++) {
@@ -130,11 +123,7 @@ public class HotFragment extends BaseFragment{
                 R.layout.recyler_item_head_hot_jp, mInfoEntityList2);
         mRecyclerView2.setAdapter(mAdapter2);
 
-
-
-
     }
-
 
     @OnClick(R.id.iv_menu)
     public void opneMenu() {
