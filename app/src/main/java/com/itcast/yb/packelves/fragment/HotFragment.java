@@ -2,21 +2,21 @@ package com.itcast.yb.packelves.fragment;
 
 import android.support.v4.view.GravityCompat;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.TextView;
 
 import com.itcast.yb.packelves.MainActivity;
 import com.itcast.yb.packelves.R;
-import com.itcast.yb.packelves.adapter.SectionAdapter;
 import com.itcast.yb.packelves.adapter.entity.HotSectionAdapter;
 import com.itcast.yb.packelves.adapter.entity.MyHotSectionEntity;
 import com.itcast.yb.packelves.bean.HotBean;
 import com.itcast.yb.packelves.bean.HotSectionBean;
 import com.itcast.yb.packelves.utils.HttpUtils;
+import com.itcast.yb.packelves.utils.UIUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -33,16 +33,16 @@ import retrofit2.Response;
 public class HotFragment extends BaseFragment{
     @BindView(R.id.tv_title) TextView tvTitle;
     @BindView(R.id.tv_search) TextView tvSearch;
-    @BindView(R.id.recycler_view) RecyclerView mRecyclerView;
-    @BindView(R.id.recycler2_View) RecyclerView mRecyclerView2;
+    @BindView(R.id.recycler_View_hot) RecyclerView mRecyclerView;
+    @BindView(R.id.recycler2_View_hot) RecyclerView mRecyclerView2;
 
     HotBean.InfoEntity mInfoEntity;
-    private List<MyHotSectionEntity> mInfoEntityList;
+    private List<MyHotSectionEntity> mInfoEntityList=new ArrayList<>();
     private HotSectionAdapter mAdapter;
 
     @Override
     public View initView() {
-        View view = LayoutInflater.from(mActivity).inflate(R.layout.fragment_hot, null);
+        View view = UIUtils.inflate(R.layout.fragment_hot);
         ButterKnife.bind(this,view);
         tvTitle.setText("热门游戏");
         tvSearch.setVisibility(View.GONE);
