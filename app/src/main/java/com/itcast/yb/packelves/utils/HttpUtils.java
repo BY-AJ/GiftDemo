@@ -6,6 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * Created by lenovo on 2017/10/30.
  */
+//  http://www.1688wan.com/majax.action?method=hotpushForAndroid
 public class HttpUtils {
     public static final String BASE_URL="http://www.1688wan.com";
     private static HttpService mHttpService=null;
