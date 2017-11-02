@@ -1,13 +1,17 @@
 package com.itcast.yb.packelves.fragment;
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.itcast.yb.packelves.R;
+import com.itcast.yb.packelves.activity.KaiCeDetailsActivity;
 import com.itcast.yb.packelves.adapter.KaiCeQuickAdapter;
 import com.itcast.yb.packelves.bean.KaiCeInfoBean;
 import com.itcast.yb.packelves.utils.HttpUtils;
@@ -67,9 +71,21 @@ public class KaiCeFragment extends BaseFragment implements SwipeRefreshLayout.On
     }
 
     private void parseData(KaiCeInfoBean body) {
-        mDatas = body.info;
+        mDatas = (ArrayList<KaiCeInfoBean.InfoEntity>) body.getInfo();
         mAdapter = new KaiCeQuickAdapter(mDatas);
         mrecyclerView.setAdapter(mAdapter);
+        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                KaiCeInfoBean.InfoEntity kaiCeInfoBean=(KaiCeInfoBean.InfoEntity)mDatas.get(position);
+
+//                Bundle bundle=new Bundle();
+//                bundle.putSerializable("kaiCeInfoBean",kaiCeInfoBean);
+                Intent intent=new Intent(mActivity, KaiCeDetailsActivity.class);
+                intent.putExtra("details",kaiCeInfoBean);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
