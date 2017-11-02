@@ -1,5 +1,6 @@
 package com.itcast.yb.packelves.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -57,7 +58,7 @@ public class HotBean {
             return push2;
         }
 
-        public static class Push1Entity {
+        public static class Push1Entity implements Serializable {
             /**
              * id : 69
              * appid : 1499855012
