@@ -1,11 +1,11 @@
 package com.itcast.yb.packelves.utils;
 
+import com.itcast.yb.packelves.bean.DownloadInfoBean;
 import com.itcast.yb.packelves.bean.HotBean;
 import com.itcast.yb.packelves.bean.KaiCeDetailsBean;
 import com.itcast.yb.packelves.bean.KaiCeInfoBean;
 import com.itcast.yb.packelves.bean.KaiFuDetailsBean;
 import com.itcast.yb.packelves.bean.NewGameInfoBean;
-import com.itcast.yb.packelves.bean.OpenServiceInfoBean;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -35,5 +35,9 @@ public interface HttpService {
     //开服详情
     @POST("/majax.action?method=getAppInfo")
     Call<KaiFuDetailsBean> queryKaiFuDetails(@Query("id") String gid);
+
+    //精品推荐详情
+   @POST("/majax.action?method=getAppInfo")
+    Call<DownloadInfoBean> queryJinPinDetails(@Query("id") String appid);
 
 }
