@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +37,8 @@ public class DownloadActivity extends BaseActivity{
     @BindView(R.id.tv_download_type) TextView tvDownloadType;//类型
     @BindView(R.id.tv_download_size) TextView tvDownloadSize;//大小
     @BindView(R.id.tv_download_des ) TextView tvDownloadDes;//描述
+    @BindView(R.id.ll_root) LinearLayout llRoot;
+    @BindView(R.id.rl_root) RelativeLayout rlRoot;
 
     private int appid;
     private ArrayList<DownloadInfoBean.ImageInfo> mImageDatas;
@@ -52,6 +56,12 @@ public class DownloadActivity extends BaseActivity{
     }
 
     private void initData() {
+        mPics = new ImageView[5];//截图ImageView数组
+        mPics[0]= (ImageView) findViewById(R.id.iv_pic1);
+        mPics[1]= (ImageView) findViewById(R.id.iv_pic2);
+        mPics[2]= (ImageView) findViewById(R.id.iv_pic3);
+        mPics[3]= (ImageView) findViewById(R.id.iv_pic4);
+        mPics[4]= (ImageView) findViewById(R.id.iv_pic5);
         getDataForService(appid);
     }
 
@@ -60,6 +70,8 @@ public class DownloadActivity extends BaseActivity{
         call.enqueue(new Callback<DownloadInfoBean>() {
             @Override
             public void onResponse(Call<DownloadInfoBean> call, Response<DownloadInfoBean> response) {
+                rlRoot.setVisibility(View.GONE);
+                llRoot.setVisibility(View.VISIBLE);
                 parseData(response.body());
             }
             @Override
@@ -72,6 +84,7 @@ public class DownloadActivity extends BaseActivity{
     private void parseData(DownloadInfoBean body) {
         mAppDatas = body.app;
         mImageDatas = body.img;
+        ivDetailsShare.setVisibility(View.GONE);
         tvDetailsTitle.setText(mAppDatas.name);
         tvDownloadName.setText(mAppDatas.name);
         tvDownloadType.setText(mAppDatas.typename);
@@ -94,14 +107,7 @@ public class DownloadActivity extends BaseActivity{
 
     private void initBasic() {
         ButterKnife.bind(this);
-        ivDetailsShare.setVisibility(View.GONE);
-
-        mPics = new ImageView[5];//截图ImageView数组
-        mPics[0]= (ImageView) findViewById(R.id.iv_pic1);
-        mPics[1]= (ImageView) findViewById(R.id.iv_pic2);
-        mPics[2]= (ImageView) findViewById(R.id.iv_pic3);
-        mPics[3]= (ImageView) findViewById(R.id.iv_pic4);
-        mPics[4]= (ImageView) findViewById(R.id.iv_pic5);
+        llRoot.setVisibility(View.INVISIBLE);
     }
 
     //返回按钮
