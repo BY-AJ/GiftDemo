@@ -1,9 +1,11 @@
 package com.itcast.yb.packelves.network;
 
+import com.itcast.yb.packelves.bean.DownloadInfoBean;
 import com.itcast.yb.packelves.bean.FeatureInfoBean;
 import com.itcast.yb.packelves.bean.GiftInfoBean;
 import com.itcast.yb.packelves.bean.OpenServiceInfoBean;
 import com.itcast.yb.packelves.bean.WeekDetailsBean;
+import com.itcast.yb.packelves.module.DownloadClient;
 import com.itcast.yb.packelves.module.FeatureClient;
 import com.itcast.yb.packelves.module.GiftClient;
 import com.itcast.yb.packelves.module.OpenServiceClient;
@@ -67,5 +69,16 @@ public class RequestNetwork {
                 .build();
         WeekDetailsClient client = retrofit.create(WeekDetailsClient.class);
         return client.getWeekDetailsDatasForServer(id);
+    }
+
+    //获取特色下载页的数据
+    public static Call<DownloadInfoBean> getDownloadClient(int id) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(SERVER_URL)
+                .addConverterFactory(gsonConverterFactory)
+                .client(httpClient.build())
+                .build();
+        DownloadClient client = retrofit.create(DownloadClient.class);
+        return client.getDownloadDataForServer(id);
     }
 }

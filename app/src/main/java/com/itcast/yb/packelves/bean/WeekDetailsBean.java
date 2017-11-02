@@ -14,6 +14,6 @@ public class WeekDetailsBean {
         public int id;
         public String appname;
         public String appicon;
-        public String appid;
+        public int appid;
     }
 }

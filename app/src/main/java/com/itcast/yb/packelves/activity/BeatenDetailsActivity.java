@@ -1,10 +1,14 @@
 package com.itcast.yb.packelves.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -84,7 +88,11 @@ public class BeatenDetailsActivity extends BaseActivity{
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Toast.makeText(BeatenDetailsActivity.this,"呵呵哒",Toast.LENGTH_SHORT).show();
+                WeekDetailsBean.DetailsInfo info = mListDatas.get(position);
+                Intent intent = new Intent(BeatenDetailsActivity.this, DownloadActivity.class);
+                intent.putExtra("appid",info.appid);
+                intent.putExtra("title",info.appname);
+                startActivity(intent);
             }
         });
     }
@@ -93,7 +101,10 @@ public class BeatenDetailsActivity extends BaseActivity{
         ButterKnife.bind(this);
         tvDetailsTitle.setText(mDatas.name);
         tvDetailsTime.setText(mDatas.addtime);
-        tvDetailsDes.setText("导读:  "+mDatas.descs);
+        //修改textview中呈现不同颜色
+        SpannableString spannableString = new SpannableString("导读:  " + mDatas.descs);
+        spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#000000")),0,3, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        tvDetailsDes.setText(spannableString);
         Glide.with(this)
                 .load(RequestNetwork.SERVER_URL + mDatas.iconurl)
                 .into(ivDetailsIcon);
