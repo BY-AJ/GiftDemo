@@ -41,6 +41,7 @@ public class SectionAdapter extends BaseSectionQuickAdapter<MySectionEntity,Base
         helper.setText(R.id.tv_openserver_time,item.t.linkurl);
         helper.setText(R.id.tv_openserver_store,"运营商:"+item.t.operators);
         helper.setText(R.id.tv_openserver_area,item.t.area);
+        helper.addOnClickListener(R.id.btn_openserver_cat);
 
         ImageView ivIcon = (ImageView) helper.itemView.findViewById(R.id.iv_openserver_icon);
         Glide.with(helper.itemView.getContext())
