@@ -1,9 +1,12 @@
 package com.itcast.yb.packelves.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -39,6 +42,7 @@ public class DownloadActivity extends BaseActivity{
     @BindView(R.id.tv_download_des ) TextView tvDownloadDes;//描述
     @BindView(R.id.ll_root) LinearLayout llRoot;
     @BindView(R.id.rl_root) RelativeLayout rlRoot;
+    @BindView(R.id.btn_download) Button btnDownload;
 
     private int mAppid;
     private ArrayList<DownloadInfoBean.ImageInfo> mImageDatas;
@@ -50,7 +54,7 @@ public class DownloadActivity extends BaseActivity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_download);
-        initBasic();
+        initBasic();//初始化基本信息
         initData();
     }
 
@@ -71,7 +75,7 @@ public class DownloadActivity extends BaseActivity{
             public void onResponse(Call<DownloadInfoBean> call, Response<DownloadInfoBean> response) {
                 rlRoot.setVisibility(View.GONE);
                 llRoot.setVisibility(View.VISIBLE);
-                parseData(response.body());
+                parseData(response.body());//解析数据
             }
             @Override
             public void onFailure(Call<DownloadInfoBean> call, Throwable t) {
@@ -89,6 +93,15 @@ public class DownloadActivity extends BaseActivity{
         Glide.with(this).load(RequestNetwork.SERVER_URL+mAppDatas.logo)
                 .into(ivDownloadIcon);
         tvDownloadDes.setText(mAppDatas.description);
+
+        //判断当前的app是否可以下载
+        if(TextUtils.isEmpty(mAppDatas.download_addr)) {
+            btnDownload.setText("暂无下载");
+            btnDownload.setBackgroundColor(Color.parseColor("#88000000"));
+            btnDownload.setEnabled(false);
+        }else {
+            btnDownload.setText("立即下载");
+        }
 
         //截图模块加载
         for (int i=0;i<5;i++) {
@@ -110,6 +123,12 @@ public class DownloadActivity extends BaseActivity{
         llRoot.setVisibility(View.INVISIBLE);
         ivDetailsShare.setVisibility(View.GONE);
         tvDetailsTitle.setText(mTitle);
+    }
+
+    //开始下载
+    @OnClick(R.id.btn_download)
+    public void downloadApk() {
+        Toast.makeText(this,"开始下载",Toast.LENGTH_SHORT).show();
     }
 
     //返回按钮
