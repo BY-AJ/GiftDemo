@@ -2,7 +2,6 @@ package com.itcast.yb.packelves.fragment;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -78,9 +77,6 @@ public class KaiCeFragment extends BaseFragment implements SwipeRefreshLayout.On
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 KaiCeInfoBean.InfoEntity kaiCeInfoBean=(KaiCeInfoBean.InfoEntity)mDatas.get(position);
-
-//                Bundle bundle=new Bundle();
-//                bundle.putSerializable("kaiCeInfoBean",kaiCeInfoBean);
                 Intent intent=new Intent(mActivity, KaiCeDetailsActivity.class);
                 intent.putExtra("details",kaiCeInfoBean);
                 startActivity(intent);

@@ -1,12 +1,15 @@
 package com.itcast.yb.packelves.fragment;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.itcast.yb.packelves.R;
+import com.itcast.yb.packelves.activity.KaiCeDetailsActivity;
 import com.itcast.yb.packelves.adapter.SectionAdapter;
 import com.itcast.yb.packelves.adapter.entity.MySectionEntity;
 import com.itcast.yb.packelves.bean.OpenServiceInfoBean;
@@ -94,6 +97,16 @@ public class KaiFuFragment extends BaseFragment {
             mAdapter = new SectionAdapter(R.layout.recycler_item_openservice,
                     R.layout.recyler_item_head_openserver, mDatas);
             mRecyclerView.setAdapter(mAdapter);
+
+            mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                    OpenServiceInfoBean.EntityInfo kaiFuInfoBean= mInfo.get(position);
+                    Intent intent=new Intent(mActivity, KaiCeDetailsActivity.class);
+                    intent.putExtra("details",kaiFuInfoBean);
+                    startActivity(intent);
+                }
+            });
         }
     }
 
