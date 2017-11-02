@@ -86,6 +86,19 @@ public class KaiCeFragment extends BaseFragment implements SwipeRefreshLayout.On
 
             }
         });
+
+            mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+                @Override
+                public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                    KaiCeInfoBean.InfoEntity kaiCeInfoBean=(KaiCeInfoBean.InfoEntity)mDatas.get(position);
+                    Intent intent=new Intent(mActivity, KaiCeDetailsActivity.class);
+                    intent.putExtra("details",kaiCeInfoBean);
+                    startActivity(intent);
+                }
+            });
+
+
+
     }
 
     @Override
