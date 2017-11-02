@@ -40,17 +40,16 @@ public class DownloadActivity extends BaseActivity{
     @BindView(R.id.ll_root) LinearLayout llRoot;
     @BindView(R.id.rl_root) RelativeLayout rlRoot;
 
-    private int appid;
+    private int mAppid;
     private ArrayList<DownloadInfoBean.ImageInfo> mImageDatas;
     private DownloadInfoBean.AppInfo mAppDatas;
     private ImageView[] mPics;
+    private String mTitle;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_download);
-        Intent intent = getIntent();
-        appid = intent.getIntExtra("appid", 0);
         initBasic();
         initData();
     }
@@ -62,7 +61,7 @@ public class DownloadActivity extends BaseActivity{
         mPics[2]= (ImageView) findViewById(R.id.iv_pic3);
         mPics[3]= (ImageView) findViewById(R.id.iv_pic4);
         mPics[4]= (ImageView) findViewById(R.id.iv_pic5);
-        getDataForService(appid);
+        getDataForService(mAppid);
     }
 
     private void getDataForService(int appid) {
@@ -84,7 +83,6 @@ public class DownloadActivity extends BaseActivity{
     private void parseData(DownloadInfoBean body) {
         mAppDatas = body.app;
         mImageDatas = body.img;
-        tvDetailsTitle.setText(mAppDatas.name);
         tvDownloadName.setText(mAppDatas.name);
         tvDownloadType.setText(mAppDatas.typename);
         tvDownloadSize.setText("大小:未知");
@@ -105,9 +103,13 @@ public class DownloadActivity extends BaseActivity{
     }
 
     private void initBasic() {
+        Intent intent = getIntent();
+        mAppid = intent.getIntExtra("appid", 0);
+        mTitle = intent.getStringExtra("title");
         ButterKnife.bind(this);
         llRoot.setVisibility(View.INVISIBLE);
         ivDetailsShare.setVisibility(View.GONE);
+        tvDetailsTitle.setText(mTitle);
     }
 
     //返回按钮

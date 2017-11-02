@@ -91,6 +91,7 @@ public class BeatenDetailsActivity extends BaseActivity{
                 WeekDetailsBean.DetailsInfo info = mListDatas.get(position);
                 Intent intent = new Intent(BeatenDetailsActivity.this, DownloadActivity.class);
                 intent.putExtra("appid",info.appid);
+                intent.putExtra("title",info.appname);
                 startActivity(intent);
             }
         });
