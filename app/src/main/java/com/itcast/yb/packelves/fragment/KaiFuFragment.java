@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.itcast.yb.packelves.R;
 import com.itcast.yb.packelves.activity.KaiCeDetailsActivity;
+import com.itcast.yb.packelves.activity.KaiFuDetailsActivity;
 import com.itcast.yb.packelves.adapter.SectionAdapter;
 import com.itcast.yb.packelves.adapter.entity.MySectionEntity;
 import com.itcast.yb.packelves.bean.OpenServiceInfoBean;
@@ -115,20 +116,11 @@ public class KaiFuFragment extends BaseFragment {
                         }
                     }
 
-                    Intent intent=new Intent(mActivity, KaiCeDetailsActivity.class);
+                    Intent intent=new Intent(mActivity, KaiFuDetailsActivity.class);
                     intent.putExtra("details",kaiFuInfoBean);
                     startActivity(intent);
                 }
             });
-//            mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-//                @Override
-//                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-//                    OpenServiceInfoBean.EntityInfo kaiFuInfoBean= mInfo.get(position);
-//                    Intent intent=new Intent(mActivity, KaiCeDetailsActivity.class);
-//                    intent.putExtra("details",kaiFuInfoBean);
-//                    startActivity(intent);
-//                }
-//            });
         }
     }
 

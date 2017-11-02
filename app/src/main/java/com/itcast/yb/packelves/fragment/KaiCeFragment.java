@@ -73,6 +73,7 @@ public class KaiCeFragment extends BaseFragment implements SwipeRefreshLayout.On
         mDatas = (ArrayList<KaiCeInfoBean.InfoEntity>) body.getInfo();
         mAdapter = new KaiCeQuickAdapter(mDatas);
         mrecyclerView.setAdapter(mAdapter);
+
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -80,6 +81,7 @@ public class KaiCeFragment extends BaseFragment implements SwipeRefreshLayout.On
                 Intent intent=new Intent(mActivity, KaiCeDetailsActivity.class);
                 intent.putExtra("details",kaiCeInfoBean);
                 startActivity(intent);
+
             }
         });
     }
