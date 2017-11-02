@@ -84,7 +84,6 @@ public class DownloadActivity extends BaseActivity{
     private void parseData(DownloadInfoBean body) {
         mAppDatas = body.app;
         mImageDatas = body.img;
-        ivDetailsShare.setVisibility(View.GONE);
         tvDetailsTitle.setText(mAppDatas.name);
         tvDownloadName.setText(mAppDatas.name);
         tvDownloadType.setText(mAppDatas.typename);
@@ -108,6 +107,7 @@ public class DownloadActivity extends BaseActivity{
     private void initBasic() {
         ButterKnife.bind(this);
         llRoot.setVisibility(View.INVISIBLE);
+        ivDetailsShare.setVisibility(View.GONE);
     }
 
     //返回按钮
