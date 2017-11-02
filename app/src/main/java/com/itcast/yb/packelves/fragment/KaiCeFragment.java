@@ -44,6 +44,8 @@ public class KaiCeFragment extends BaseFragment implements SwipeRefreshLayout.On
         mswipeRefreshLayout.setColorSchemeColors(Color.BLUE,Color.RED,Color.YELLOW,Color.BLACK);
         mswipeRefreshLayout.setProgressBackgroundColorSchemeColor(Color.WHITE);
         mswipeRefreshLayout.setDistanceToTriggerSync(50);
+        mswipeRefreshLayout.setOnRefreshListener(this);
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(mActivity);
         mrecyclerView.setLayoutManager(layoutManager);
         return view;
