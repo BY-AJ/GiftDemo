@@ -88,7 +88,8 @@ public class BeatenDetailsActivity extends BaseActivity{
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Toast.makeText(BeatenDetailsActivity.this,"呵呵哒",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(BeatenDetailsActivity.this, DownloadActivity.class);
+                startActivity(intent);
             }
         });
     }
