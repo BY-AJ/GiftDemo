@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.itcast.yb.packelves.MainActivity;
 import com.itcast.yb.packelves.R;
+import com.itcast.yb.packelves.activity.JinPinDetailsAvtivity;
 import com.itcast.yb.packelves.activity.KaiCeDetailsActivity;
 import com.itcast.yb.packelves.adapter.entity.HotSection2Adapter;
 import com.itcast.yb.packelves.adapter.entity.HotSectionAdapter;
@@ -113,7 +114,7 @@ public class HotFragment extends BaseFragment{
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 HotBean.InfoEntity.Push1Entity push1Entity=(HotBean.InfoEntity.Push1Entity)push1.get(position);
-                        Intent intent=new Intent(mActivity, KaiCeDetailsActivity.class);
+                        Intent intent=new Intent(mActivity, JinPinDetailsAvtivity.class);
                         intent.putExtra("details",push1Entity);
                         startActivity(intent);
             }
