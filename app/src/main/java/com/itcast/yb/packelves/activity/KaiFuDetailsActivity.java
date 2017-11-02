@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.itcast.yb.packelves.BaseActivity;
 import com.itcast.yb.packelves.R;
 import com.itcast.yb.packelves.bean.KaiCeDetailsBean;
 import com.itcast.yb.packelves.bean.KaiCeInfoBean;
@@ -29,7 +30,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class KaiFuDetailsActivity extends AppCompatActivity {
+public class KaiFuDetailsActivity extends BaseActivity {
 
     private OpenServiceInfoBean.InfoEntity mDatas;
     @BindView(R.id.tv_details_title)
