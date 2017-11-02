@@ -88,7 +88,9 @@ public class BeatenDetailsActivity extends BaseActivity{
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                WeekDetailsBean.DetailsInfo info = mListDatas.get(position);
                 Intent intent = new Intent(BeatenDetailsActivity.this, DownloadActivity.class);
+                intent.putExtra("appid",info.appid);
                 startActivity(intent);
             }
         });
