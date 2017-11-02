@@ -25,7 +25,8 @@
         <activity android:name=".activity.SuggestActivity" />
         <activity android:name=".activity.BeatenDetailsActivity" />
         <activity android:name=".activity.DownloadActivity" />
-        <activity android:name=".activity.KaiFuDetailsActivity"></activity>
+        <activity android:name=".activity.KaiFuDetailsActivity" />
+        <activity android:name=".activity.JinPinDetailsAvtivity"></activity>
     </application>
 
 </manifest>
