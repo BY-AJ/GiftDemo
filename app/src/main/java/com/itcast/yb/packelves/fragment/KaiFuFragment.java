@@ -1,12 +1,16 @@
 package com.itcast.yb.packelves.fragment;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.itcast.yb.packelves.R;
+import com.itcast.yb.packelves.activity.KaiCeDetailsActivity;
+import com.itcast.yb.packelves.activity.KaiFuDetailsActivity;
 import com.itcast.yb.packelves.adapter.SectionAdapter;
 import com.itcast.yb.packelves.adapter.entity.MySectionEntity;
 import com.itcast.yb.packelves.bean.OpenServiceInfoBean;
@@ -33,7 +37,7 @@ public class KaiFuFragment extends BaseFragment {
     @BindView(R.id.recycler_view) RecyclerView mRecyclerView;
 
     private static final String METHOD = "getJtkaifu";
-    private ArrayList<OpenServiceInfoBean.EntityInfo> mInfo;
+    private ArrayList<OpenServiceInfoBean.InfoEntity> mInfo;
     private List<MySectionEntity> mDatas;
     private SectionAdapter mAdapter;
 
@@ -63,7 +67,7 @@ public class KaiFuFragment extends BaseFragment {
     }
 
     private void parseData(OpenServiceInfoBean body) {
-        mInfo = body.info;
+        mInfo = (ArrayList<OpenServiceInfoBean.InfoEntity>) body.getInfo();
         Logger.d(mInfo.size());
         //添加分组头数据
         List<String> headList = addHeaderDatas(mInfo);
@@ -77,16 +81,16 @@ public class KaiFuFragment extends BaseFragment {
                     mDatas.add(new MySectionEntity(true,headerTime));
                 }
                 for (int j=0;j<mInfo.size();j++) {
-                    OpenServiceInfoBean.EntityInfo info = mInfo.get(j);
-                    String addtime = info.addtime;
+                    OpenServiceInfoBean.InfoEntity info = mInfo.get(j);
+                    String addtime = info.getAddtime();
                     if(addtime.equals(headerTime)) {
                         SectionBean bean = new SectionBean();
-                        bean.gname = info.gname;
-                        bean.iconurl = info.iconurl;
-                        bean.area = info.area;
-                        bean.linkurl = info.linkurl;
-                        bean.operators = info.operators;
-                        bean.addtime = info.addtime;
+                        bean.gname = info.getGname();
+                        bean.iconurl = info.getIconurl();
+                        bean.area = info.getArea();
+                        bean.linkurl = info.getLinkurl();
+                        bean.operators = info.getOperators();
+                        bean.addtime = info.getAddtime();
                         mDatas.add(new MySectionEntity(bean));
                     }
                 }
@@ -94,14 +98,37 @@ public class KaiFuFragment extends BaseFragment {
             mAdapter = new SectionAdapter(R.layout.recycler_item_openservice,
                     R.layout.recyler_item_head_openserver, mDatas);
             mRecyclerView.setAdapter(mAdapter);
+
+
+            mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+                @Override
+                public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                    MySectionEntity mySectionEntity=mDatas.get(position);
+                   String area= mySectionEntity.t.area;
+                    String addtime= mySectionEntity.t.addtime;
+                    String gamename= mySectionEntity.t.gname;
+                    OpenServiceInfoBean.InfoEntity kaiFuInfoBean=null;
+                    for (int i = 0; i <mInfo.size() ; i++) {
+                        OpenServiceInfoBean.InfoEntity entityInfo= (OpenServiceInfoBean.InfoEntity)mInfo.get(i);
+                        if(entityInfo.getArea().equals(area)&&entityInfo.getAddtime().equals(addtime)&&entityInfo.getGname().equals(gamename)){
+                            kaiFuInfoBean=entityInfo;
+                            break;
+                        }
+                    }
+
+                    Intent intent=new Intent(mActivity, KaiFuDetailsActivity.class);
+                    intent.putExtra("details",kaiFuInfoBean);
+                    startActivity(intent);
+                }
+            });
         }
     }
 
     //添加分组头的数据信息
-    private List<String> addHeaderDatas(ArrayList<OpenServiceInfoBean.EntityInfo> info) {
+    private List<String> addHeaderDatas(ArrayList<OpenServiceInfoBean.InfoEntity> info) {
         List<String> headList = new ArrayList<>();
         for (int i=0;i<mInfo.size();i++) {
-            String addtime = mInfo.get(i).addtime;
+            String addtime = mInfo.get(i).getAddtime();
             if(!headList.contains(addtime)) {
                 headList.add(addtime);
             }else {

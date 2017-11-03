@@ -23,12 +23,14 @@ public class KaiCeQuickAdapter extends BaseQuickAdapter<KaiCeInfoBean.InfoEntity
 
     @Override
     protected void convert(BaseViewHolder helper, KaiCeInfoBean.InfoEntity item) {
-        helper.setText(R.id.tv_kaice_title,item.gname);
-        helper.setText(R.id.tv_kaice_store,"运营商:"+item.operators);
-        helper.setText(R.id.tv_kaice_time,item.addtime);
+        helper.setText(R.id.tv_kaice_title,item.getGname());
+        helper.setText(R.id.tv_kaice_store,"运营商:"+item.getOperators());
+        helper.setText(R.id.tv_kaice_time,item.getAddtime());
+        helper.addOnClickListener(R.id.btn_openserver_cat);
+
         ImageView icons = (ImageView) helper.itemView.findViewById(R.id.iv_kaice_icon);
         Glide.with(helper.itemView.getContext())
-                .load(RequestNetwork.SERVER_URL+item.iconurl)
+                .load(RequestNetwork.SERVER_URL+item.getIconurl())
                 .into(icons);
     }
 

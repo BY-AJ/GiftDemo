@@ -1,5 +1,6 @@
 package com.itcast.yb.packelves.fragment;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,7 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.itcast.yb.packelves.R;
+import com.itcast.yb.packelves.activity.KaiCeDetailsActivity;
 import com.itcast.yb.packelves.adapter.KaiCeQuickAdapter;
 import com.itcast.yb.packelves.bean.KaiCeInfoBean;
 import com.itcast.yb.packelves.utils.HttpUtils;
@@ -41,6 +44,8 @@ public class KaiCeFragment extends BaseFragment implements SwipeRefreshLayout.On
         mswipeRefreshLayout.setColorSchemeColors(Color.BLUE,Color.RED,Color.YELLOW,Color.BLACK);
         mswipeRefreshLayout.setProgressBackgroundColorSchemeColor(Color.WHITE);
         mswipeRefreshLayout.setDistanceToTriggerSync(50);
+        mswipeRefreshLayout.setOnRefreshListener(this);
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(mActivity);
         mrecyclerView.setLayoutManager(layoutManager);
         return view;
@@ -67,9 +72,33 @@ public class KaiCeFragment extends BaseFragment implements SwipeRefreshLayout.On
     }
 
     private void parseData(KaiCeInfoBean body) {
-        mDatas = body.info;
+        mDatas = (ArrayList<KaiCeInfoBean.InfoEntity>) body.getInfo();
         mAdapter = new KaiCeQuickAdapter(mDatas);
         mrecyclerView.setAdapter(mAdapter);
+
+        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                KaiCeInfoBean.InfoEntity kaiCeInfoBean=(KaiCeInfoBean.InfoEntity)mDatas.get(position);
+                Intent intent=new Intent(mActivity, KaiCeDetailsActivity.class);
+                intent.putExtra("details",kaiCeInfoBean);
+                startActivity(intent);
+
+            }
+        });
+
+            mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+                @Override
+                public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                    KaiCeInfoBean.InfoEntity kaiCeInfoBean=(KaiCeInfoBean.InfoEntity)mDatas.get(position);
+                    Intent intent=new Intent(mActivity, KaiCeDetailsActivity.class);
+                    intent.putExtra("details",kaiCeInfoBean);
+                    startActivity(intent);
+                }
+            });
+
+
+
     }
 
     @Override

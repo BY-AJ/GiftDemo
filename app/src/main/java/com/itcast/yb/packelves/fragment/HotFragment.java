@@ -1,5 +1,6 @@
 package com.itcast.yb.packelves.fragment;
 
+import android.content.Intent;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -7,8 +8,10 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.itcast.yb.packelves.MainActivity;
 import com.itcast.yb.packelves.R;
+import com.itcast.yb.packelves.activity.JinPinDetailsActivity;
 import com.itcast.yb.packelves.adapter.entity.HotSection2Adapter;
 import com.itcast.yb.packelves.adapter.entity.HotSectionAdapter;
 import com.itcast.yb.packelves.adapter.entity.MyHotSectionEntity;
@@ -53,7 +56,7 @@ public class HotFragment extends BaseFragment{
         tvSearch.setVisibility(View.GONE);
 
         CustomLinearLayoutManager linearLayoutManager=new CustomLinearLayoutManager(mActivity);
-        linearLayoutManager.setScrollEnabled(false);
+//        linearLayoutManager.setScrollEnabled(false);
         mRecyclerView.setLayoutManager(linearLayoutManager);
 
         GridLayoutManager gridLayoutManager=new GridLayoutManager(mActivity,3);
@@ -88,7 +91,7 @@ public class HotFragment extends BaseFragment{
      *
      *  */
     private void parseData(HotBean.InfoEntity initData) {
-        List<HotBean.InfoEntity.Push1Entity>  push1= initData.getPush1();
+       final List<HotBean.InfoEntity.Push1Entity>  push1= initData.getPush1();
         mInfoEntityList.clear();
         mInfoEntityList2.clear();
         mInfoEntityList.add(new MyHotSectionEntity(true,"精品推荐"));
@@ -105,25 +108,45 @@ public class HotFragment extends BaseFragment{
         mAdapter = new HotSectionAdapter(R.layout.recycler_item_hot_jp,
                 R.layout.recyler_item_head_hot_jp, mInfoEntityList);
         mRecyclerView.setAdapter(mAdapter);
+        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                HotBean.InfoEntity.Push1Entity push1Entity=(HotBean.InfoEntity.Push1Entity)push1.get(position-1);
+                        Intent intent=new Intent(mActivity, JinPinDetailsActivity.class);
+                        intent.putExtra("appid",push1Entity.getAppid());
+                        intent.putExtra("name",push1Entity.getName());
+                        startActivity(intent);
+            }
+        });
 
-        List<HotBean.InfoEntity.Push2Entity>  push2= initData.getPush2();
-        mInfoEntityList2.add(new MyHotSectionEntity(true,"热门推荐"));
-        for (int i = 0; i <push2.size() ; i++) {
-            HotSectionBean hotSectionDatas=new HotSectionBean();
-            hotSectionDatas.appId=push2.get(i).getAppid();
-            hotSectionDatas.clicks=push2.get(i).getClicks()+"";
-            hotSectionDatas.logo=push2.get(i).getLogo();
-            hotSectionDatas.name=push2.get(i).getName();
-            hotSectionDatas.typename=push2.get(i).getTypename();
-            hotSectionDatas.size=push2.get(i).getSize()==null?"大小:不大":"大小:"+push2.get(i).getSize();
-            hotSectionDatas.typename="类型:"+push2.get(i).getTypename();
-            mInfoEntityList2.add(new MyHotSectionEntity(hotSectionDatas));
-        }
+         final List<HotBean.InfoEntity.Push2Entity>  push2= initData.getPush2();
+            mInfoEntityList2.add(new MyHotSectionEntity(true,"热门推荐"));
+            for (int i = 0; i <push2.size() ; i++) {
+                HotSectionBean hotSectionDatas=new HotSectionBean();
+                hotSectionDatas.appId=push2.get(i).getAppid();
+                hotSectionDatas.clicks=push2.get(i).getClicks()+"";
+                hotSectionDatas.logo=push2.get(i).getLogo();
+                hotSectionDatas.name=push2.get(i).getName();
+                hotSectionDatas.typename=push2.get(i).getTypename();
+                hotSectionDatas.size=push2.get(i).getSize()==null?"大小:不大":"大小:"+push2.get(i).getSize();
+                hotSectionDatas.typename="类型:"+push2.get(i).getTypename();
+                mInfoEntityList2.add(new MyHotSectionEntity(hotSectionDatas));
+            }
 
         mAdapter2 = new HotSection2Adapter(R.layout.recycler_item_hot_tj,
                 R.layout.recyler_item_head_hot_jp, mInfoEntityList2);
         mRecyclerView2.setAdapter(mAdapter2);
 
+        mAdapter2.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                HotBean.InfoEntity.Push2Entity push2Entity = push2.get(position - 1);
+                Intent intent=new Intent(mActivity, JinPinDetailsActivity.class);
+                intent.putExtra("appid",push2Entity.getAppid());
+                intent.putExtra("name",push2Entity.getName());
+                startActivity(intent);
+            }
+        });
     }
 
     @OnClick(R.id.iv_menu)
