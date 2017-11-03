@@ -18,8 +18,8 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:logo="@drawable/logo"
             android:launchMode="singleTask"
+            android:logo="@drawable/logo"
             android:screenOrientation="portrait" />
         <activity android:name=".activity.KaiCeDetailsActivity" />
         <activity android:name=".activity.AboutActivity" />
@@ -27,8 +27,11 @@
         <activity android:name=".activity.BeatenDetailsActivity" />
         <activity android:name=".activity.DownloadActivity" />
         <activity android:name=".activity.KaiFuDetailsActivity" />
-        <activity android:name=".activity.JinPinDetailsActivity"></activity>
-        <service android:name=".service.DownloadService"/>
+        <activity android:name=".activity.JinPinDetailsActivity" />
+
+        <service android:name=".service.DownloadService" />
+
+        <activity android:name=".activity.GiftDetailsActivity"></activity>
     </application>
 
 </manifest>
