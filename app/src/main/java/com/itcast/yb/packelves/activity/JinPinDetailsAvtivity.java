@@ -30,14 +30,12 @@ import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.OPTIONS;
 
 public class JinPinDetailsAvtivity extends BaseActivity {
     private HotBean.InfoEntity.Push1Entity mDatas;
-
-    @BindView(R.id.tv_details_title)
-    TextView tvDetailsTitle;//标题
-    @BindView(R.id.iv_details_share)
-    ImageView ivDetailsShare;//分享
+    @BindView (R.id.tv_details_title) TextView tvDetailsTitle;//标题
+    @BindView(R.id.iv_details_share) ImageView ivDetailsShare;//分享
     @BindView(R.id.iv_download_icon) ImageView ivDownloadIcon;//logo
     @BindView(R.id.tv_download_name) TextView tvDownloadName;//名字
     @BindView(R.id.tv_download_type) TextView tvDownloadType;//类型
