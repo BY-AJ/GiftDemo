@@ -126,7 +126,7 @@ public class DownloadActivity extends BaseActivity implements ServiceConnection{
         btnDownload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mBinder.startDownload(mAppDatas.download_addr);
+                mBinder.startDownload(mAppDatas.download_addr,mAppDatas.id);
             }
         });
     }
