@@ -11,7 +11,7 @@ import android.widget.Toast;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.itcast.yb.packelves.MainActivity;
 import com.itcast.yb.packelves.R;
-import com.itcast.yb.packelves.activity.JinPinDetailsAvtivity;
+import com.itcast.yb.packelves.activity.JinPinDetailsActivity;
 import com.itcast.yb.packelves.adapter.entity.HotSection2Adapter;
 import com.itcast.yb.packelves.adapter.entity.HotSectionAdapter;
 import com.itcast.yb.packelves.adapter.entity.MyHotSectionEntity;
@@ -112,7 +112,7 @@ public class HotFragment extends BaseFragment{
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 HotBean.InfoEntity.Push1Entity push1Entity=(HotBean.InfoEntity.Push1Entity)push1.get(position-1);
-                        Intent intent=new Intent(mActivity, JinPinDetailsAvtivity.class);
+                        Intent intent=new Intent(mActivity, JinPinDetailsActivity.class);
                         intent.putExtra("details",push1Entity);
                         startActivity(intent);
             }
@@ -140,7 +140,7 @@ public class HotFragment extends BaseFragment{
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 HotBean.InfoEntity.Push1Entity push1Entity=(HotBean.InfoEntity.Push1Entity)push1.get(position);
-                Intent intent=new Intent(mActivity, JinPinDetailsAvtivity.class);
+                Intent intent=new Intent(mActivity, JinPinDetailsActivity.class);
                 intent.putExtra("details",push1Entity);
                 startActivity(intent);
             }
