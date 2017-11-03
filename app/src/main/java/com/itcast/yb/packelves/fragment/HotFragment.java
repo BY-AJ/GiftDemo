@@ -136,15 +136,15 @@ public class HotFragment extends BaseFragment{
                 R.layout.recyler_item_head_hot_jp, mInfoEntityList2);
         mRecyclerView2.setAdapter(mAdapter2);
 
-        mAdapter2.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                HotBean.InfoEntity.Push1Entity push1Entity=(HotBean.InfoEntity.Push1Entity)push1.get(position-1);
-                Intent intent=new Intent(mActivity, JinPinDetailsActivity.class);
-                intent.putExtra("details",push1Entity);
-                startActivity(intent);
-            }
-        });
+//        mAdapter2.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+//                HotBean.InfoEntity.Push1Entity push1Entity=(HotBean.InfoEntity.Push1Entity)push1.get(position-1);
+//                Intent intent=new Intent(mActivity, JinPinDetailsActivity.class);
+//                intent.putExtra("details",push1Entity);
+//                startActivity(intent);
+//            }
+//        });
     }
 
     @OnClick(R.id.iv_menu)
