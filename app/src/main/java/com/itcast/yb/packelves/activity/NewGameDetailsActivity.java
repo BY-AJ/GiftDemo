@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.itcast.yb.packelves.BaseActivity;
 import com.itcast.yb.packelves.R;
 import com.itcast.yb.packelves.adapter.GameDetailsAdapter;
@@ -76,6 +78,17 @@ public class NewGameDetailsActivity extends BaseActivity{
         mListDatas = body.list;
         mAdapter = new GameDetailsAdapter(mListDatas);
         mRecyclerView.setAdapter(mAdapter);
+
+        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                GameDetailsBean.EntityInfo info = mListDatas.get(position);
+                Intent intent = new Intent(NewGameDetailsActivity.this, DownloadActivity.class);
+                intent.putExtra("appid",info.appid);
+                intent.putExtra("title",info.appname);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initBasic() {
