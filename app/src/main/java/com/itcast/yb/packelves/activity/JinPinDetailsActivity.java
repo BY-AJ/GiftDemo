@@ -32,7 +32,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.http.OPTIONS;
 
-public class JinPinDetailsAvtivity extends BaseActivity {
+public class JinPinDetailsActivity extends BaseActivity {
     private HotBean.InfoEntity.Push1Entity mDatas;
     @BindView (R.id.tv_details_title) TextView tvDetailsTitle;//标题
     @BindView(R.id.iv_details_share) ImageView ivDetailsShare;//分享
