@@ -66,7 +66,7 @@ public class DownloadService extends Service{
     }
 
     private Notification getNotification(String title, int progress) {
-        Intent intent = new Intent(this, DownloadActivity.class);
+        Intent intent = new Intent(this,DownloadActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
         builder.setContentTitle(title);

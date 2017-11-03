@@ -60,11 +60,10 @@ public class DownloadActivity extends BaseActivity implements ServiceConnection{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_download);
         btnDownload = (Button) findViewById(R.id.btn_download);
-        initBasic();//初始化基本信息
-        initData();
-
         Intent intent = new Intent(DownloadActivity.this, DownloadService.class);
         bindService(intent,this,BIND_AUTO_CREATE);
+        initBasic();//初始化基本信息
+        initData();
     }
 
     private void initData() {
@@ -122,7 +121,14 @@ public class DownloadActivity extends BaseActivity implements ServiceConnection{
                 mPics[i].setVisibility(View.GONE);
             }
         }
-        mBinder.startDownload(mAppDatas.download_addr);
+
+        Logger.d(mAppDatas.download_addr);
+        btnDownload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mBinder.startDownload(mAppDatas.download_addr);
+            }
+        });
     }
 
     private void initBasic() {
@@ -152,6 +158,7 @@ public class DownloadActivity extends BaseActivity implements ServiceConnection{
     @Override
     public void onServiceConnected(ComponentName name, IBinder service) {
         mBinder = (DownloadService.DownloadBinder) service;
+        Logger.d("mBinder="+mBinder);
     }
 
     @Override
