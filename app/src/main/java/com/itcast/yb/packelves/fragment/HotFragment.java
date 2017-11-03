@@ -12,13 +12,11 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.itcast.yb.packelves.MainActivity;
 import com.itcast.yb.packelves.R;
 import com.itcast.yb.packelves.activity.JinPinDetailsAvtivity;
-import com.itcast.yb.packelves.activity.KaiCeDetailsActivity;
 import com.itcast.yb.packelves.adapter.entity.HotSection2Adapter;
 import com.itcast.yb.packelves.adapter.entity.HotSectionAdapter;
 import com.itcast.yb.packelves.adapter.entity.MyHotSectionEntity;
 import com.itcast.yb.packelves.bean.HotBean;
 import com.itcast.yb.packelves.bean.HotSectionBean;
-import com.itcast.yb.packelves.bean.KaiCeInfoBean;
 import com.itcast.yb.packelves.utils.CustomLinearLayoutManager;
 import com.itcast.yb.packelves.utils.HttpUtils;
 import com.itcast.yb.packelves.utils.UIUtils;
@@ -58,7 +56,7 @@ public class HotFragment extends BaseFragment{
         tvSearch.setVisibility(View.GONE);
 
         CustomLinearLayoutManager linearLayoutManager=new CustomLinearLayoutManager(mActivity);
-        linearLayoutManager.setScrollEnabled(false);
+//        linearLayoutManager.setScrollEnabled(false);
         mRecyclerView.setLayoutManager(linearLayoutManager);
 
         GridLayoutManager gridLayoutManager=new GridLayoutManager(mActivity,3);
@@ -113,7 +111,7 @@ public class HotFragment extends BaseFragment{
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                HotBean.InfoEntity.Push1Entity push1Entity=(HotBean.InfoEntity.Push1Entity)push1.get(position);
+                HotBean.InfoEntity.Push1Entity push1Entity=(HotBean.InfoEntity.Push1Entity)push1.get(position-1);
                         Intent intent=new Intent(mActivity, JinPinDetailsAvtivity.class);
                         intent.putExtra("details",push1Entity);
                         startActivity(intent);
@@ -138,6 +136,15 @@ public class HotFragment extends BaseFragment{
                 R.layout.recyler_item_head_hot_jp, mInfoEntityList2);
         mRecyclerView2.setAdapter(mAdapter2);
 
+        mAdapter2.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                HotBean.InfoEntity.Push1Entity push1Entity=(HotBean.InfoEntity.Push1Entity)push1.get(position);
+                Intent intent=new Intent(mActivity, JinPinDetailsAvtivity.class);
+                intent.putExtra("details",push1Entity);
+                startActivity(intent);
+            }
+        });
     }
 
     @OnClick(R.id.iv_menu)
