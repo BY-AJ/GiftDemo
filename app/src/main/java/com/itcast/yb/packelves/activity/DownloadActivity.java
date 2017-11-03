@@ -93,42 +93,42 @@ public class DownloadActivity extends BaseActivity implements ServiceConnection{
     }
 
     private void parseData(DownloadInfoBean body) {
-        mAppDatas = body.app;
-        mImageDatas = body.img;
-        tvDownloadName.setText(mAppDatas.name);
-        tvDownloadType.setText(mAppDatas.typename);
-        tvDownloadSize.setText("大小:未知");
-        Glide.with(this).load(RequestNetwork.SERVER_URL+mAppDatas.logo)
-                .into(ivDownloadIcon);
-        tvDownloadDes.setText(mAppDatas.description);
-
-        //判断当前的app是否可以下载
-        if(TextUtils.isEmpty(mAppDatas.download_addr)) {
-            btnDownload.setText("暂无下载");
-            btnDownload.setBackgroundColor(Color.parseColor("#88000000"));
-            btnDownload.setEnabled(false);
-        }else {
-            btnDownload.setText("立即下载");
-        }
-
-        //截图模块加载
-        for (int i=0;i<5;i++) {
-            if(i<mImageDatas.size()) {
-                Glide.with(this)
-                        .load(RequestNetwork.SERVER_URL+mImageDatas.get(i).address)
-                        .into(mPics[i]);
+        if(body != null) {
+            mAppDatas = body.app;
+            mImageDatas = body.img;
+            tvDownloadName.setText(mAppDatas.name);
+            tvDownloadType.setText(mAppDatas.typename);
+            tvDownloadSize.setText("大小:未知");
+            Glide.with(this).load(RequestNetwork.SERVER_URL+mAppDatas.logo)
+                    .into(ivDownloadIcon);
+            tvDownloadDes.setText(mAppDatas.description);
+            //判断当前的app是否可以下载
+            if(TextUtils.isEmpty(mAppDatas.download_addr)) {
+                btnDownload.setText("暂无下载");
+                btnDownload.setBackgroundColor(Color.parseColor("#88000000"));
+                btnDownload.setEnabled(false);
             }else {
-                mPics[i].setVisibility(View.GONE);
+                btnDownload.setText("立即下载");
             }
+            //截图模块加载
+            for (int i=0;i<5;i++) {
+                if(i<mImageDatas.size()) {
+                    Glide.with(this)
+                            .load(RequestNetwork.SERVER_URL+mImageDatas.get(i).address)
+                            .into(mPics[i]);
+                }else {
+                    mPics[i].setVisibility(View.GONE);
+                }
+            }
+            Logger.d(mAppDatas.download_addr);
+            btnDownload.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mBinder.startDownload(mAppDatas.download_addr,mAppDatas.id);
+                }
+            });
         }
 
-        Logger.d(mAppDatas.download_addr);
-        btnDownload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mBinder.startDownload(mAppDatas.download_addr,mAppDatas.id);
-            }
-        });
     }
 
     private void initBasic() {
