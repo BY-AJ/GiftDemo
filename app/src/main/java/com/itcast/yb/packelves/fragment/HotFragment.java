@@ -139,7 +139,7 @@ public class HotFragment extends BaseFragment{
         mAdapter2.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                HotBean.InfoEntity.Push1Entity push1Entity=(HotBean.InfoEntity.Push1Entity)push1.get(position);
+                HotBean.InfoEntity.Push1Entity push1Entity=(HotBean.InfoEntity.Push1Entity)push1.get(position-1);
                 Intent intent=new Intent(mActivity, JinPinDetailsActivity.class);
                 intent.putExtra("details",push1Entity);
                 startActivity(intent);
