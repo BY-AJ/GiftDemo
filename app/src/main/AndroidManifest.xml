@@ -26,7 +26,8 @@
         <activity android:name=".activity.BeatenDetailsActivity" />
         <activity android:name=".activity.DownloadActivity" />
         <activity android:name=".activity.KaiFuDetailsActivity" />
-        <activity android:name=".activity.JinPinDetailsActivity"></activity>
+        <activity android:name=".activity.JinPinDetailsActivity"/>
+        <activity android:name=".activity.NewGameDetailsActivity"/>
         <service android:name=".service.DownloadService"/>
     </application>
 

@@ -1,5 +1,8 @@
 package com.itcast.yb.packelves.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 /**
@@ -24,7 +27,7 @@ public class NewGameInfoBean {
         return list;
     }
 
-    public static class ListEntity {
+    public static class ListEntity implements Parcelable{
         /**
          * id : 20171027
          * name : 新游周刊第146期
@@ -62,6 +65,38 @@ public class NewGameInfoBean {
         private String keyword;
         private int newid;
         private int nums;
+
+        protected ListEntity(Parcel in) {
+            id = in.readInt();
+            name = in.readString();
+            author = in.readString();
+            authorimg = in.readString();
+            iconurl = in.readString();
+            showiconurl = in.readString();
+            oriiconurl = in.readString();
+            descs = in.readString();
+            newsurl = in.readString();
+            newsicon = in.readString();
+            flag = in.readInt();
+            views = in.readInt();
+            orderno = in.readString();
+            addtime = in.readString();
+            keyword = in.readString();
+            newid = in.readInt();
+            nums = in.readInt();
+        }
+
+        public static final Creator<ListEntity> CREATOR = new Creator<ListEntity>() {
+            @Override
+            public ListEntity createFromParcel(Parcel in) {
+                return new ListEntity(in);
+            }
+
+            @Override
+            public ListEntity[] newArray(int size) {
+                return new ListEntity[size];
+            }
+        };
 
         public void setId(int id) {
             this.id = id;
@@ -197,6 +232,32 @@ public class NewGameInfoBean {
 
         public int getNums() {
             return nums;
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeInt(id);
+            dest.writeString(name);
+            dest.writeString(author);
+            dest.writeString(authorimg);
+            dest.writeString(iconurl);
+            dest.writeString(showiconurl);
+            dest.writeString(oriiconurl);
+            dest.writeString(descs);
+            dest.writeString(newsurl);
+            dest.writeString(newsicon);
+            dest.writeInt(flag);
+            dest.writeInt(views);
+            dest.writeString(orderno);
+            dest.writeString(addtime);
+            dest.writeString(keyword);
+            dest.writeInt(newid);
+            dest.writeInt(nums);
         }
     }
 }
