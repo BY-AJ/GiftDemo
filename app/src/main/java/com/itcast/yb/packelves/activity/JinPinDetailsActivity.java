@@ -18,11 +18,13 @@ import com.itcast.yb.packelves.R;
 import com.itcast.yb.packelves.bean.DownloadInfoBean;
 import com.itcast.yb.packelves.network.RequestNetwork;
 import com.itcast.yb.packelves.utils.HttpUtils;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -88,10 +90,9 @@ public class JinPinDetailsActivity extends BaseActivity {
                 //解析数据
                 parase(response.body());
             }
-
             @Override
             public void onFailure(Call<DownloadInfoBean> call, Throwable t) {
-
+                Logger.d(t.getMessage());
             }
         });
     }
@@ -129,5 +130,11 @@ public class JinPinDetailsActivity extends BaseActivity {
                 btnDownload.setText("立即下载");
             }
         }
+
+    //返回按钮
+    @OnClick(R.id.iv_details_back)
+    public void backPreActivity() {
+        finish();
+    }
 
 }
