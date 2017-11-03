@@ -3,7 +3,7 @@ package com.itcast.yb.packelves.activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
@@ -18,40 +18,36 @@ import com.itcast.yb.packelves.BaseActivity;
 import com.itcast.yb.packelves.R;
 import com.itcast.yb.packelves.bean.DownloadInfoBean;
 import com.itcast.yb.packelves.bean.HotBean;
-import com.itcast.yb.packelves.bean.KaiCeDetailsBean;
-import com.itcast.yb.packelves.bean.KaiCeInfoBean;
 import com.itcast.yb.packelves.network.RequestNetwork;
 import com.itcast.yb.packelves.utils.HttpUtils;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
+import butterknife.Optional;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.OPTIONS;
 
 public class JinPinDetailsActivity extends BaseActivity {
-    private HotBean.InfoEntity.Push1Entity mDatas;
-    @BindView (R.id.tv_details_title) TextView tvDetailsTitle;//标题
+    @BindView(R.id.tv_details_title) TextView tvDetailsTitle;//标题
     @BindView(R.id.iv_details_share) ImageView ivDetailsShare;//分享
     @BindView(R.id.iv_download_icon) ImageView ivDownloadIcon;//logo
     @BindView(R.id.tv_download_name) TextView tvDownloadName;//名字
     @BindView(R.id.tv_download_type) TextView tvDownloadType;//类型
     @BindView(R.id.tv_download_size) TextView tvDownloadSize;//大小
     @BindView(R.id.tv_download_des ) TextView tvDownloadDes;//描述
-    @BindView(R.id.ll_root)
-    LinearLayout llRoot;
-    @BindView(R.id.rl_root)
-    RelativeLayout rlRoot;
-    @BindView(R.id.btn_download)
-    Button btnDownload;
-    DownloadInfoBean.AppInfo  appEntity;
+    @BindView(R.id.ll_root) LinearLayout llRoot;
+    @BindView(R.id.rl_root) RelativeLayout rlRoot;
+    @BindView(R.id.btn_download) Button btnDownload;
+
+    private DownloadInfoBean.AppInfo  appEntity;
     private String mTitle;
     private String mAppid;
     private ImageView[] mPics;
     private ArrayList<DownloadInfoBean.ImageInfo> mImageDatas;
+    private HotBean.InfoEntity.Push1Entity mDatas;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +64,6 @@ public class JinPinDetailsActivity extends BaseActivity {
     }
 
     private void initBasic() {
-        ButterKnife.bind(this);
         mTitle=mDatas.getName();
         mAppid=mDatas.getAppid();
         llRoot.setVisibility(View.INVISIBLE);
