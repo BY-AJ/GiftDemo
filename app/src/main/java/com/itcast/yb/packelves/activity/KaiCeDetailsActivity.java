@@ -159,4 +159,9 @@ public class KaiCeDetailsActivity extends BaseActivity {
         public void backPreActivity() {
             finish();
         }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }
