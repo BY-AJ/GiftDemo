@@ -73,7 +73,7 @@ public class HotBean {
              */
 
             private int id;
-            private String appid;
+            private int appid;
             private int type;
             private int clicks;
             private int flag;
@@ -96,7 +96,7 @@ public class HotBean {
                 this.id = id;
             }
 
-            public void setAppid(String appid) {
+            public void setAppid(int appid) {
                 this.appid = appid;
             }
 
@@ -136,7 +136,7 @@ public class HotBean {
                 return id;
             }
 
-            public String getAppid() {
+            public int getAppid() {
                 return appid;
             }
 
@@ -173,7 +173,7 @@ public class HotBean {
             }
         }
 
-        public static class Push2Entity {
+        public static class Push2Entity implements Serializable{
             /**
              * id : 74
              * appid : 1501579284
@@ -188,7 +188,7 @@ public class HotBean {
              */
 
             private int id;
-            private String appid;
+            private int appid;
             private int type;
             private int clicks;
             private int flag;
@@ -211,7 +211,7 @@ public class HotBean {
                 this.id = id;
             }
 
-            public void setAppid(String appid) {
+            public void setAppid(int appid) {
                 this.appid = appid;
             }
 
@@ -251,7 +251,7 @@ public class HotBean {
                 return id;
             }
 
-            public String getAppid() {
+            public int getAppid() {
                 return appid;
             }
 

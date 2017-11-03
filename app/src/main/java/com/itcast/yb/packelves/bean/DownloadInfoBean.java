@@ -18,7 +18,7 @@ public class DownloadInfoBean {
         public String name;
         public String typename;
         public String logo;
-        public String size;
+        public int id;
     }
 
     public class ImageInfo {

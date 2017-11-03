@@ -1,8 +1,11 @@
 package com.itcast.yb.packelves.activity;
 
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
@@ -11,13 +14,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.itcast.yb.packelves.BaseActivity;
 import com.itcast.yb.packelves.R;
 import com.itcast.yb.packelves.bean.DownloadInfoBean;
 import com.itcast.yb.packelves.network.RequestNetwork;
+import com.itcast.yb.packelves.service.DownloadService;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 
@@ -32,7 +36,7 @@ import retrofit2.Response;
  * Created by yb on 2017/11/2.
  */
 
-public class DownloadActivity extends BaseActivity{
+public class DownloadActivity extends BaseActivity implements ServiceConnection{
     @BindView(R.id.tv_details_title) TextView tvDetailsTitle;//标题
     @BindView(R.id.iv_details_share) ImageView ivDetailsShare;//分享
     @BindView(R.id.iv_download_icon) ImageView ivDownloadIcon;//logo
@@ -42,20 +46,25 @@ public class DownloadActivity extends BaseActivity{
     @BindView(R.id.tv_download_des ) TextView tvDownloadDes;//描述
     @BindView(R.id.ll_root) LinearLayout llRoot;
     @BindView(R.id.rl_root) RelativeLayout rlRoot;
-    @BindView(R.id.btn_download) Button btnDownload;
+    private Button btnDownload;
 
     private int mAppid;
     private ArrayList<DownloadInfoBean.ImageInfo> mImageDatas;
     private DownloadInfoBean.AppInfo mAppDatas;
     private ImageView[] mPics;
     private String mTitle;
+    private DownloadService.DownloadBinder mBinder;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_download);
+        btnDownload = (Button) findViewById(R.id.btn_download);
         initBasic();//初始化基本信息
         initData();
+
+        Intent intent = new Intent(DownloadActivity.this, DownloadService.class);
+        bindService(intent,this,BIND_AUTO_CREATE);
     }
 
     private void initData() {
@@ -79,7 +88,7 @@ public class DownloadActivity extends BaseActivity{
             }
             @Override
             public void onFailure(Call<DownloadInfoBean> call, Throwable t) {
-                Toast.makeText(DownloadActivity.this,"网络请求失败",Toast.LENGTH_SHORT).show();
+                Logger.d(t.getMessage());
             }
         });
     }
@@ -113,27 +122,40 @@ public class DownloadActivity extends BaseActivity{
                 mPics[i].setVisibility(View.GONE);
             }
         }
+        mBinder.startDownload(mAppDatas.download_addr);
     }
 
     private void initBasic() {
         Intent intent = getIntent();
-        mAppid = intent.getIntExtra("appid", 0);
+        mAppid = intent.getIntExtra("appid",0);
+        Logger.d(mAppid+"....");
         mTitle = intent.getStringExtra("title");
+
         ButterKnife.bind(this);
         llRoot.setVisibility(View.INVISIBLE);
         ivDetailsShare.setVisibility(View.GONE);
         tvDetailsTitle.setText(mTitle);
     }
 
-    //开始下载
-    @OnClick(R.id.btn_download)
-    public void downloadApk() {
-        Toast.makeText(this,"开始下载",Toast.LENGTH_SHORT).show();
-    }
-
     //返回按钮
     @OnClick(R.id.iv_details_back)
     public void backPreActivity() {
         finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbindService(this);
+    }
+
+    @Override
+    public void onServiceConnected(ComponentName name, IBinder service) {
+        mBinder = (DownloadService.DownloadBinder) service;
+    }
+
+    @Override
+    public void onServiceDisconnected(ComponentName name) {
+
     }
 }

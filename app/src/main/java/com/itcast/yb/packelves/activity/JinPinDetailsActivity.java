@@ -3,7 +3,6 @@ package com.itcast.yb.packelves.activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
@@ -17,14 +16,15 @@ import com.bumptech.glide.Glide;
 import com.itcast.yb.packelves.BaseActivity;
 import com.itcast.yb.packelves.R;
 import com.itcast.yb.packelves.bean.DownloadInfoBean;
-import com.itcast.yb.packelves.bean.HotBean;
 import com.itcast.yb.packelves.network.RequestNetwork;
 import com.itcast.yb.packelves.utils.HttpUtils;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
-import butterknife.Optional;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -43,10 +43,9 @@ public class JinPinDetailsActivity extends BaseActivity {
 
     private DownloadInfoBean.AppInfo  appEntity;
     private String mTitle;
-    private String mAppid;
+    private int mAppid;
     private ImageView[] mPics;
     private ArrayList<DownloadInfoBean.ImageInfo> mImageDatas;
-    private HotBean.InfoEntity.Push1Entity mDatas;
 
 
     @Override
@@ -57,20 +56,18 @@ public class JinPinDetailsActivity extends BaseActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         //获取开启这个Activity传过来的数据
         Intent intent = getIntent();
-        mDatas = (HotBean.InfoEntity.Push1Entity)intent.getSerializableExtra("details");
+        mAppid = intent.getIntExtra("appid",0);
+        mTitle = intent.getStringExtra("name");
         //初始化基本信息
         initBasic();
         initData();
     }
 
     private void initBasic() {
-        mTitle=mDatas.getName();
-        mAppid=mDatas.getAppid();
+        ButterKnife.bind(this);
         llRoot.setVisibility(View.INVISIBLE);
         ivDetailsShare.setVisibility(View.GONE);
         tvDetailsTitle.setText(mTitle);
-//        //请求网络
-//        getDataForService(mDatas.getGid());
     }
 
     private void initData() {
@@ -84,7 +81,7 @@ public class JinPinDetailsActivity extends BaseActivity {
     }
 
 
-    private void getDataForService(String appid) {
+    private void getDataForService(int appid) {
         HttpUtils.creat().queryJinPinDetails(appid).enqueue(new Callback<DownloadInfoBean>() {
             @Override
             public void onResponse(Call<DownloadInfoBean> call, Response<DownloadInfoBean> response) {
@@ -93,10 +90,9 @@ public class JinPinDetailsActivity extends BaseActivity {
                 //解析数据
                 parase(response.body());
             }
-
             @Override
             public void onFailure(Call<DownloadInfoBean> call, Throwable t) {
-
+                Logger.d(t.getMessage());
             }
         });
     }
@@ -108,7 +104,7 @@ public class JinPinDetailsActivity extends BaseActivity {
             //app基本信息 名称 类型 大小  图标
             tvDownloadName.setText(appEntity.name);
             tvDownloadType.setText(appEntity.typename);
-            tvDownloadSize.setText(appEntity.size==null?"大小:未知":"大小:"+appEntity.size);
+            tvDownloadSize.setText("大小:未知");
             Glide.with(this).load(RequestNetwork.SERVER_URL+appEntity.logo)
                     .into(ivDownloadIcon);
 
@@ -134,5 +130,11 @@ public class JinPinDetailsActivity extends BaseActivity {
                 btnDownload.setText("立即下载");
             }
         }
+
+    //返回按钮
+    @OnClick(R.id.iv_details_back)
+    public void backPreActivity() {
+        finish();
+    }
 
 }

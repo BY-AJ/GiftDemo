@@ -113,12 +113,13 @@ public class HotFragment extends BaseFragment{
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 HotBean.InfoEntity.Push1Entity push1Entity=(HotBean.InfoEntity.Push1Entity)push1.get(position-1);
                         Intent intent=new Intent(mActivity, JinPinDetailsActivity.class);
-                        intent.putExtra("details",push1Entity);
+                        intent.putExtra("appid",push1Entity.getAppid());
+                        intent.putExtra("name",push1Entity.getName());
                         startActivity(intent);
             }
         });
 
-         List<HotBean.InfoEntity.Push2Entity>  push2= initData.getPush2();
+         final List<HotBean.InfoEntity.Push2Entity>  push2= initData.getPush2();
             mInfoEntityList2.add(new MyHotSectionEntity(true,"热门推荐"));
             for (int i = 0; i <push2.size() ; i++) {
                 HotSectionBean hotSectionDatas=new HotSectionBean();
@@ -136,15 +137,16 @@ public class HotFragment extends BaseFragment{
                 R.layout.recyler_item_head_hot_jp, mInfoEntityList2);
         mRecyclerView2.setAdapter(mAdapter2);
 
-//        mAdapter2.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-//                HotBean.InfoEntity.Push1Entity push1Entity=(HotBean.InfoEntity.Push1Entity)push1.get(position-1);
-//                Intent intent=new Intent(mActivity, JinPinDetailsActivity.class);
-//                intent.putExtra("details",push1Entity);
-//                startActivity(intent);
-//            }
-//        });
+        mAdapter2.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                HotBean.InfoEntity.Push2Entity push2Entity = push2.get(position - 1);
+                Intent intent=new Intent(mActivity, JinPinDetailsActivity.class);
+                intent.putExtra("appid",push2Entity.getAppid());
+                intent.putExtra("name",push2Entity.getName());
+                startActivity(intent);
+            }
+        });
     }
 
     @OnClick(R.id.iv_menu)

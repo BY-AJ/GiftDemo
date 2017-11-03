@@ -38,6 +38,6 @@ public interface HttpService {
 
     //精品推荐详情
    @POST("/majax.action?method=getAppInfo")
-    Call<DownloadInfoBean> queryJinPinDetails(@Query("id") String appid);
+    Call<DownloadInfoBean> queryJinPinDetails(@Query("id") int appid);
 
 }
