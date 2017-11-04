@@ -75,7 +75,7 @@ public class DownloadService extends Service{
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
         builder.setContentTitle(title);
         builder.setWhen(System.currentTimeMillis());
-        builder.setSmallIcon(R.mipmap.ic_launcher);
+        builder.setSmallIcon(R.drawable.logo1);
         builder.setContentIntent(pendingIntent);
         builder.setAutoCancel(true);
         if(progress >0) {

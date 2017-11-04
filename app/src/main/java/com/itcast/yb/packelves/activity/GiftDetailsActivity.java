@@ -20,6 +20,7 @@ import com.itcast.yb.packelves.bean.GiftDetailsBean;
 import com.itcast.yb.packelves.bean.GiftInfoBean;
 import com.itcast.yb.packelves.utils.FastBlurUtil;
 import com.itcast.yb.packelves.utils.HttpUtils;
+import com.orhanobut.logger.Logger;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -94,15 +95,12 @@ public class GiftDetailsActivity extends BaseActivity {
                 //解析数据
                 parase(response.body());
             }
-
             @Override
             public void onFailure(Call<GiftDetailsBean> call, Throwable t) {
-
+                Logger.d(t.getMessage());
             }
         });
-
     }
-
 
     private void parase(GiftDetailsBean body) {
         GiftDetailsBean.InfoEntity infoentity=body.getInfo();

@@ -1,15 +1,14 @@
 package com.itcast.yb.packelves.activity;
 
-import android.content.ComponentName;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -20,7 +19,11 @@ import com.itcast.yb.packelves.BaseActivity;
 import com.itcast.yb.packelves.R;
 import com.itcast.yb.packelves.bean.DownloadInfoBean;
 import com.itcast.yb.packelves.network.RequestNetwork;
+import com.itcast.yb.packelves.service.DownloadInfo;
+import com.itcast.yb.packelves.service.DownloadManager;
 import com.itcast.yb.packelves.service.DownloadService;
+import com.itcast.yb.packelves.utils.UIUtils;
+import com.itcast.yb.packelves.view.ProgressHorizontal;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
@@ -36,7 +39,7 @@ import retrofit2.Response;
  * Created by yb on 2017/11/2.
  */
 
-public class DownloadActivity extends BaseActivity implements ServiceConnection{
+public class DownloadActivity extends BaseActivity implements DownloadManager.DownloadObserver,View.OnClickListener{
     @BindView(R.id.tv_details_title) TextView tvDetailsTitle;//标题
     @BindView(R.id.iv_details_share) ImageView ivDetailsShare;//分享
     @BindView(R.id.iv_download_icon) ImageView ivDownloadIcon;//logo
@@ -46,7 +49,11 @@ public class DownloadActivity extends BaseActivity implements ServiceConnection{
     @BindView(R.id.tv_download_des ) TextView tvDownloadDes;//描述
     @BindView(R.id.ll_root) LinearLayout llRoot;
     @BindView(R.id.rl_root) RelativeLayout rlRoot;
+    @BindView(R.id.fl_progress) FrameLayout flProgress;
     private Button btnDownload;
+    private ProgressHorizontal pbProgress;
+    private int mCurrentState;
+    private float mProgress;
 
     private int mAppid;
     private ArrayList<DownloadInfoBean.ImageInfo> mImageDatas;
@@ -54,17 +61,37 @@ public class DownloadActivity extends BaseActivity implements ServiceConnection{
     private ImageView[] mPics;
     private String mTitle;
     private DownloadService.DownloadBinder mBinder;
+    private DownloadManager mDM;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_download);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         btnDownload = (Button) findViewById(R.id.btn_download);
         initBasic();//初始化基本信息
+        initView();
         initData();
+    }
 
-        Intent intent = new Intent(DownloadActivity.this, DownloadService.class);
-        bindService(intent,this,BIND_AUTO_CREATE);
+    private void initView() {
+        pbProgress = new ProgressHorizontal(UIUtils.getContext());
+        pbProgress.setProgressBackgroundResource(R.drawable.progress_bg);// 进度条背景图片
+        pbProgress.setProgressResource(R.drawable.progress_normal);// 进度条图片
+        pbProgress.setProgressTextColor(Color.WHITE);// 进度文字颜色
+        pbProgress.setProgressTextSize(UIUtils.dip2px(18));// 进度文字大小
+
+        // 宽高填充父窗体
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.MATCH_PARENT);
+
+        // 给帧布局添加自定义进度条
+        flProgress.addView(pbProgress, params);
+
+        flProgress.setOnClickListener(this);
+        btnDownload.setOnClickListener(this);
     }
 
     private void initData() {
@@ -77,6 +104,9 @@ public class DownloadActivity extends BaseActivity implements ServiceConnection{
         getDataForService(mAppid);
     }
 
+    /**
+     * 请求网络获取数据
+     */
     private void getDataForService(int appid) {
         Call<DownloadInfoBean> call = RequestNetwork.getDownloadClient(appid);
         call.enqueue(new Callback<DownloadInfoBean>() {
@@ -93,6 +123,9 @@ public class DownloadActivity extends BaseActivity implements ServiceConnection{
         });
     }
 
+    /**
+     * 解析数据
+     */
     private void parseData(DownloadInfoBean body) {
         if(body != null) {
             mAppDatas = body.app;
@@ -122,14 +155,20 @@ public class DownloadActivity extends BaseActivity implements ServiceConnection{
                 }
             }
             Logger.d(mAppDatas.download_addr);
-            btnDownload.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mBinder.startDownload(mAppDatas.download_addr,mAppDatas.id);
-                }
-            });
-        }
 
+            // 判断当前应用是否下载过
+            DownloadInfo downloadInfo = mDM.getDownloadInfo(mAppDatas);
+            if (downloadInfo != null) {
+                // 之前下载过
+                mCurrentState = downloadInfo.currentState;
+                mProgress = downloadInfo.getProgress();
+            } else {
+                // 没有下载过
+                mCurrentState = DownloadManager.STATE_UNDO;
+                mProgress = 0;
+            }
+            refreshUI(mCurrentState, mProgress);
+        }
     }
 
     private void initBasic() {
@@ -142,6 +181,10 @@ public class DownloadActivity extends BaseActivity implements ServiceConnection{
         llRoot.setVisibility(View.INVISIBLE);
         ivDetailsShare.setVisibility(View.GONE);
         tvDetailsTitle.setText(mTitle);
+
+        //注册观察者
+        mDM = DownloadManager.getInstance();
+        mDM.registerObserver(this);
     }
 
     //返回按钮
@@ -151,19 +194,92 @@ public class DownloadActivity extends BaseActivity implements ServiceConnection{
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        unbindService(this);
+    public void onDownloadStateChanged(DownloadInfo info) {
+        refreshUIOnMainThread(info);
     }
 
     @Override
-    public void onServiceConnected(ComponentName name, IBinder service) {
-        mBinder = (DownloadService.DownloadBinder) service;
-        Logger.d("mBinder="+mBinder);
+    public void onDownloadProgressChanged(DownloadInfo info) {
+        refreshUIOnMainThread(info);
+    }
+
+    // 主线程更新ui
+    private void refreshUIOnMainThread(final DownloadInfo info) {
+        // 判断下载对象是否是当前应用
+        if(mAppDatas != null) {
+            if (mAppDatas.id == info.id) {
+                UIUtils.runOnUIThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        refreshUI(info.currentState, info.getProgress());
+                    }
+                });
+            }
+        }
+    }
+
+    // 根据当前的下载进度和状态来更新界面
+    private void refreshUI(int currentState, float progress) {
+        mCurrentState = currentState;
+        mProgress = progress;
+        switch (currentState) {
+            case DownloadManager.STATE_UNDO:// 未下载
+                flProgress.setVisibility(View.GONE);
+                btnDownload.setVisibility(View.VISIBLE);
+                btnDownload.setText("下载");
+                break;
+            case DownloadManager.STATE_WAITING:// 等待下载
+                flProgress.setVisibility(View.GONE);
+                btnDownload.setVisibility(View.VISIBLE);
+                btnDownload.setText("等待中..");
+                break;
+            case DownloadManager.STATE_DOWNLOADING:// 正在下载
+                flProgress.setVisibility(View.VISIBLE);
+                btnDownload.setVisibility(View.GONE);
+                pbProgress.setCenterText("");
+                pbProgress.setProgress(mProgress);// 设置下载进度
+                break;
+            case DownloadManager.STATE_PAUSE:// 下载暂停
+                flProgress.setVisibility(View.VISIBLE);
+                btnDownload.setVisibility(View.GONE);
+                pbProgress.setCenterText("暂停");
+                pbProgress.setProgress(mProgress);
+                Logger.d("暂停界面更新:" + mCurrentState);
+                break;
+            case DownloadManager.STATE_ERROR:// 下载失败
+                flProgress.setVisibility(View.GONE);
+                btnDownload.setVisibility(View.VISIBLE);
+                btnDownload.setText("下载失败");
+                break;
+            case DownloadManager.STATE_SUCCESS:// 下载成功
+                flProgress.setVisibility(View.GONE);
+                btnDownload.setVisibility(View.VISIBLE);
+                btnDownload.setText("安装");
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
-    public void onServiceDisconnected(ComponentName name) {
-
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_download:
+            case R.id.fl_progress:
+                // 根据当前状态来决定下一步操作
+                if (mCurrentState == DownloadManager.STATE_UNDO
+                        || mCurrentState == DownloadManager.STATE_ERROR
+                        || mCurrentState == DownloadManager.STATE_PAUSE) {
+                    mDM.download(mAppDatas);// 开始下载
+                } else if (mCurrentState == DownloadManager.STATE_DOWNLOADING
+                        || mCurrentState == DownloadManager.STATE_WAITING) {
+                    mDM.pause(mAppDatas);// 暂停下载
+                } else if (mCurrentState == DownloadManager.STATE_SUCCESS) {
+                    mDM.install(mAppDatas);// 开始安装
+                }
+                break;
+            default:
+                break;
+        }
     }
 }

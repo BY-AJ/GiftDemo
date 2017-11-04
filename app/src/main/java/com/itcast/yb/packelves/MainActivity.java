@@ -12,6 +12,7 @@ import android.view.WindowManager;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.itcast.yb.packelves.activity.AboutActivity;
 import com.itcast.yb.packelves.activity.SuggestActivity;
 import com.itcast.yb.packelves.adapter.MyViewPagerAdapter;
@@ -63,6 +64,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         ivAvatar = (CircleImageView) headerView.findViewById(R.id.iv_avatar);
         tvUserName = (TextView) headerView.findViewById(R.id.tv_username);
         tvUserName.setText("一只奋斗的小菜鸟");
+        Glide.with(this).load(R.drawable.icon4).into(ivAvatar);
 
         //将菜单第一项默认选中
         mNavigationView.setCheckedItem(R.id.nav_menu_home);
