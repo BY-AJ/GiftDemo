@@ -20,6 +20,7 @@
                     android:id="@+id/iv_background_drable"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="@drawable/def_head"
                     />
 
                 <RelativeLayout
@@ -52,7 +53,7 @@
 
                         <TextView
                             android:id="@+id/tv_download_gift_num"
-                            android:text="礼包剩余"
+                            android:text="礼包剩余:"
                             android:textColor="#f1ecec"
                             android:textSize="16sp"
                             android:gravity="center_vertical"
