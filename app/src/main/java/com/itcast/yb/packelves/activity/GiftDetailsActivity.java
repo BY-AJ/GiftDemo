@@ -63,8 +63,8 @@ public class GiftDetailsActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         //离线应该加载的数据
         mTitle=entityInfo.gname+"-"+entityInfo.giftname;
-        tv_download_day.setText(entityInfo.addtime);
-        tv_gift_num.setText(entityInfo.number);
+        tv_download_day.setText("有效期:"+entityInfo.addtime);
+        tv_gift_num.setText("礼包剩余"+entityInfo.number);
         mAppid=entityInfo.id;
         llRoot.setVisibility(View.INVISIBLE);
         ivDetailsShare.setVisibility(View.GONE);
