@@ -1,5 +1,6 @@
 package com.itcast.yb.packelves.fragment;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
@@ -12,8 +13,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.itcast.yb.packelves.MainActivity;
 import com.itcast.yb.packelves.R;
+import com.itcast.yb.packelves.activity.GiftDetailsActivity;
 import com.itcast.yb.packelves.adapter.GiftQuickAdapter;
 import com.itcast.yb.packelves.adapter.MyCarouselAdapter;
 import com.itcast.yb.packelves.bean.GiftInfoBean;
@@ -86,6 +89,16 @@ public class GiftFragment extends BaseFragment {
         mAdapter = new GiftQuickAdapter(mListDatas);
         mRecyclerView.setAdapter(mAdapter);
         mViewPager.setAdapter(new MyCarouselAdapter(mAdDatas));
+
+        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                GiftInfoBean.EntityInfo entityInfo=mListDatas.get(position);
+                Intent itent =new Intent(mActivity, GiftDetailsActivity.class);
+                itent.putExtra("details",entityInfo);
+                startActivity(itent);
+            }
+        });
 
         //加载小圆点
         for(int i=0; i<mAdDatas.size();i++) {

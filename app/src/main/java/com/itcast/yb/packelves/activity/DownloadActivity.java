@@ -60,10 +60,11 @@ public class DownloadActivity extends BaseActivity implements ServiceConnection{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_download);
         btnDownload = (Button) findViewById(R.id.btn_download);
-        Intent intent = new Intent(DownloadActivity.this, DownloadService.class);
-        bindService(intent,this,BIND_AUTO_CREATE);
         initBasic();//初始化基本信息
         initData();
+
+        Intent intent = new Intent(DownloadActivity.this, DownloadService.class);
+        bindService(intent,this,BIND_AUTO_CREATE);
     }
 
     private void initData() {

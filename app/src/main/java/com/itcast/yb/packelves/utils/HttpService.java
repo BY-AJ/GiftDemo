@@ -1,6 +1,7 @@
 package com.itcast.yb.packelves.utils;
 
 import com.itcast.yb.packelves.bean.DownloadInfoBean;
+import com.itcast.yb.packelves.bean.GiftDetailsBean;
 import com.itcast.yb.packelves.bean.HotBean;
 import com.itcast.yb.packelves.bean.KaiCeDetailsBean;
 import com.itcast.yb.packelves.bean.KaiCeInfoBean;
@@ -40,4 +41,8 @@ public interface HttpService {
    @POST("/majax.action?method=getAppInfo")
     Call<DownloadInfoBean> queryJinPinDetails(@Query("id") int appid);
 
+    //礼包详情
+
+    @POST("/majax.action?method=getGiftInfo")
+    Call<GiftDetailsBean> querGiftDetails(@Query("id") int id);
 }
