@@ -9,7 +9,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <include layout="@layout/download_details"/>
+        <include layout="@layout/gift_details"/>
 
         <include layout="@layout/loading_progressbar"/>
     </FrameLayout>
