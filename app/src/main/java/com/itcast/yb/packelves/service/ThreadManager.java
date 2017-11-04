@@ -58,7 +58,6 @@ public class ThreadManager {
                         new ThreadPoolExecutor.AbortPolicy());
                 // 参1:核心线程数;参2:最大线程数;参3:线程休眠时间;参4:时间单位;参5:线程队列;参6:生产线程的工厂;参7:线程异常处理策略
             }
-
             // 线程池执行一个Runnable对象, 具体运行时机线程池说了算
             executor.execute(r);
         }
@@ -70,6 +69,5 @@ public class ThreadManager {
                 executor.getQueue().remove(r);
             }
         }
-
     }
 }

@@ -3,6 +3,7 @@
     android:background="#88000000"
     android:padding="10dp"
     android:id="@+id/rl_details_title_bar"
+    android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 

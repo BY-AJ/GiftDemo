@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -66,6 +67,8 @@ public class DownloadActivity extends BaseActivity implements DownloadManager.Do
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_download);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         btnDownload = (Button) findViewById(R.id.btn_download);
         initBasic();//初始化基本信息
         initView();
@@ -225,45 +228,37 @@ public class DownloadActivity extends BaseActivity implements DownloadManager.Do
                 btnDownload.setVisibility(View.VISIBLE);
                 btnDownload.setText("下载");
                 break;
-
             case DownloadManager.STATE_WAITING:// 等待下载
                 flProgress.setVisibility(View.GONE);
                 btnDownload.setVisibility(View.VISIBLE);
                 btnDownload.setText("等待中..");
                 break;
-
             case DownloadManager.STATE_DOWNLOADING:// 正在下载
                 flProgress.setVisibility(View.VISIBLE);
                 btnDownload.setVisibility(View.GONE);
                 pbProgress.setCenterText("");
                 pbProgress.setProgress(mProgress);// 设置下载进度
                 break;
-
             case DownloadManager.STATE_PAUSE:// 下载暂停
                 flProgress.setVisibility(View.VISIBLE);
                 btnDownload.setVisibility(View.GONE);
                 pbProgress.setCenterText("暂停");
                 pbProgress.setProgress(mProgress);
-
-                System.out.println("暂停界面更新:" + mCurrentState);
+                Logger.d("暂停界面更新:" + mCurrentState);
                 break;
-
             case DownloadManager.STATE_ERROR:// 下载失败
                 flProgress.setVisibility(View.GONE);
                 btnDownload.setVisibility(View.VISIBLE);
                 btnDownload.setText("下载失败");
                 break;
-
             case DownloadManager.STATE_SUCCESS:// 下载成功
                 flProgress.setVisibility(View.GONE);
                 btnDownload.setVisibility(View.VISIBLE);
                 btnDownload.setText("安装");
                 break;
-
             default:
                 break;
         }
-
     }
 
     @Override
