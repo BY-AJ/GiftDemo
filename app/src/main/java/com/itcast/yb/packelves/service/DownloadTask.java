@@ -24,9 +24,11 @@ public class DownloadTask extends AsyncTask<String,Integer,Integer>{
     private int lastProgress;
     private DownloadListener listener;
     private File file = null;
+    private int mAppId;
 
-    public DownloadTask(DownloadListener listener) {
+    public DownloadTask(DownloadListener listener,int appId) {
         this.listener = listener;
+        mAppId = appId;
     }
 
     @Override
@@ -36,7 +38,7 @@ public class DownloadTask extends AsyncTask<String,Integer,Integer>{
         RandomAccessFile saveFile = null;
         try {
             long downloadLength = 0;//下载文件的长度
-            String fileName = downloadUrl.substring(downloadUrl.lastIndexOf("/"));
+            String fileName = File.separator+mAppId +".apk";
             Logger.d("apk="+fileName);
             String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
             Logger.d("path="+path);
@@ -83,9 +85,6 @@ public class DownloadTask extends AsyncTask<String,Integer,Integer>{
                 if(saveFile != null) {
                     saveFile.close();
                 }
-                if(file != null) {
-                    file.delete();
-                }
             }catch (Exception e) {
                 Logger.d(e.getMessage());
             }
@@ -130,9 +129,5 @@ public class DownloadTask extends AsyncTask<String,Integer,Integer>{
             default:
                 break;
         }
-    }
-
-    public File getFile() {
-        return file;
     }
 }

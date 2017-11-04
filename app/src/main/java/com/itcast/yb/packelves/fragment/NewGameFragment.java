@@ -1,17 +1,20 @@
 package com.itcast.yb.packelves.fragment;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Toast;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.itcast.yb.packelves.R;
+import com.itcast.yb.packelves.activity.NewGameDetailsActivity;
 import com.itcast.yb.packelves.adapter.NewGameQuickAdapter;
 import com.itcast.yb.packelves.bean.NewGameInfoBean;
 import com.itcast.yb.packelves.utils.HttpUtils;
 import com.itcast.yb.packelves.utils.UIUtils;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +40,6 @@ public class NewGameFragment extends BaseFragment implements SwipeRefreshLayout.
     @Override
     public void initData() {
         getDataForServer();
-
     }
 
     @Override
@@ -67,13 +69,10 @@ public class NewGameFragment extends BaseFragment implements SwipeRefreshLayout.
             @Override
             public void onResponse(Call<NewGameInfoBean> call, Response<NewGameInfoBean> response) {
                 parseData(response.body());
-
             }
-
             @Override
             public void onFailure(Call<NewGameInfoBean> call, Throwable t) {
-                Toast.makeText(mActivity,"网络连接失败",Toast.LENGTH_SHORT).show();
-
+                Logger.d(t.getMessage());
             }
         });
     }
@@ -82,5 +81,14 @@ public class NewGameFragment extends BaseFragment implements SwipeRefreshLayout.
         mDatas = body.getList();
         mAdapter = new NewGameQuickAdapter(mDatas);
         recyclerView.setAdapter(mAdapter);
+        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                NewGameInfoBean.ListEntity entityInfo = mDatas.get(position);
+                Intent intent = new Intent(mActivity, NewGameDetailsActivity.class);
+                intent.putExtra("details",entityInfo);
+                startActivity(intent);
+            }
+        });
     }
 }

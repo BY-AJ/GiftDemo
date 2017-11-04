@@ -6,6 +6,7 @@
     <ImageView
         android:id="@+id/xinyou_iconl__item_iv"
         android:layout_width="match_parent"
+        android:background="@drawable/def_loading"
         android:scaleType="fitXY"
         android:layout_marginBottom="10dp"
         android:layout_height="220dp" />
