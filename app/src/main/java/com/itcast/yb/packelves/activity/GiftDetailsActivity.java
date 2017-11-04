@@ -4,7 +4,6 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -34,7 +33,7 @@ public class GiftDetailsActivity extends BaseActivity {
     @BindView(R.id.tv_details_title) TextView tvDetailsTitle;//标题
     @BindView(R.id.iv_details_share) ImageView ivDetailsShare;//分享
     @BindView(R.id.tv_download_day) TextView tv_download_day;//礼包有效期
-    @BindView(R.id.tv_download_gift_num) TextView tv_gift_num;//礼包个数
+    @BindView(R.id.tv_download_gift_count) TextView tv_gift_num;//礼包个数
     @BindView(R.id.iv_logo) CircleImageView circleImageView;//圆形图片
     @BindView(R.id.iv_background_drable) ImageView iv_background;//背景虚化
     @BindView(R.id.tv_GiftNote_des) TextView tv_GiftNote_des;//礼包说明内容
@@ -65,7 +64,7 @@ public class GiftDetailsActivity extends BaseActivity {
         //离线应该加载的数据
         mTitle=entityInfo.gname+"-"+entityInfo.giftname;
         tv_download_day.setText("有效期:"+entityInfo.addtime);
-        tv_gift_num.setText("礼包剩余"+entityInfo.number);
+        tv_gift_num.setText(entityInfo.number+"");
         mAppid=entityInfo.id;
         llRoot.setVisibility(View.INVISIBLE);
         ivDetailsShare.setVisibility(View.GONE);
@@ -74,7 +73,7 @@ public class GiftDetailsActivity extends BaseActivity {
         Resources res = getResources();
         Bitmap scaledBitmap = BitmapFactory.decodeResource(res, R.drawable.def_head);
         //scaledBitmap为目标图像，10是缩放的倍数（越大模糊效果越高）
-        Bitmap blurBitmap = FastBlurUtil.toBlur(scaledBitmap, 10);
+        Bitmap blurBitmap = FastBlurUtil.toBlur(scaledBitmap, 2);
         iv_background.setScaleType(ImageView.ScaleType.CENTER_CROP);
         iv_background.setImageBitmap(blurBitmap);
 
