@@ -17,6 +17,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="150dp">
                 <ImageView
+                    android:id="@+id/iv_background_drable"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/ic_launcher"
@@ -27,7 +28,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="150dp">
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/iv_avatar"
+                        android:id="@+id/iv_logo"
                         android:src="@drawable/def_head"
                         android:layout_centerInParent="true"
                         android:layout_width="70dp"
@@ -156,6 +157,7 @@
             android:layout_width="120dp"
             android:layout_height="40dp" />
         <ImageButton
+            android:id="@+id/ib_gift_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
