@@ -12,12 +12,17 @@ public class PackElvesApplication extends Application{
 
     private static Context context;
     private static Handler handler;
+    private static int mainThreadId;
 
     @Override
     public void onCreate() {
         super.onCreate();
         context = getApplicationContext();
         handler = new Handler();
+        mainThreadId = android.os.Process.myTid();
+    }
+    public static int getMainThreadId() {
+        return mainThreadId;
     }
 
     public static Context getContext() {
