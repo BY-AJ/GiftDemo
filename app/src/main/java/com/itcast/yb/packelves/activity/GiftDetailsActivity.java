@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.itcast.yb.packelves.BaseActivity;
 import com.itcast.yb.packelves.R;
 import com.itcast.yb.packelves.bean.GiftDetailsBean;
 import com.itcast.yb.packelves.bean.GiftInfoBean;
@@ -28,7 +29,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class GiftDetailsActivity extends AppCompatActivity {
+public class GiftDetailsActivity extends BaseActivity {
     GiftInfoBean.EntityInfo entityInfo;
     @BindView(R.id.tv_details_title) TextView tvDetailsTitle;//标题
     @BindView(R.id.iv_details_share) ImageView ivDetailsShare;//分享
