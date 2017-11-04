@@ -1,11 +1,8 @@
 package com.itcast.yb.packelves.activity;
 
-import android.content.ComponentName;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
@@ -41,8 +38,7 @@ import retrofit2.Response;
  * Created by yb on 2017/11/2.
  */
 
-public class DownloadActivity extends BaseActivity implements ServiceConnection,
-        DownloadManager.DownloadObserver,View.OnClickListener{
+public class DownloadActivity extends BaseActivity implements DownloadManager.DownloadObserver,View.OnClickListener{
     @BindView(R.id.tv_details_title) TextView tvDetailsTitle;//标题
     @BindView(R.id.iv_details_share) ImageView ivDetailsShare;//分享
     @BindView(R.id.iv_download_icon) ImageView ivDownloadIcon;//logo
@@ -74,9 +70,6 @@ public class DownloadActivity extends BaseActivity implements ServiceConnection,
         initBasic();//初始化基本信息
         initView();
         initData();
-
-        Intent intent = new Intent(DownloadActivity.this, DownloadService.class);
-        bindService(intent,this,BIND_AUTO_CREATE);
     }
 
     private void initView() {
@@ -108,6 +101,9 @@ public class DownloadActivity extends BaseActivity implements ServiceConnection,
         getDataForService(mAppid);
     }
 
+    /**
+     * 请求网络获取数据
+     */
     private void getDataForService(int appid) {
         Call<DownloadInfoBean> call = RequestNetwork.getDownloadClient(appid);
         call.enqueue(new Callback<DownloadInfoBean>() {
@@ -124,6 +120,9 @@ public class DownloadActivity extends BaseActivity implements ServiceConnection,
         });
     }
 
+    /**
+     * 解析数据
+     */
     private void parseData(DownloadInfoBean body) {
         if(body != null) {
             mAppDatas = body.app;
@@ -153,13 +152,7 @@ public class DownloadActivity extends BaseActivity implements ServiceConnection,
                 }
             }
             Logger.d(mAppDatas.download_addr);
-//            btnDownload.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    //mBinder.startDownload(mAppDatas.download_addr,mAppDatas.id);
-//                    mDM.download(mAppDatas);
-//                }
-//            });
+
             // 判断当前应用是否下载过
             DownloadInfo downloadInfo = mDM.getDownloadInfo(mAppDatas);
             if (downloadInfo != null) {
@@ -173,7 +166,6 @@ public class DownloadActivity extends BaseActivity implements ServiceConnection,
             }
             refreshUI(mCurrentState, mProgress);
         }
-
     }
 
     private void initBasic() {
@@ -187,6 +179,7 @@ public class DownloadActivity extends BaseActivity implements ServiceConnection,
         ivDetailsShare.setVisibility(View.GONE);
         tvDetailsTitle.setText(mTitle);
 
+        //注册观察者
         mDM = DownloadManager.getInstance();
         mDM.registerObserver(this);
     }
@@ -195,23 +188,6 @@ public class DownloadActivity extends BaseActivity implements ServiceConnection,
     @OnClick(R.id.iv_details_back)
     public void backPreActivity() {
         finish();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        unbindService(this);
-    }
-
-    @Override
-    public void onServiceConnected(ComponentName name, IBinder service) {
-        mBinder = (DownloadService.DownloadBinder) service;
-        Logger.d("mBinder="+mBinder);
-    }
-
-    @Override
-    public void onServiceDisconnected(ComponentName name) {
-
     }
 
     @Override
@@ -224,7 +200,7 @@ public class DownloadActivity extends BaseActivity implements ServiceConnection,
         refreshUIOnMainThread(info);
     }
 
-    // 主线程更新ui 3-4
+    // 主线程更新ui
     private void refreshUIOnMainThread(final DownloadInfo info) {
         // 判断下载对象是否是当前应用
         if(mAppDatas != null) {
@@ -237,14 +213,12 @@ public class DownloadActivity extends BaseActivity implements ServiceConnection,
                 });
             }
         }
-
     }
 
     // 根据当前的下载进度和状态来更新界面
     private void refreshUI(int currentState, float progress) {
         mCurrentState = currentState;
         mProgress = progress;
-
         switch (currentState) {
             case DownloadManager.STATE_UNDO:// 未下载
                 flProgress.setVisibility(View.GONE);
