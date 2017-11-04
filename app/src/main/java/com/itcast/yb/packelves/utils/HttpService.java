@@ -43,6 +43,6 @@ public interface HttpService {
 
     //礼包详情
 
-    @POST("/majax.action?method=getWeekll")
+    @POST("/majax.action?method=getGiftInfo")
     Call<GiftDetailsBean> querGiftDetails(@Query("id") int id);
 }

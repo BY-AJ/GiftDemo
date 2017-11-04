@@ -96,6 +96,7 @@ public class GiftFragment extends BaseFragment {
                 GiftInfoBean.EntityInfo entityInfo=mListDatas.get(position);
                 Intent itent =new Intent(mActivity, GiftDetailsActivity.class);
                 itent.putExtra("details",entityInfo);
+                startActivity(itent);
             }
         });
 
