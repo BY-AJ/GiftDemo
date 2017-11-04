@@ -23,6 +23,7 @@ import com.itcast.yb.packelves.utils.HttpUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -110,6 +111,12 @@ public class GiftDetailsActivity extends BaseActivity {
                 .into(circleImageView);
         tv_GiftNote_des.setText(infoentity.getExplains());
         tv_tv_Exchange_Way_des.setText(infoentity.getDescs());
+    }
+
+    //返回按钮
+    @OnClick(R.id.iv_details_back)
+    public void backPreActivity() {
+        finish();
     }
 
 }
