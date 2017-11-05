@@ -41,6 +41,15 @@ dependencies {
     compile 'com.github.LuckSiege.PictureSelector:picture_library:v2.1.1'
     compile 'com.jakewharton:butterknife:8.0.1'
     apt 'com.jakewharton:butterknife-compiler:8.0.1'
-//    compile 'com.jakewharton:butterknife:8.8.1'
-//    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    //    compile 'com.jakewharton:butterknife:8.8.1'
+
+    //    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    compile files('libs/ShareSDK-Wechat-Core-3.1.1.jar')
+    compile files('libs/ShareSDK-Wechat-Moments-3.1.1.jar')
+    compile files('libs/MobCommons-2017.1024.1907.jar')
+    compile files('libs/ShareSDK-SinaWeibo-3.1.1.jar')
+    compile files('libs/MobTools-2017.1024.1907.jar')
+    compile files('libs/ShareSDK-TencentWeibo-3.1.1.jar')
+    compile files('libs/ShareSDK-Wechat-3.1.1.jar')
+    compile files('libs/ShareSDK-Core-3.1.1.jar')
 }
