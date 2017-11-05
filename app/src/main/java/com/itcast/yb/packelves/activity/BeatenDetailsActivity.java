@@ -23,6 +23,7 @@ import com.itcast.yb.packelves.adapter.WeekDetailsAdapter;
 import com.itcast.yb.packelves.bean.FeatureInfoBean;
 import com.itcast.yb.packelves.bean.WeekDetailsBean;
 import com.itcast.yb.packelves.network.RequestNetwork;
+import com.itcast.yb.packelves.utils.ShareUtils;
 
 import java.util.ArrayList;
 
@@ -114,6 +115,13 @@ public class BeatenDetailsActivity extends BaseActivity{
 
         GridLayoutManager layoutManager = new GridLayoutManager(this, 4);
         recyclerDetails.setLayoutManager(layoutManager);
+
+        ivDetailsShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShareUtils.showShare(BeatenDetailsActivity.this);
+            }
+        });
     }
 
     //返回按钮

@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,6 +17,7 @@ import com.itcast.yb.packelves.adapter.GameDetailsAdapter;
 import com.itcast.yb.packelves.bean.GameDetailsBean;
 import com.itcast.yb.packelves.bean.NewGameInfoBean;
 import com.itcast.yb.packelves.network.RequestNetwork;
+import com.itcast.yb.packelves.utils.ShareUtils;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
@@ -50,8 +50,6 @@ public class NewGameDetailsActivity extends BaseActivity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_newgame);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         initBasic();
         initData();
     }
@@ -109,6 +107,13 @@ public class NewGameDetailsActivity extends BaseActivity{
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(layoutManager);
+
+        ivDetailsShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShareUtils.showShare(NewGameDetailsActivity.this);
+            }
+        });
     }
 
     //返回按钮
