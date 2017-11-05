@@ -43,6 +43,7 @@
         <activity android:name=".activity.NewGameDetailsActivity"/>
         <service android:name=".service.DownloadService" />
         <activity android:name=".activity.GiftDetailsActivity"/>
+        <activity android:name=".activity.LoginActivity"/>
 
         <!-- ShareSDK的activity -->
         <activity
