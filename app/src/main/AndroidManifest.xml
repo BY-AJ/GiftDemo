@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.itcast.yb.packelves">
-
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -13,6 +10,8 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
     <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:name=".global.PackElvesApplication"
@@ -43,8 +42,6 @@
         <activity android:name=".activity.NewGameDetailsActivity"/>
         <service android:name=".service.DownloadService" />
         <activity android:name=".activity.GiftDetailsActivity"/>
-
-        <!-- ShareSDK的activity -->
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
@@ -58,21 +55,9 @@
             </intent-filter>
 
         </activity>
-
-        <activity  android:name="cn.sharesdk.tencent.qq.ReceiveActivity"
-            android:launchMode="singleTask"
-            android:noHistory="true">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="tencent100371282" />
-            </intent-filter>
-        </activity>
-
         <!-- 填写您从Mob开发者后台中得到的Appkey和AppSecret -->
-        <meta-data android:name="Mob-AppKey" android:value="2223192e24c79"/>
-        <meta-data android:name="Mob-AppSecret" android:value="a30bcbcca4319d30eb32bb8aec5ad3d0"/>
+        <meta-data android:name="Mob-AppKey" android:value="22237096771c2"/>
+        <meta-data android:name="Mob-AppSecret" android:value="c28132256747956cc7810376915cef9f"/>
     </application>
 
 </manifest>
