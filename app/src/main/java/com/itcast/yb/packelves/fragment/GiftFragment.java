@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.itcast.yb.packelves.MainActivity;
@@ -22,6 +21,7 @@ import com.itcast.yb.packelves.adapter.MyCarouselAdapter;
 import com.itcast.yb.packelves.bean.GiftInfoBean;
 import com.itcast.yb.packelves.network.RequestNetwork;
 import com.itcast.yb.packelves.utils.UIUtils;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 
@@ -78,7 +78,7 @@ public class GiftFragment extends BaseFragment {
             }
             @Override
             public void onFailure(Call<GiftInfoBean> call, Throwable t) {
-                Toast.makeText(UIUtils.getContext(),"网络请求失败",Toast.LENGTH_SHORT).show();
+                Logger.d(t.getMessage());
             }
         });
     }

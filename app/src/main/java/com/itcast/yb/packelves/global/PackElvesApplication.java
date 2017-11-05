@@ -1,14 +1,15 @@
 package com.itcast.yb.packelves.global;
 
-import android.app.Application;
 import android.content.Context;
 import android.os.Handler;
+
+import com.mob.MobApplication;
 
 /**
  * Created by yb on 2017/10/29.
  */
 
-public class PackElvesApplication extends Application{
+public class PackElvesApplication extends MobApplication {
 
     private static Context context;
     private static Handler handler;

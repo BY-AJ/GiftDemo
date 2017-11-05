@@ -6,7 +6,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.itcast.yb.packelves.R;
@@ -15,6 +14,7 @@ import com.itcast.yb.packelves.adapter.FeatureQuickAdapter;
 import com.itcast.yb.packelves.bean.FeatureInfoBean;
 import com.itcast.yb.packelves.network.RequestNetwork;
 import com.itcast.yb.packelves.utils.UIUtils;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 
@@ -67,7 +67,7 @@ public class BeatenFragment extends BaseFragment implements SwipeRefreshLayout.O
             }
             @Override
             public void onFailure(Call<FeatureInfoBean> call, Throwable t) {
-                Toast.makeText(mActivity,"网络连接失败",Toast.LENGTH_SHORT).show();
+                Logger.d(t.getMessage());
             }
         });
     }
