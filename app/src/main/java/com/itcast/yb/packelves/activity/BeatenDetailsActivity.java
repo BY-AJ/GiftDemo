@@ -125,6 +125,14 @@ public class BeatenDetailsActivity extends BaseActivity{
     //分享按钮
     @OnClick(R.id.iv_details_share)
     public void shareMore(){
+        showShare();
+    }
+
+    /**
+     * 分享功能
+     */
+    private void showShare() {
 
     }
+
 }

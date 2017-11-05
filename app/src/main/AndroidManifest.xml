@@ -42,22 +42,7 @@
         <activity android:name=".activity.NewGameDetailsActivity"/>
         <service android:name=".service.DownloadService" />
         <activity android:name=".activity.GiftDetailsActivity"/>
-        <activity
-            android:name="com.mob.tools.MobUIShell"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:windowSoftInputMode="stateHidden|adjustResize" >
 
-            <!-- 调用新浪原生SDK，需要注册的回调activity -->
-            <intent-filter>
-                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-
-        </activity>
-        <!-- 填写您从Mob开发者后台中得到的Appkey和AppSecret -->
-        <meta-data android:name="Mob-AppKey" android:value="22237096771c2"/>
-        <meta-data android:name="Mob-AppSecret" android:value="c28132256747956cc7810376915cef9f"/>
-    </application>
+         </application>
 
 </manifest>
