@@ -1,9 +1,11 @@
 package com.itcast.yb.packelves.activity;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -117,4 +119,10 @@ public class GiftDetailsActivity extends BaseActivity {
         finish();
     }
 
+
+    @OnClick(R.id.btn_download)
+    public void onclick(){
+        Intent intent=new Intent(this,LoginActivity.class);
+        startActivity(intent);
+    }
 }
