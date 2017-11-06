@@ -1,5 +1,9 @@
 package com.itcast.yb.packelves.utils;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -34,5 +38,17 @@ public class ToolUtil {
     public static boolean isZipNO(String zipString){
         String str = "^[1-9][0-9]{5}$";
         return Pattern.compile(str).matcher(zipString).matches();
+    }
+
+    /**
+     * 检测当前是否可以上网
+     */
+    public static boolean isNetworkAvailable(Context ctx) {
+        ConnectivityManager cm = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+        if(networkInfo != null && networkInfo.isAvailable()) {
+            return true;
+        }
+        return false;
     }
 }

@@ -5,20 +5,34 @@
     android:layout_height="match_parent">
     <include layout="@layout/main_title_bar"/>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_View_hot"
-            android:overScrollMode="never"
-            android:fadingEdge="none"
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/ll_root"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
+            android:layout_height="match_parent">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_View_hot"
+                android:overScrollMode="never"
+                android:fadingEdge="none"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler2_View_hot"
-            android:overScrollMode="never"
-            android:fadingEdge="none"
-            android:layout_width="match_parent"
-            android:layout_weight="1"
-            android:layout_height="0dp"/>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler2_View_hot"
+                android:overScrollMode="never"
+                android:fadingEdge="none"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="0dp"/>
+        </LinearLayout>
+
+        <include layout="@layout/no_network"/>
+    </FrameLayout>
+
+
 
 </LinearLayout>
