@@ -56,9 +56,7 @@ public class BeatenDetailsActivity extends BaseActivity{
         setContentView(R.layout.activity_beaten);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-        //获取开启这个Activity传过来的数据
-        Intent intent = getIntent();
-        mDatas = intent.getParcelableExtra("details");
+
         //初始化基本信息
         initBasic();
         //数据加载
@@ -89,9 +87,19 @@ public class BeatenDetailsActivity extends BaseActivity{
         mListDatas = body.list;
         mAdapter = new WeekDetailsAdapter(mListDatas);
         recyclerDetails.setAdapter(mAdapter);
-        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+//        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+//                WeekDetailsBean.DetailsInfo info = mListDatas.get(position);
+//                Intent intent = new Intent(BeatenDetailsActivity.this, DownloadActivity.class);
+//                intent.putExtra("appid",info.appid);
+//                intent.putExtra("title",info.appname);
+//                startActivity(intent);
+//            }
+//        });
+        mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 WeekDetailsBean.DetailsInfo info = mListDatas.get(position);
                 Intent intent = new Intent(BeatenDetailsActivity.this, DownloadActivity.class);
                 intent.putExtra("appid",info.appid);
@@ -102,6 +110,9 @@ public class BeatenDetailsActivity extends BaseActivity{
     }
 
     private void initBasic() {
+        //获取开启这个Activity传过来的数据
+        Intent intent = getIntent();
+        mDatas = intent.getParcelableExtra("details");
         ButterKnife.bind(this);
         tvDetailsTitle.setText(mDatas.name);
         tvDetailsTime.setText(mDatas.addtime);
@@ -128,19 +139,6 @@ public class BeatenDetailsActivity extends BaseActivity{
     @OnClick(R.id.iv_details_back)
     public void backPreActivity() {
         finish();
-    }
-
-    //分享按钮
-    @OnClick(R.id.iv_details_share)
-    public void shareMore(){
-        showShare();
-    }
-
-    /**
-     * 分享功能
-     */
-    private void showShare() {
-
     }
 
 }

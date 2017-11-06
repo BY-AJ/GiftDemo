@@ -17,6 +17,7 @@ import java.util.List;
  */
 
 public class WeekDetailsAdapter extends BaseQuickAdapter<WeekDetailsBean.DetailsInfo,BaseViewHolder>{
+
     public WeekDetailsAdapter(@Nullable List<WeekDetailsBean.DetailsInfo> data) {
         super(R.layout.recycler_item_details_week,data);
     }
@@ -28,5 +29,6 @@ public class WeekDetailsAdapter extends BaseQuickAdapter<WeekDetailsBean.Details
         Glide.with(helper.itemView.getContext())
                 .load(RequestNetwork.SERVER_URL+item.appicon)
                 .into(icon);
+        helper.addOnClickListener(R.id.btn_download);
     }
 }

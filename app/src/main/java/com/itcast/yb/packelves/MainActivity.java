@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.itcast.yb.packelves.activity.AboutActivity;
+import com.itcast.yb.packelves.activity.LoginActivity;
 import com.itcast.yb.packelves.activity.SuggestActivity;
 import com.itcast.yb.packelves.adapter.MyViewPagerAdapter;
 import com.itcast.yb.packelves.view.NoScrollViewPager;
@@ -64,11 +65,32 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         View headerView = mNavigationView.inflateHeaderView(R.layout.navigation_header);
         ivAvatar = (CircleImageView) headerView.findViewById(R.id.iv_avatar);
         tvUserName = (TextView) headerView.findViewById(R.id.tv_username);
-        tvUserName.setText("一只奋斗的小菜鸟");
         Glide.with(this).load(R.drawable.icon4).into(ivAvatar);
         //将菜单第一项默认选中
         mNavigationView.setCheckedItem(R.id.nav_menu_home);
         mNavigationView.setNavigationItemSelectedListener(this);
+
+        tvUserName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startLogin();
+            }
+        });
+    }
+
+    //登录
+    private void startLogin() {
+        startActivityForResult(new Intent(MainActivity.this,LoginActivity.class),100);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == 100 ) {
+            if(resultCode == 101) {
+                String name = data.getStringExtra("name");
+                tvUserName.setText(name);
+            }
+        }
     }
 
     @Override

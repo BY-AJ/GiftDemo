@@ -21,7 +21,6 @@ import com.itcast.yb.packelves.bean.DownloadInfoBean;
 import com.itcast.yb.packelves.network.RequestNetwork;
 import com.itcast.yb.packelves.service.DownloadInfo;
 import com.itcast.yb.packelves.service.DownloadManager;
-import com.itcast.yb.packelves.service.DownloadService;
 import com.itcast.yb.packelves.utils.UIUtils;
 import com.itcast.yb.packelves.view.ProgressHorizontal;
 import com.orhanobut.logger.Logger;
@@ -60,7 +59,6 @@ public class DownloadActivity extends BaseActivity implements DownloadManager.Do
     private DownloadInfoBean.AppInfo mAppDatas;
     private ImageView[] mPics;
     private String mTitle;
-    private DownloadService.DownloadBinder mBinder;
     private DownloadManager mDM;
 
     @Override
@@ -259,6 +257,12 @@ public class DownloadActivity extends BaseActivity implements DownloadManager.Do
             default:
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mDM.unregisterObserver(this);
     }
 
     @Override

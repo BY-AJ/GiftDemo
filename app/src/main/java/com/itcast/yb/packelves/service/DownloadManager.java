@@ -22,64 +22,76 @@ import okhttp3.Response;
  */
 
 public class DownloadManager {
-    public static final int STATE_UNDO = 1;
-    public static final int STATE_WAITING = 2;
-    public static final int STATE_DOWNLOADING = 3;
-    public static final int STATE_PAUSE = 4;
-    public static final int STATE_ERROR = 5;
-    public static final int STATE_SUCCESS = 6;
+    public static final int STATE_UNDO = 1;//未下载
+    public static final int STATE_WAITING = 2;//等待下载
+    public static final int STATE_DOWNLOADING = 3;//下载中
+    public static final int STATE_PAUSE = 4;//暂停下载
+    public static final int STATE_ERROR = 5;//下载错误
+    public static final int STATE_SUCCESS = 6;//下载成功
 
+    /************************单例模式****************************/
     private static DownloadManager mDM = new DownloadManager();
-
-    // 4. 观察者集合
-    private ArrayList<DownloadObserver> mObservers = new ArrayList<DownloadManager.DownloadObserver>();
-
-    // 下载对象的集合, 使用线程安全的HashMap
-    // private HashMap<String, DownloadInfo> mDownloadInfoMap = new
-    // HashMap<String, DownloadInfo>();
-    private ConcurrentHashMap<Integer, DownloadInfo> mDownloadInfoMap = new ConcurrentHashMap<Integer, DownloadInfo>();
-
-    // 下载任务的集合
-    private ConcurrentHashMap<Integer, DownloadTask> mDownloadTaskMap = new ConcurrentHashMap<Integer, DownloadTask>();
-
     private DownloadManager() {
     }
-
     public static DownloadManager getInstance() {
         return mDM;
     }
+    /***********************************************************/
 
-    // 2. 注册观察者
+    // 观察者集合
+    private ArrayList<DownloadObserver> mObservers = new ArrayList<DownloadManager.DownloadObserver>();
+
+    // 下载对象的集合, 使用线程安全的HashMap
+    private ConcurrentHashMap<Integer, DownloadInfo> mDownloadInfoMap = new ConcurrentHashMap<Integer, DownloadInfo>();
+
+    // 下载任务的集合,使用线程安全的HashMap
+    private ConcurrentHashMap<Integer, DownloadTask> mDownloadTaskMap = new ConcurrentHashMap<Integer, DownloadTask>();
+
+    /*****************************观察者设计模式步骤***********************************************/
+    /** 1. 声明观察者的接口 public interface DownloadObserver
+     *  2. 注册观察者 registerObserver()
+     *  3.注销观察者 unregisterObserver()
+     /***********************************************************************************************/
+    public interface DownloadObserver {
+         void onDownloadStateChanged(DownloadInfo info); // 下载状态发生变化
+         void onDownloadProgressChanged(DownloadInfo info);// 下载进度发生变化
+    }
+
     public synchronized void registerObserver(DownloadObserver observer) {
         if (observer != null && !mObservers.contains(observer)) {
             mObservers.add(observer);
         }
     }
 
-    // 3. 注销观察者
     public synchronized void unregisterObserver(DownloadObserver observer) {
         if (observer != null && mObservers.contains(observer)) {
             mObservers.remove(observer);
         }
     }
 
-    // 5.通知下载状态发生变化
+    /**
+     * 通知观察者下载状态发生变化
+     */
     public synchronized void notifyDownloadStateChanged(DownloadInfo info) {
         for (DownloadObserver observer : mObservers) {
             observer.onDownloadStateChanged(info);
         }
     }
 
-    // 6.通知下载进度发生变化
+    /**
+     * 通知观察者下载进度发生变化
+     */
     public synchronized void notifyDownloadProgressChanged(DownloadInfo info) {
         for (DownloadObserver observer : mObservers) {
             observer.onDownloadProgressChanged(info);
         }
     }
 
-    // 开始下载
+    /**
+     * 开始下载
+     */
     public synchronized void download(DownloadInfoBean.AppInfo info) {
-        // 如果对象是第一次下载, 需要创建一个新的DownloadInfo对象,从头下载
+        // 如果对象是第一次下载, 需要创建一个新的DownloadInfo对象,从头下载，
         // 如果之前下载过, 要接着下载,实现断点续传
         DownloadInfo downloadInfo = mDownloadInfoMap.get(info.id);
         if (downloadInfo == null) {
@@ -105,7 +117,6 @@ public class DownloadManager {
         public DownloadTask(DownloadInfo downloadInfo) {
             this.downloadInfo = downloadInfo;
         }
-
         @Override
         public void run() {
             Logger.d(downloadInfo.name + "开始下载啦");
@@ -113,16 +124,15 @@ public class DownloadManager {
             downloadInfo.currentState = STATE_DOWNLOADING;
             notifyDownloadStateChanged(downloadInfo);
             File file = new File(downloadInfo.path);
-            //apk的大小
+            //设置下载apk的大小
             downloadInfo.setSize(getContentLength(downloadInfo.download_addr));
             //实现断点续传
             OkHttpClient client = new OkHttpClient();
             Request request ;
             if (!file.exists() || file.length() != downloadInfo.currentPos
                     || downloadInfo.currentPos == 0) {
-                // 从头开始下载
-                // 删除无效文件
-                file.delete();// 文件如果不存在也是可以删除的, 只不过没有效果而已
+                // 从头开始下载,删除无效文件
+                file.delete();
                 downloadInfo.currentPos = 0;// 当前下载位置置为0
                 request = new Request.Builder()
                         .url(downloadInfo.download_addr)
@@ -137,7 +147,7 @@ public class DownloadManager {
             }
             try {
                 Response response = client.newCall(request).execute();
-                if(response != null) {
+                if(response != null && response.body().byteStream() != null) {
                     InputStream in = response.body().byteStream();
                     // 要在原有文件基础上追加数据;
                     FileOutputStream out = new FileOutputStream(file, true);
@@ -148,10 +158,10 @@ public class DownloadManager {
                             && downloadInfo.currentState == STATE_DOWNLOADING) {
                         out.write(buffer, 0, len);
                         out.flush();// 把剩余数据刷入本地
-                        // 更新下载进度
-                        downloadInfo.currentPos += len;
+                        downloadInfo.currentPos += len;// 更新下载进度
                         notifyDownloadProgressChanged(downloadInfo);
                     }
+                    //关闭流
                     in.close();
                     out.close();
                     // 文件下载结束
@@ -160,8 +170,7 @@ public class DownloadManager {
                         downloadInfo.currentState = STATE_SUCCESS;
                         notifyDownloadStateChanged(downloadInfo);
                     } else if (downloadInfo.currentState == STATE_PAUSE) {
-                        // 中途暂停
-                        notifyDownloadStateChanged(downloadInfo);
+                        notifyDownloadStateChanged(downloadInfo);// 中途暂停
                     } else {
                         // 下载失败
                         file.delete();// 删除无效文件
@@ -184,6 +193,9 @@ public class DownloadManager {
         }
     }
 
+    /**
+     * 获取下载文件的大小
+     */
     private long getContentLength(String downloadUrl) {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder().url(downloadUrl).build();
@@ -200,11 +212,12 @@ public class DownloadManager {
         return 0;
     }
 
-    // 下载暂停
+    /**
+     *下载暂停
+     */
     public synchronized void pause(DownloadInfoBean.AppInfo info) {
         // 取出下载对象
         DownloadInfo downloadInfo = mDownloadInfoMap.get(info.id);
-
         if (downloadInfo != null) {
             // 只有在正在下载和等待下载时才需要暂停
             if (downloadInfo.currentState == STATE_DOWNLOADING || downloadInfo.currentState == STATE_WAITING) {
@@ -221,7 +234,9 @@ public class DownloadManager {
         }
     }
 
-    // 开始安装
+    /**
+     * 开始安装
+     */
     public synchronized void install(DownloadInfoBean.AppInfo info) {
         DownloadInfo downloadInfo = mDownloadInfoMap.get(info.id);
         if (downloadInfo != null) {
@@ -235,18 +250,8 @@ public class DownloadManager {
     }
 
     /**
-     * 1. 声明观察者的接口
+     * 根据应用信息返回下载对象
      */
-    public interface DownloadObserver {
-
-        // 下载状态发生变化
-        public void onDownloadStateChanged(DownloadInfo info);
-
-        // 下载进度发生变化
-        public void onDownloadProgressChanged(DownloadInfo info);
-    }
-
-    // 根据应用信息返回下载对象
     public DownloadInfo getDownloadInfo(DownloadInfoBean.AppInfo info) {
         return mDownloadInfoMap.get(info.id);
     }
