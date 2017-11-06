@@ -12,14 +12,14 @@ import java.io.File;
 
 public class DownloadInfo {
 
-    public String download_addr;
-    public String name;
-    public int id;
+    public String download_addr;//下载地址
+    public String name;//下载apk的名字
+    public int id;//下载的id
 
     public long currentPos;// 当前下载位置
     public int currentState;// 当前下载状态
     public String path;// 下载到本地文件的路径
-    public long size;
+    public long size;//下载的总大小
     public static final String PACKELVES = "PACK_ELVES";// sdcard根目录文件夹名称
     public static final String DONWLOAD = "download";// 子文件夹名称, 存放下载的文件
 
@@ -32,6 +32,9 @@ public class DownloadInfo {
         return progress;
     }
 
+    /**
+     * 设置下载文件的大小
+     */
     public void setSize(long size) {
         this.size = size;
     }

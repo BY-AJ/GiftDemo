@@ -130,4 +130,10 @@ public class BeatenDetailsActivity extends BaseActivity{
     public void backPreActivity() {
         finish();
     }
+
+    //分享按钮
+    @OnClick(R.id.iv_details_share)
+    public void shareMore(){
+
+    }
 }
