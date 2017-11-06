@@ -4,7 +4,7 @@
     android:padding="10dp"
     android:id="@+id/rl_details_title_bar"
     android:layout_width="match_parent"
-    android:layout_height="77dp">
+    android:layout_height="67dp">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="32dp"
