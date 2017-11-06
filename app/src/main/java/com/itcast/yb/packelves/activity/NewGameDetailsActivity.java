@@ -34,7 +34,6 @@ import retrofit2.Response;
  */
 
 public class NewGameDetailsActivity extends BaseActivity{
-
     @BindView(R.id.tv_details_title) TextView tvDetailsTitle;
     @BindView(R.id.iv_details_share) ImageView ivDetailsShare;
     @BindView(R.id.iv_newgame_logo) ImageView ivNesgameLogo;

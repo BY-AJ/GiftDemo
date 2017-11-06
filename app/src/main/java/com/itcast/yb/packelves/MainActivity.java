@@ -35,7 +35,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private TextView tvUserName;
     private int[] mRbIds;
     private FragmentManager mFm;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +68,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         //将菜单第一项默认选中
         mNavigationView.setCheckedItem(R.id.nav_menu_home);
         mNavigationView.setNavigationItemSelectedListener(this);
-
         tvUserName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,7 +94,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item){
         switch (item.getItemId()) {
             case R.id.nav_menu_home :
                 mDrawerLayout.closeDrawers();
