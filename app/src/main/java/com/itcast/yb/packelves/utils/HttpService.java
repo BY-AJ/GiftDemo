@@ -20,29 +20,21 @@ public interface HttpService {
     @GET("/majax.action?method=getWeekll")
     Call<NewGameInfoBean> querGift(@Query("pageNo") int pageNo);
 
-
-
     @GET("/majax.action?method=hotpushForAndroid")
     Call<HotBean> queryHot();
-
-
     //开测
     @GET("/majax.action?method=getWebfutureTest")
     Call<KaiCeInfoBean> queryKaiCe();
     //开测详情
     @POST("/majax.action?method=getAppInfo")
     Call<KaiCeDetailsBean> queryKaiCeDetails(@Query("id") String gid);
-
     //开服详情
     @POST("/majax.action?method=getAppInfo")
     Call<KaiFuDetailsBean> queryKaiFuDetails(@Query("id") String gid);
-
     //精品推荐详情
    @POST("/majax.action?method=getAppInfo")
     Call<DownloadInfoBean> queryJinPinDetails(@Query("id") int appid);
-
     //礼包详情
-
     @POST("/majax.action?method=getGiftInfo")
     Call<GiftDetailsBean> querGiftDetails(@Query("id") int id);
 }
