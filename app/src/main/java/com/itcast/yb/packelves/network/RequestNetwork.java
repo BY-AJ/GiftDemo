@@ -100,14 +100,14 @@ public class RequestNetwork {
     }
 
     //获取新游周刊详情页数据
-    public static Call<LoginBean> getLoginClient(Map map) {
+    public static Call<LoginBean> getLoginClient(String name,String pwd) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(SERVER_URL)
                 .addConverterFactory(gsonConverterFactory)
                 .client(httpClient.build())
                 .build();
         LoginClient client = retrofit.create(LoginClient.class);
-        return client.login(map);
+        return client.login(name,pwd);
     }
 
 }
