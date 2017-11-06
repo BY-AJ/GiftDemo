@@ -22,7 +22,6 @@ import butterknife.OnClick;
  */
 
 public class FeatureFragment extends BaseFragment{
-
     @BindView(R.id.tv_title) TextView tvTitle;
     @BindView(R.id.tv_search) TextView tvSearch;
     @BindView(R.id.feature_tab_layout) TabLayout mTabLayout;
