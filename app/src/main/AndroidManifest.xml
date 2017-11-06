@@ -67,7 +67,6 @@
             android:name="Mob-AppSecret"
             android:value="c28132256747956cc7810376915cef9f" />
 
-        <activity android:name=".activity.RegisterActivity"></activity>
     </application>
 
 </manifest>
