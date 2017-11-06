@@ -83,16 +83,16 @@ public class LoginActivity extends BaseActivity{
     private void parseData(LoginBean body) {
         if(body != null) {
             Logger.d(body.info.nickname+"......"+body.flag+"..."+body.returnMsg);
-        }
-        if("登录成功".equals(body.returnMsg)) {
-            Intent intent = getIntent();
-            intent.putExtra("name",body.info.nickname);
-            setResult(101,intent);
-            finish();
-        }else {
-            Toast.makeText(LoginActivity.this,"账号不存在",Toast.LENGTH_SHORT).show();
-            etAccount.setText("");
-            etPsd.setText("");
+            if("登录成功".equals(body.returnMsg)) {
+                Intent intent = getIntent();
+                intent.putExtra("name",body.info.nickname);
+                setResult(101,intent);
+                finish();
+            }else {
+                Toast.makeText(LoginActivity.this,"账号不存在",Toast.LENGTH_SHORT).show();
+                etAccount.setText("");
+                etPsd.setText("");
+            }
         }
     }
 
