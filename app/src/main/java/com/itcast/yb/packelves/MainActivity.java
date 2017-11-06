@@ -89,6 +89,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             if(resultCode == 101) {
                 String name = data.getStringExtra("name");
                 tvUserName.setText(name);
+                tvUserName.setEnabled(false);
+                tvUserName.setClickable(false);
             }
         }
     }

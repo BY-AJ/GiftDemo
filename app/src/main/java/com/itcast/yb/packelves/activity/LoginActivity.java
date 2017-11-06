@@ -35,7 +35,6 @@ public class LoginActivity extends BaseActivity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         initBasic();
     }
 
@@ -65,7 +64,6 @@ public class LoginActivity extends BaseActivity{
                         }
                         @Override
                         public void onFailure(Call<LoginBean> call, Throwable t) {
-                            Logger.d(t.getMessage());
                         }
                     });
                 }else {
