@@ -5,12 +5,11 @@ package com.itcast.yb.packelves.bean;
  */
 
 public class LoginBean {
-    public boolean flag;
+    public String flag;
     public String returnMsg;
     public ReturnInfo info;
 
     public class ReturnInfo{
-        public String uid;
         public String nickname;
     }
 }

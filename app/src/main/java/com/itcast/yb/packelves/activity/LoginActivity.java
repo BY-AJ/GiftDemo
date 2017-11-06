@@ -1,5 +1,6 @@
 package com.itcast.yb.packelves.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -55,7 +56,7 @@ public class LoginActivity extends BaseActivity{
         if(!TextUtils.isEmpty(account)) {
             if(!TextUtils.isEmpty(psd)) {
                 if(ToolUtil.isEmail(account) || ToolUtil.isMobileNO(account)) {
-                    Call<LoginBean> call = RequestNetwork.getLoginClient(account, psd);
+                    Call<LoginBean> call = RequestNetwork.getLoginClient(account,psd);
                     call.enqueue(new Callback<LoginBean>() {
                         @Override
                         public void onResponse(Call<LoginBean> call, Response<LoginBean> response) {
@@ -81,19 +82,18 @@ public class LoginActivity extends BaseActivity{
     //处理返回的结果
     private void parseData(LoginBean body) {
         if(body != null) {
-            boolean result = body.flag;
-            Logger.d(body.info.nickname+"......"+result);
+            Logger.d(body.info.nickname+"......"+body.flag+"..."+body.returnMsg);
         }
-//        if(result) {
-//            Intent intent = getIntent();
-//            intent.putExtra("name",body.info.nickname);
-//            setResult(101,intent);
-//            finish();
-//        }else {
-//            Toast.makeText(LoginActivity.this,"账号不存在",Toast.LENGTH_SHORT).show();
-//            etAccount.setText("");
-//            etPsd.setText("");
-//        }
+        if("登录成功".equals(body.returnMsg)) {
+            Intent intent = getIntent();
+            intent.putExtra("name",body.info.nickname);
+            setResult(101,intent);
+            finish();
+        }else {
+            Toast.makeText(LoginActivity.this,"账号不存在",Toast.LENGTH_SHORT).show();
+            etAccount.setText("");
+            etPsd.setText("");
+        }
     }
 
 }

@@ -13,7 +13,7 @@ import retrofit2.http.POST;
 
 public interface LoginClient {
     //http://www.1688wan.com//majax.action?method=mobileUserLogin
-    @POST("method=mobileUserLogin")
+    @POST("majax.action?method=mobileUserLogin")
     @FormUrlEncoded
-    Call<LoginBean> login(@Field("name") String name,@Field("psw") String psw);
+    Call<LoginBean> login(@Field("name")String name,@Field("pwd")String pwd);
 }

@@ -15,6 +15,8 @@ import com.itcast.yb.packelves.module.NewGameClient;
 import com.itcast.yb.packelves.module.OpenServiceClient;
 import com.itcast.yb.packelves.module.WeekDetailsClient;
 
+import java.util.Map;
+
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Converter;
@@ -98,14 +100,14 @@ public class RequestNetwork {
     }
 
     //获取新游周刊详情页数据
-    public static Call<LoginBean> getLoginClient(String name,String psw) {
+    public static Call<LoginBean> getLoginClient(String name,String pwd) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(SERVER_URL)
                 .addConverterFactory(gsonConverterFactory)
                 .client(httpClient.build())
                 .build();
         LoginClient client = retrofit.create(LoginClient.class);
-        return client.login(name,psw);
+        return client.login(name,pwd);
     }
 
 }
