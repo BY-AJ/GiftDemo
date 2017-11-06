@@ -18,7 +18,6 @@ public class ThreadManager {
                 if (mThreadPool == null) {
                     int cpuCount = Runtime.getRuntime().availableProcessors();// 获取cpu数量
                     System.out.println("cup个数:" + cpuCount);
-
                     // int threadCount = cpuCount * 2 + 1;//线程个数
                     int threadCount = 10;
                     mThreadPool = new ThreadPool(threadCount, threadCount, 1L);

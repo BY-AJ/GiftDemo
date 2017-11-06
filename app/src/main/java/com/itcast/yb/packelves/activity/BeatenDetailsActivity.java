@@ -56,9 +56,7 @@ public class BeatenDetailsActivity extends BaseActivity{
         setContentView(R.layout.activity_beaten);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-        //获取开启这个Activity传过来的数据
-        Intent intent = getIntent();
-        mDatas = intent.getParcelableExtra("details");
+
         //初始化基本信息
         initBasic();
         //数据加载
@@ -102,6 +100,9 @@ public class BeatenDetailsActivity extends BaseActivity{
     }
 
     private void initBasic() {
+        //获取开启这个Activity传过来的数据
+        Intent intent = getIntent();
+        mDatas = intent.getParcelableExtra("details");
         ButterKnife.bind(this);
         tvDetailsTitle.setText(mDatas.name);
         tvDetailsTime.setText(mDatas.addtime);

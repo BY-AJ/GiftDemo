@@ -17,6 +17,7 @@ import java.util.List;
  */
 
 public class WeekDetailsAdapter extends BaseQuickAdapter<WeekDetailsBean.DetailsInfo,BaseViewHolder>{
+
     public WeekDetailsAdapter(@Nullable List<WeekDetailsBean.DetailsInfo> data) {
         super(R.layout.recycler_item_details_week,data);
     }
