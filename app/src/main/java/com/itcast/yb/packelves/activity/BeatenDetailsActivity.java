@@ -87,9 +87,19 @@ public class BeatenDetailsActivity extends BaseActivity{
         mListDatas = body.list;
         mAdapter = new WeekDetailsAdapter(mListDatas);
         recyclerDetails.setAdapter(mAdapter);
-        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+//        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+//                WeekDetailsBean.DetailsInfo info = mListDatas.get(position);
+//                Intent intent = new Intent(BeatenDetailsActivity.this, DownloadActivity.class);
+//                intent.putExtra("appid",info.appid);
+//                intent.putExtra("title",info.appname);
+//                startActivity(intent);
+//            }
+//        });
+        mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 WeekDetailsBean.DetailsInfo info = mListDatas.get(position);
                 Intent intent = new Intent(BeatenDetailsActivity.this, DownloadActivity.class);
                 intent.putExtra("appid",info.appid);
@@ -131,9 +141,4 @@ public class BeatenDetailsActivity extends BaseActivity{
         finish();
     }
 
-    //分享按钮
-    @OnClick(R.id.iv_details_share)
-    public void shareMore(){
-
-    }
 }

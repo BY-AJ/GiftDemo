@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.net.Uri;
 
 import com.itcast.yb.packelves.bean.DownloadInfoBean;
-import com.itcast.yb.packelves.bean.WeekDetailsBean;
 import com.itcast.yb.packelves.utils.UIUtils;
 import com.orhanobut.logger.Logger;
 
@@ -254,10 +253,6 @@ public class DownloadManager {
      * 根据应用信息返回下载对象
      */
     public DownloadInfo getDownloadInfo(DownloadInfoBean.AppInfo info) {
-        return mDownloadInfoMap.get(info.id);
-    }
-
-    public DownloadInfo getDownloadInfo(WeekDetailsBean.DetailsInfo info) {
         return mDownloadInfoMap.get(info.id);
     }
 }

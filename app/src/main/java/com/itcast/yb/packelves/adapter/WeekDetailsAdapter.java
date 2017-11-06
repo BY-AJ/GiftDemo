@@ -29,5 +29,6 @@ public class WeekDetailsAdapter extends BaseQuickAdapter<WeekDetailsBean.Details
         Glide.with(helper.itemView.getContext())
                 .load(RequestNetwork.SERVER_URL+item.appicon)
                 .into(icon);
+        helper.addOnClickListener(R.id.btn_download);
     }
 }
