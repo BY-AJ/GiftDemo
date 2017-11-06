@@ -4,10 +4,10 @@
     android:padding="10dp"
     android:id="@+id/rl_details_title_bar"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="77dp">
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="32dp"
         android:background="#FF6A6A"
         android:fitsSystemWindows="true" />
     <ImageView
