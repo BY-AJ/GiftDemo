@@ -4,11 +4,13 @@ import com.itcast.yb.packelves.bean.DownloadInfoBean;
 import com.itcast.yb.packelves.bean.FeatureInfoBean;
 import com.itcast.yb.packelves.bean.GameDetailsBean;
 import com.itcast.yb.packelves.bean.GiftInfoBean;
+import com.itcast.yb.packelves.bean.LoginBean;
 import com.itcast.yb.packelves.bean.OpenServiceInfoBean;
 import com.itcast.yb.packelves.bean.WeekDetailsBean;
 import com.itcast.yb.packelves.module.DownloadClient;
 import com.itcast.yb.packelves.module.FeatureClient;
 import com.itcast.yb.packelves.module.GiftClient;
+import com.itcast.yb.packelves.module.LoginClient;
 import com.itcast.yb.packelves.module.NewGameClient;
 import com.itcast.yb.packelves.module.OpenServiceClient;
 import com.itcast.yb.packelves.module.WeekDetailsClient;
@@ -94,4 +96,16 @@ public class RequestNetwork {
         NewGameClient client = retrofit.create(NewGameClient.class);
         return client.getGameDetailsDatasForServer(id);
     }
+
+    //获取新游周刊详情页数据
+    public static Call<LoginBean> getLoginClient(String name,String psw) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(SERVER_URL)
+                .addConverterFactory(gsonConverterFactory)
+                .client(httpClient.build())
+                .build();
+        LoginClient client = retrofit.create(LoginClient.class);
+        return client.login(name,psw);
+    }
+
 }

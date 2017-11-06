@@ -31,11 +31,6 @@
             android:background="#FF6A6A"
             android:layout_width="60dp"
             android:layout_height="25dp" />
-        <FrameLayout
-            android:id="@+id/fl_progress"
-            android:layout_centerInParent="true"
-            android:layout_width="60dp"
-            android:layout_height="25dp"/>
     </RelativeLayout>
 
 </LinearLayout>
