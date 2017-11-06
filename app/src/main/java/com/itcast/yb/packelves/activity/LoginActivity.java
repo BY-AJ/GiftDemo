@@ -49,6 +49,12 @@ public class LoginActivity extends BaseActivity{
         finish();
     }
 
+    @OnClick(R.id.btn_register)
+    public  void register(){
+        Intent intent=new Intent(this,RegisterActivity.class);
+        startActivity(intent);
+    }
+
     @OnClick(R.id.btn_login)
     public void login() {
         String account = etAccount.getText().toString();
