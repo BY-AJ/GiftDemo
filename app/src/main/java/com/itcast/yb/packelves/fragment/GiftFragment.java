@@ -9,8 +9,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.itcast.yb.packelves.MainActivity;
@@ -20,6 +22,7 @@ import com.itcast.yb.packelves.adapter.GiftQuickAdapter;
 import com.itcast.yb.packelves.adapter.MyCarouselAdapter;
 import com.itcast.yb.packelves.bean.GiftInfoBean;
 import com.itcast.yb.packelves.network.RequestNetwork;
+import com.itcast.yb.packelves.utils.ToolUtil;
 import com.itcast.yb.packelves.utils.UIUtils;
 import com.orhanobut.logger.Logger;
 
@@ -41,6 +44,8 @@ public class GiftFragment extends BaseFragment {
     @BindView(R.id.recycler_View) RecyclerView mRecyclerView;
     @BindView(R.id.viewpager) ViewPager mViewPager;
     @BindView(R.id.ll_root) LinearLayout llRoot;
+    @BindView(R.id.rl_root) RelativeLayout rlRoot;
+    @BindView(R.id.btn_loading) Button btnLoading;
 
     private ArrayList<GiftInfoBean.AdvertiseInfo> mAdDatas;
     private GiftQuickAdapter mAdapter;
@@ -60,7 +65,20 @@ public class GiftFragment extends BaseFragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(UIUtils.getContext());
         mRecyclerView.setLayoutManager(layoutManager);
 
+        if(ToolUtil.isNetworkAvailable(mActivity)) {
+            rlRoot.setVisibility(View.GONE);
+            mSwipeRefreshLayout.setVisibility(View.VISIBLE);
+        }else {
+            mSwipeRefreshLayout.setVisibility(View.GONE);
+            rlRoot.setVisibility(View.VISIBLE);
+        }
         return view;
+    }
+
+    @OnClick(R.id.btn_loading)
+    public void reload() {
+        btnLoading.setText("正在加载中...");
+        getDataForServer();
     }
 
     @Override
@@ -73,6 +91,8 @@ public class GiftFragment extends BaseFragment {
         call.enqueue(new Callback<GiftInfoBean>() {
             @Override
             public void onResponse(Call<GiftInfoBean> call, Response<GiftInfoBean> response) {
+                rlRoot.setVisibility(View.GONE);
+                mSwipeRefreshLayout.setVisibility(View.VISIBLE);
                 GiftInfoBean body = response.body();
                 parseData(body);
             }

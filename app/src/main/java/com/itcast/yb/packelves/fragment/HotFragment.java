@@ -5,6 +5,9 @@ import android.support.v4.view.GravityCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +22,7 @@ import com.itcast.yb.packelves.bean.HotBean;
 import com.itcast.yb.packelves.bean.HotSectionBean;
 import com.itcast.yb.packelves.utils.CustomLinearLayoutManager;
 import com.itcast.yb.packelves.utils.HttpUtils;
+import com.itcast.yb.packelves.utils.ToolUtil;
 import com.itcast.yb.packelves.utils.UIUtils;
 
 import java.util.ArrayList;
@@ -41,6 +45,10 @@ public class HotFragment extends BaseFragment{
     @BindView(R.id.recycler_View_hot) RecyclerView mRecyclerView;
     @BindView(R.id.recycler2_View_hot) RecyclerView mRecyclerView2;
 
+    @BindView(R.id.ll_root) LinearLayout llRoot;
+    @BindView(R.id.rl_root) RelativeLayout rlRoot;
+    @BindView(R.id.btn_loading) Button btnLoading;
+
     HotBean.InfoEntity mInfoEntity;
     private List<MyHotSectionEntity> mInfoEntityList=new ArrayList<>();
     private List<MyHotSectionEntity> mInfoEntityList2=new ArrayList<>();
@@ -56,12 +64,25 @@ public class HotFragment extends BaseFragment{
         tvSearch.setVisibility(View.GONE);
 
         CustomLinearLayoutManager linearLayoutManager=new CustomLinearLayoutManager(mActivity);
-//        linearLayoutManager.setScrollEnabled(false);
         mRecyclerView.setLayoutManager(linearLayoutManager);
 
         GridLayoutManager gridLayoutManager=new GridLayoutManager(mActivity,3);
         mRecyclerView2.setLayoutManager(gridLayoutManager);
+
+        if(ToolUtil.isNetworkAvailable(mActivity)) {
+            rlRoot.setVisibility(View.GONE);
+            llRoot.setVisibility(View.VISIBLE);
+        }else {
+            llRoot.setVisibility(View.GONE);
+            rlRoot.setVisibility(View.VISIBLE);
+        }
         return view;
+    }
+
+    @OnClick(R.id.btn_loading)
+    public void reload() {
+        btnLoading.setText("正在加载中...");
+        getDataForServer();
     }
 
     @Override
@@ -76,6 +97,8 @@ public class HotFragment extends BaseFragment{
         HttpUtils.creat().queryHot().enqueue(new Callback<HotBean>() {
             @Override
             public void onResponse(Call<HotBean> call, Response<HotBean> response) {
+                rlRoot.setVisibility(View.GONE);
+                llRoot.setVisibility(View.VISIBLE);
                 mInfoEntity=(HotBean.InfoEntity)response.body().getInfo();
                 parseData(mInfoEntity);
             }

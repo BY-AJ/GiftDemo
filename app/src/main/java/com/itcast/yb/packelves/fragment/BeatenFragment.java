@@ -6,6 +6,8 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
+import android.widget.RelativeLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.itcast.yb.packelves.R;
@@ -13,6 +15,7 @@ import com.itcast.yb.packelves.activity.BeatenDetailsActivity;
 import com.itcast.yb.packelves.adapter.FeatureQuickAdapter;
 import com.itcast.yb.packelves.bean.FeatureInfoBean;
 import com.itcast.yb.packelves.network.RequestNetwork;
+import com.itcast.yb.packelves.utils.ToolUtil;
 import com.itcast.yb.packelves.utils.UIUtils;
 import com.orhanobut.logger.Logger;
 
@@ -20,6 +23,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -32,6 +36,8 @@ public class BeatenFragment extends BaseFragment implements SwipeRefreshLayout.O
 
     @BindView(R.id.swipe_refresh) SwipeRefreshLayout mSwipeRefreshLayout;
     @BindView(R.id.recycler_View) RecyclerView mRecyclerView;
+    @BindView(R.id.rl_root) RelativeLayout rlRoot;
+    @BindView(R.id.btn_loading) Button btnLoading;
 
     private static final String BEAT_METHOD ="bdxqs";
     private ArrayList<FeatureInfoBean.EntityInfo> mDatas;
@@ -49,7 +55,21 @@ public class BeatenFragment extends BaseFragment implements SwipeRefreshLayout.O
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(mActivity);
         mRecyclerView.setLayoutManager(layoutManager);
+
+        if(ToolUtil.isNetworkAvailable(mActivity)) {
+            rlRoot.setVisibility(View.GONE);
+            mSwipeRefreshLayout.setVisibility(View.VISIBLE);
+        }else {
+            mSwipeRefreshLayout.setVisibility(View.GONE);
+            rlRoot.setVisibility(View.VISIBLE);
+        }
         return view;
+    }
+
+    @OnClick(R.id.btn_loading)
+    public void reload() {
+        btnLoading.setText("正在加载中...");
+        getDataForServer();
     }
 
     @Override
@@ -62,6 +82,8 @@ public class BeatenFragment extends BaseFragment implements SwipeRefreshLayout.O
         call.enqueue(new Callback<FeatureInfoBean>() {
             @Override
             public void onResponse(Call<FeatureInfoBean> call, Response<FeatureInfoBean> response) {
+                rlRoot.setVisibility(View.GONE);
+                mSwipeRefreshLayout.setVisibility(View.VISIBLE);
                 FeatureInfoBean body = response.body();
                 parseData(body);
             }

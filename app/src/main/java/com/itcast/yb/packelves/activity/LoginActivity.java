@@ -35,7 +35,6 @@ public class LoginActivity extends BaseActivity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         initBasic();
     }
 
@@ -71,7 +70,6 @@ public class LoginActivity extends BaseActivity{
                         }
                         @Override
                         public void onFailure(Call<LoginBean> call, Throwable t) {
-                            Logger.d(t.getMessage());
                         }
                     });
                 }else {
@@ -89,16 +87,16 @@ public class LoginActivity extends BaseActivity{
     private void parseData(LoginBean body) {
         if(body != null) {
             Logger.d(body.info.nickname+"......"+body.flag+"..."+body.returnMsg);
-        }
-        if("登录成功".equals(body.returnMsg)) {
-            Intent intent = getIntent();
-            intent.putExtra("name",body.info.nickname);
-            setResult(101,intent);
-            finish();
-        }else {
-            Toast.makeText(LoginActivity.this,"账号不存在",Toast.LENGTH_SHORT).show();
-            etAccount.setText("");
-            etPsd.setText("");
+            if("登录成功".equals(body.returnMsg)) {
+                Intent intent = getIntent();
+                intent.putExtra("name",body.info.nickname);
+                setResult(101,intent);
+                finish();
+            }else {
+                Toast.makeText(LoginActivity.this,"账号不存在",Toast.LENGTH_SHORT).show();
+                etAccount.setText("");
+                etPsd.setText("");
+            }
         }
     }
 
