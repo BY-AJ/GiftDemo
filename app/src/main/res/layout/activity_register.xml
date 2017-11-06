@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/login_title_bar"/>
+    <View
+        android:background="#c8c8c8c8"
+        android:layout_width="match_parent"
+        android:layout_marginTop="39dp"
+        android:layout_height="1dp"/>
+    <RelativeLayout
+        android:padding="7dp"
+        android:layout_marginTop="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/iv_user"
+            android:layout_marginLeft="25dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/mobilephone"
+            android:layout_width="20dp"
+            android:layout_height="20dp" />
+        <EditText
+            android:id="@+id/et_account"
+            android:background="@null"
+            android:hint="请输入11位手机号码"
+            android:layout_centerVertical="true"
+            android:paddingLeft="8dp"
+            android:singleLine="true"
+            android:layout_toRightOf="@+id/iv_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+    <View
+        android:background="#c8c8c8c8"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <RelativeLayout
+        android:padding="7dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/iv_psd"
+            android:layout_marginLeft="26dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/suo"
+            android:layout_width="16dp"
+            android:layout_height="20dp" />
+        <EditText
+            android:id="@+id/et_psd"
+            android:background="@null"
+            android:hint="请输入6-16位字符或者数字的密码"
+            android:paddingLeft="@dimen/dp_10"
+            android:layout_centerVertical="true"
+            android:singleLine="true"
+            android:layout_toRightOf="@+id/iv_psd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+    <View
+        android:background="#c8c8c8c8"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+    <RelativeLayout
+        android:padding="7dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/iv_nickname"
+            android:layout_marginLeft="25dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/loveheart"
+            android:layout_width="20dp"
+            android:layout_height="20dp" />
+        <EditText
+            android:id="@+id/et_nickname"
+            android:background="@null"
+            android:hint="请输入少于9个字符的昵称"
+            android:layout_centerVertical="true"
+            android:paddingLeft="8dp"
+            android:singleLine="true"
+            android:layout_toRightOf="@+id/iv_nickname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <View
+            android:background="#c8c8c8c8"
+            android:layout_width="match_parent"
+            android:layout_below="@id/et_nickname"
+            android:layout_marginTop="10dp"
+            android:layout_height="1dp"/>
+    </RelativeLayout>
+    <Button
+        android:layout_marginTop="20dp"
+        android:id="@+id/btn_login"
+        android:text="注     册"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:background="#FF6A6A"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+
+</LinearLayout>
