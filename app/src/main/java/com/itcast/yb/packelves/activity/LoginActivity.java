@@ -14,6 +14,9 @@ import com.itcast.yb.packelves.network.RequestNetwork;
 import com.itcast.yb.packelves.utils.ToolUtil;
 import com.orhanobut.logger.Logger;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -52,10 +55,13 @@ public class LoginActivity extends BaseActivity{
     public void login() {
         String account = etAccount.getText().toString();
         String psd = etPsd.getText().toString();
+        Map map =new HashMap();
+        map.put("name",account);
+        map.put("pwd",psd);
         if(!TextUtils.isEmpty(account)) {
             if(!TextUtils.isEmpty(psd)) {
                 if(ToolUtil.isEmail(account) || ToolUtil.isMobileNO(account)) {
-                    Call<LoginBean> call = RequestNetwork.getLoginClient(account, psd);
+                    Call<LoginBean> call = RequestNetwork.getLoginClient(map);
                     call.enqueue(new Callback<LoginBean>() {
                         @Override
                         public void onResponse(Call<LoginBean> call, Response<LoginBean> response) {
