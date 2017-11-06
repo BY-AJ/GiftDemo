@@ -6,6 +6,8 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -14,12 +16,14 @@ import com.itcast.yb.packelves.activity.KaiCeDetailsActivity;
 import com.itcast.yb.packelves.adapter.KaiCeQuickAdapter;
 import com.itcast.yb.packelves.bean.KaiCeInfoBean;
 import com.itcast.yb.packelves.utils.HttpUtils;
+import com.itcast.yb.packelves.utils.ToolUtil;
 import com.itcast.yb.packelves.utils.UIUtils;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,6 +40,8 @@ public class KaiCeFragment extends BaseFragment implements SwipeRefreshLayout.On
 
     @BindView(R.id.swipe_refresh) SwipeRefreshLayout mswipeRefreshLayout;
     @BindView(R.id.recycler_View) RecyclerView mrecyclerView;
+    @BindView(R.id.rl_root) RelativeLayout rlRoot;
+    @BindView(R.id.btn_loading) Button btnLoading;
 
     @Override
     public View initView() {
@@ -48,7 +54,21 @@ public class KaiCeFragment extends BaseFragment implements SwipeRefreshLayout.On
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(mActivity);
         mrecyclerView.setLayoutManager(layoutManager);
+
+        if(ToolUtil.isNetworkAvailable(mActivity)) {
+            rlRoot.setVisibility(View.GONE);
+            mswipeRefreshLayout.setVisibility(View.VISIBLE);
+        }else {
+            mswipeRefreshLayout.setVisibility(View.GONE);
+            rlRoot.setVisibility(View.VISIBLE);
+        }
         return view;
+    }
+
+    @OnClick(R.id.btn_loading)
+    public void reload() {
+        btnLoading.setText("正在加载中...");
+        getDataForServer();
     }
 
     @Override
@@ -60,6 +80,8 @@ public class KaiCeFragment extends BaseFragment implements SwipeRefreshLayout.On
         HttpUtils.creat().queryKaiCe().enqueue(new Callback<KaiCeInfoBean>() {
             @Override
             public void onResponse(Call<KaiCeInfoBean> call, Response<KaiCeInfoBean> response) {
+                rlRoot.setVisibility(View.GONE);
+                mswipeRefreshLayout.setVisibility(View.VISIBLE);
                 parseData(response.body());
             }
 

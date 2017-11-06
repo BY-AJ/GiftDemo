@@ -5,17 +5,19 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.itcast.yb.packelves.R;
-import com.itcast.yb.packelves.activity.KaiCeDetailsActivity;
 import com.itcast.yb.packelves.activity.KaiFuDetailsActivity;
 import com.itcast.yb.packelves.adapter.SectionAdapter;
 import com.itcast.yb.packelves.adapter.entity.MySectionEntity;
 import com.itcast.yb.packelves.bean.OpenServiceInfoBean;
 import com.itcast.yb.packelves.bean.SectionBean;
 import com.itcast.yb.packelves.network.RequestNetwork;
+import com.itcast.yb.packelves.utils.ToolUtil;
 import com.orhanobut.logger.Logger;
 
 import java.text.SimpleDateFormat;
@@ -25,6 +27,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -35,6 +38,8 @@ import retrofit2.Response;
 
 public class KaiFuFragment extends BaseFragment {
     @BindView(R.id.recycler_view) RecyclerView mRecyclerView;
+    @BindView(R.id.rl_root) RelativeLayout rlRoot;
+    @BindView(R.id.btn_loading) Button btnLoading;
 
     private static final String METHOD = "getJtkaifu";
     private ArrayList<OpenServiceInfoBean.InfoEntity> mInfo;
@@ -48,15 +53,36 @@ public class KaiFuFragment extends BaseFragment {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(mActivity);
         mRecyclerView.setLayoutManager(layoutManager);
+
+        if(ToolUtil.isNetworkAvailable(mActivity)) {
+            rlRoot.setVisibility(View.GONE);
+            mRecyclerView.setVisibility(View.VISIBLE);
+        }else {
+            mRecyclerView.setVisibility(View.GONE);
+            rlRoot.setVisibility(View.VISIBLE);
+        }
         return view;
+    }
+
+    @OnClick(R.id.btn_loading)
+    public void reload() {
+        btnLoading.setText("正在加载中...");
+        getDataForServer();
     }
 
     @Override
     public void initData() {
+        getDataForServer();
+    }
+
+
+    private void getDataForServer() {
         Call<OpenServiceInfoBean> call = RequestNetwork.getOpenServiceClient(METHOD);
         call.enqueue(new Callback<OpenServiceInfoBean>() {
             @Override
             public void onResponse(Call<OpenServiceInfoBean> call, Response<OpenServiceInfoBean> response) {
+                rlRoot.setVisibility(View.GONE);
+                mRecyclerView.setVisibility(View.VISIBLE);
                 parseData(response.body());
             }
             @Override
