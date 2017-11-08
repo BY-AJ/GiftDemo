@@ -96,7 +96,7 @@
     </RelativeLayout>
     <Button
         android:layout_marginTop="20dp"
-        android:id="@+id/btn_register"
+        android:id="@+id/register"
         android:text="注     册"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
