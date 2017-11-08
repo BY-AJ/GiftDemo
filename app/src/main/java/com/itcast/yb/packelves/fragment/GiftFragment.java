@@ -56,7 +56,6 @@ public class GiftFragment extends BaseFragment {
     public View initView() {
         View view = LayoutInflater.from(mActivity).inflate(R.layout.fragment_gift, null);
         ButterKnife.bind(this,view);
-
         mSwipeRefreshLayout.setColorSchemeColors(Color.BLUE,Color.RED,Color.YELLOW,Color.BLACK);
         mSwipeRefreshLayout.setProgressBackgroundColorSchemeColor(Color.WHITE);
         mSwipeRefreshLayout.setDistanceToTriggerSync(50);
