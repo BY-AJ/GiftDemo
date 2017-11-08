@@ -60,7 +60,6 @@ public class RegisterActivity extends BaseActivity {
     @OnClick(R.id.register)
     public void mclick(){
         initData();
-
     }
 
     private void initData() {
@@ -68,8 +67,8 @@ public class RegisterActivity extends BaseActivity {
                 //请求 开始注册
                 String account= et_account.getText().toString();
                 String psd= et_psd.getText().toString();
-                String nickname=getMid(RegisterActivity.this);
-                String mid=et_nickname.getText().toString();
+                String nickname=et_nickname.getText().toString();
+                String mid=getMid(RegisterActivity.this);
 
                 HttpUtils.creat().queryRigester(account,psd,nickname,mid).enqueue(new Callback<LoginBean>() {
                     @Override
