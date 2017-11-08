@@ -1,7 +1,6 @@
 package com.itcast.yb.packelves.activity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
@@ -12,14 +11,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.itcast.yb.packelves.BaseActivity;
 import com.itcast.yb.packelves.R;
 import com.itcast.yb.packelves.bean.LoginBean;
 import com.itcast.yb.packelves.utils.HttpUtils;
 import com.orhanobut.logger.Logger;
 
-
-import net.sf.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -139,7 +137,8 @@ public class RegisterActivity extends BaseActivity {
         Map map=new HashMap();
         map.put("Mac","02:00:00:00:00:00");
         map.put("deviced_id",getIMEI(context));
-        JSONObject js= JSONObject.fromObject(map);
-        return js.toString();
+        Gson gson=new Gson();
+        String jsonstr= gson.toJson(map);
+        return jsonstr;
     }
 }
