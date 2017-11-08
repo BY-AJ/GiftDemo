@@ -59,7 +59,7 @@ public class RegisterActivity extends BaseActivity {
         finish();
     }
 
-    @OnClick(R.id.btn_register)
+    @OnClick(R.id.register)
     public void mclick(){
         initData();
 
