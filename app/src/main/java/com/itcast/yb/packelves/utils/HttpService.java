@@ -6,9 +6,12 @@ import com.itcast.yb.packelves.bean.HotBean;
 import com.itcast.yb.packelves.bean.KaiCeDetailsBean;
 import com.itcast.yb.packelves.bean.KaiCeInfoBean;
 import com.itcast.yb.packelves.bean.KaiFuDetailsBean;
+import com.itcast.yb.packelves.bean.LoginBean;
 import com.itcast.yb.packelves.bean.NewGameInfoBean;
 
 import retrofit2.Call;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -37,4 +40,10 @@ public interface HttpService {
     //礼包详情
     @POST("/majax.action?method=getGiftInfo")
     Call<GiftDetailsBean> querGiftDetails(@Query("id") int id);
+
+    //注册 http://www.1688wan.com//webmember.action?method=userRegisterForMobile
+    @FormUrlEncoded
+    @POST("/webmember.action?method=userRegisterForMobile")
+    Call<LoginBean> queryRigester(@Field("uname")String name,@Field("pwd") String pwd,@Field("nickname")String nickname,@Field("mid")String mid);
+
 }
