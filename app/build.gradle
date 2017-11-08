@@ -22,7 +22,7 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -50,4 +50,5 @@ dependencies {
     compile files('libs/ShareSDK-QQ-3.1.1.jar')
     compile files('libs/ShareSDK-QZone-3.1.1.jar')
     compile files('libs/ShareSDK-SinaWeibo-3.1.1.jar')
+    compile files('src/main/libs/json-lib-2.4-jdk15.jar')
 }
