@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 import com.itcast.yb.packelves.BaseActivity;
 import com.itcast.yb.packelves.R;
 import com.itcast.yb.packelves.bean.LoginBean;
+import com.itcast.yb.packelves.bean.RegisterBean;
 import com.itcast.yb.packelves.utils.HttpUtils;
 import com.orhanobut.logger.Logger;
 
@@ -70,15 +71,15 @@ public class RegisterActivity extends BaseActivity {
                 String nickname=et_nickname.getText().toString();
                 String mid=getMid(RegisterActivity.this);
 
-                HttpUtils.creat().queryRigester(account,psd,nickname,mid).enqueue(new Callback<LoginBean>() {
+                HttpUtils.creat().queryRigester(account,psd,nickname,mid).enqueue(new Callback<RegisterBean>() {
                     @Override
-                    public void onResponse(Call<LoginBean> call, Response<LoginBean> response) {
-                        LoginBean body = response.body();
+                    public void onResponse(Call<RegisterBean> call, Response<RegisterBean> response) {
+                        RegisterBean body = response.body();
                         parseData(body);
                     }
 
                     @Override
-                    public void onFailure(Call<LoginBean> call, Throwable t) {
+                    public void onFailure(Call<RegisterBean> call, Throwable t) {
 
                     }
                 });
@@ -88,9 +89,9 @@ public class RegisterActivity extends BaseActivity {
     }
 
     //处理返回的结果
-    private void parseData(LoginBean body) {
+    private void parseData(RegisterBean body) {
         if(body != null) {
-            Logger.d(body.info.nickname+"......"+body.flag+"..."+body.returnMsg);
+//            Logger.d(body.info.nickname+"......"+body.flag+"..."+body.returnMsg);
             if("登录成功".equals(body.returnMsg)) {
 //                Intent intent = getIntent();
 //                intent.putExtra("name",body.info.nickname);
