@@ -6,7 +6,6 @@ import com.itcast.yb.packelves.bean.HotBean;
 import com.itcast.yb.packelves.bean.KaiCeDetailsBean;
 import com.itcast.yb.packelves.bean.KaiCeInfoBean;
 import com.itcast.yb.packelves.bean.KaiFuDetailsBean;
-import com.itcast.yb.packelves.bean.LoginBean;
 import com.itcast.yb.packelves.bean.NewGameInfoBean;
 import com.itcast.yb.packelves.bean.RegisterBean;
 
@@ -45,6 +44,6 @@ public interface HttpService {
     //注册 http://www.1688wan.com//webmember.action?method=userRegisterForMobile
     @FormUrlEncoded
     @POST("/webmember.action?method=userRegisterForMobile")
-    Call<RegisterBean> queryRigester(@Field("uname")String name, @Field("pwd") String pwd, @Field("nickname")String nickname, @Field("mid")String mid);
+    Call<RegisterBean> queryRigester(@Field("uname")String uname, @Field("pwd") String pwd, @Field("nickname")String nickname);
 
 }

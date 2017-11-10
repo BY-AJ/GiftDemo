@@ -5,6 +5,7 @@
     android:orientation="vertical">
 
     <include layout="@layout/login_title_bar"/>
+
     <View
         android:background="#c8c8c8c8"
         android:layout_width="match_parent"
