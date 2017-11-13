@@ -7,6 +7,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -140,12 +141,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     protected void onRestart() {
         super.onRestart();
         //----
+        Log.e("xxxx'","xxxx");
+
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         //----
-
+        Log.e("xxxx'","xxxx");
     }
 }
