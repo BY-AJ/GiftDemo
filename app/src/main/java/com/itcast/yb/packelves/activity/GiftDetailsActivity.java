@@ -1,11 +1,9 @@
 package com.itcast.yb.packelves.activity;
 
-import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -14,14 +12,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.itcast.yb.packelves.BaseActivity;
 import com.itcast.yb.packelves.R;
 import com.itcast.yb.packelves.bean.GiftDetailsBean;
 import com.itcast.yb.packelves.bean.GiftInfoBean;
+import com.itcast.yb.packelves.bean.ReceiveBean;
+import com.itcast.yb.packelves.network.RequestNetwork;
 import com.itcast.yb.packelves.utils.FastBlurUtil;
 import com.itcast.yb.packelves.utils.HttpUtils;
+import com.itcast.yb.packelves.utils.PreTool;
 import com.orhanobut.logger.Logger;
 
 import butterknife.BindView;
@@ -48,6 +50,7 @@ public class GiftDetailsActivity extends BaseActivity {
     @BindView(R.id.ib_gift_content) ImageButton ib_gift_content;//已经获取的礼包。
     private String mTitle;
     private int mAppid;
+    private GiftDetailsBean.InfoEntity infoentity;
 
 
     @Override
@@ -105,9 +108,9 @@ public class GiftDetailsActivity extends BaseActivity {
     }
 
     private void parase(GiftDetailsBean body) {
-        GiftDetailsBean.InfoEntity infoentity=body.getInfo();
+        infoentity = body.getInfo();
         //联网数据请求
-        Glide.with(this).load(HttpUtils.BASE_URL+infoentity.getIconurl())
+        Glide.with(this).load(HttpUtils.BASE_URL+ infoentity.getIconurl())
                 .into(circleImageView);
         tv_GiftNote_des.setText(infoentity.getExplains());
         tv_tv_Exchange_Way_des.setText(infoentity.getDescs());
@@ -122,10 +125,37 @@ public class GiftDetailsActivity extends BaseActivity {
 
     @OnClick(R.id.btn_download)
     public void onclick(){
-        Intent intent=new Intent(this,LoginActivity.class);
-        startActivity(intent);
-        finish();
+//        Intent intent=new Intent(this,LoginActivity.class);
+//        startActivity(intent);
+        if(infoentity != null) {
+            Logger.d(infoentity.getUid()+"...."+infoentity.getGid());
+//            Map<String,String> map=new HashMap<>();
+//            map.put("uid",infoentity.getUid());
+//            map.put("gid",infoentity.getGid());
+           Boolean flag= PreTool.getBooleanPreferences(this,"login",false);
+            if(flag){
+                Call<ReceiveBean> call = RequestNetwork.getReceiveClient(infoentity.getUid(),infoentity.getGid());
+                call.enqueue(new Callback<ReceiveBean>() {
+                    @Override
+                    public void onResponse(Call<ReceiveBean> call, Response<ReceiveBean> response) {
+                        dealData(response.body());
+                    }
+                    @Override
+                    public void onFailure(Call<ReceiveBean> call, Throwable t) {
+                        Logger.d(t.getMessage());
+                        Toast.makeText(GiftDetailsActivity.this,"请登录",Toast.LENGTH_LONG).show();
+                    }
+                });
+            }else{
+                Toast.makeText(this,"请登录",Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
-
+    /**
+     * 处理数据
+     */
+    private void dealData(ReceiveBean body) {
+        Logger.d(body.flag+"..."+body.returnMsg);
+    }
 }
