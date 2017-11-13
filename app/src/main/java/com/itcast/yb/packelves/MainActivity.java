@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -77,6 +78,12 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 startLogin();
             }
         });
+
+        if(!TextUtils.isEmpty(name)){
+            tvUserName.setText(name);
+            tvUserName.setEnabled(false);
+            tvUserName.setClickable(false);
+        }
     }
 
     //登录
