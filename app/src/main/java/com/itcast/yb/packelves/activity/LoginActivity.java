@@ -96,6 +96,7 @@ public class LoginActivity extends BaseActivity{
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 intent.putExtra("name",body.info.nickname);
                 startActivity(intent);
+                PreTool.setBooleanSave(this,"login",true);
                 PreTool.setStringsave(this,"nickname",body.info.nickname);
                 //setResult(101,intent);
                 finish();
