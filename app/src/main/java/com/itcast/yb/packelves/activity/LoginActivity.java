@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.itcast.yb.packelves.BaseActivity;
+import com.itcast.yb.packelves.MainActivity;
 import com.itcast.yb.packelves.R;
 import com.itcast.yb.packelves.bean.LoginBean;
 import com.itcast.yb.packelves.network.RequestNetwork;
@@ -91,9 +92,10 @@ public class LoginActivity extends BaseActivity{
         if(body != null) {
             Logger.d(body.info.nickname+"......"+body.flag+"..."+body.returnMsg);
             if("登录成功".equals(body.returnMsg)) {
-                Intent intent = getIntent();
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 intent.putExtra("name",body.info.nickname);
-                setResult(101,intent);
+                startActivity(intent);
+//                setResult(101,intent);
                 finish();
             }else {
                 Toast.makeText(LoginActivity.this,"账号不存在",Toast.LENGTH_SHORT).show();

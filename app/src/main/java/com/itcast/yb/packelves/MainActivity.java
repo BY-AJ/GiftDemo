@@ -60,6 +60,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     private void initNavView() {
+        Intent intent=getIntent();
+        String name=intent.getStringExtra("name");
+
         //抽屉控件侧滑头部视图
         View headerView = mNavigationView.inflateHeaderView(R.layout.navigation_header);
         ivAvatar = (CircleImageView) headerView.findViewById(R.id.iv_avatar);
