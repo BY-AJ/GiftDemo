@@ -62,8 +62,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     private void initNavView() {
-        Intent intent=getIntent();
-        String name=intent.getStringExtra("name");
+
 
         //抽屉控件侧滑头部视图
         View headerView = mNavigationView.inflateHeaderView(R.layout.navigation_header);
@@ -80,11 +79,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             }
         });
 
-        if(name!=null){
-            tvUserName.setText(name);
-            tvUserName.setEnabled(false);
-            tvUserName.setClickable(false);
-        }
+
     }
 
     //登录
@@ -140,9 +135,15 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     protected void onRestart() {
         super.onRestart();
-        //----
+        //----\
+        Intent intent=getIntent();
+        String name=intent.getStringExtra("name");
         Log.e("xxxx'","xxxx");
-
+        if(name!=null){
+            tvUserName.setText(name);
+            tvUserName.setEnabled(false);
+            tvUserName.setClickable(false);
+        }
     }
 
     @Override
