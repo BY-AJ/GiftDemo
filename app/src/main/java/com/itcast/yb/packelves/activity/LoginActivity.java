@@ -14,6 +14,7 @@ import com.itcast.yb.packelves.MainActivity;
 import com.itcast.yb.packelves.R;
 import com.itcast.yb.packelves.bean.LoginBean;
 import com.itcast.yb.packelves.network.RequestNetwork;
+import com.itcast.yb.packelves.utils.PreTool;
 import com.itcast.yb.packelves.utils.ToolUtil;
 import com.orhanobut.logger.Logger;
 
@@ -95,7 +96,8 @@ public class LoginActivity extends BaseActivity{
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 intent.putExtra("name",body.info.nickname);
                 startActivity(intent);
-//                setResult(101,intent);
+                PreTool.setStringsave(this,"nickname",body.info.nickname);
+                //setResult(101,intent);
                 finish();
             }else {
                 Toast.makeText(LoginActivity.this,"账号不存在",Toast.LENGTH_SHORT).show();

@@ -19,6 +19,7 @@ import com.itcast.yb.packelves.activity.AboutActivity;
 import com.itcast.yb.packelves.activity.LoginActivity;
 import com.itcast.yb.packelves.activity.SuggestActivity;
 import com.itcast.yb.packelves.adapter.MyViewPagerAdapter;
+import com.itcast.yb.packelves.utils.PreTool;
 import com.itcast.yb.packelves.view.NoScrollViewPager;
 
 import butterknife.BindView;
@@ -135,15 +136,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     protected void onRestart() {
         super.onRestart();
-        //----\
-        Intent intent=getIntent();
-        String name=intent.getStringExtra("name");
         Log.e("xxxx'","xxxx");
-        if(name!=null){
-            tvUserName.setText(name);
-            tvUserName.setEnabled(false);
-            tvUserName.setClickable(false);
-        }
+        String name=PreTool.getStringPreference(this,"nickname","小哔哔");
+        tvUserName.setText(name);
+        tvUserName.setEnabled(false);
+        tvUserName.setClickable(false);
     }
 
     @Override
