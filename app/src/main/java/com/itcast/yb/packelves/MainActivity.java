@@ -79,7 +79,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             }
         });
 
-        if(!TextUtils.isEmpty(name)){
+        if(name!=null){
             tvUserName.setText(name);
             tvUserName.setEnabled(false);
             tvUserName.setClickable(false);
@@ -135,4 +135,17 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         return mDrawerLayout;
     }
 
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        //----
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //----
+
+    }
 }
