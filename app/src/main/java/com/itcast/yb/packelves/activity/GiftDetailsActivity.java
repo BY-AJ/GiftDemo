@@ -124,5 +124,8 @@ public class GiftDetailsActivity extends BaseActivity {
     public void onclick(){
         Intent intent=new Intent(this,LoginActivity.class);
         startActivity(intent);
+        finish();
     }
+
+
 }

@@ -79,10 +79,10 @@ public class LoginActivity extends BaseActivity{
                     Toast.makeText(LoginActivity.this,"请输入正确的账号",Toast.LENGTH_SHORT);
                 }
             }else {
-                Toast.makeText(LoginActivity.this,"密码不能为空",Toast.LENGTH_SHORT);
+                Toast.makeText(LoginActivity.this,"密码不能为空",Toast.LENGTH_SHORT).show();
             }
         }else {
-            Toast.makeText(LoginActivity.this,"账号不能为空",Toast.LENGTH_SHORT);
+            Toast.makeText(LoginActivity.this,"账号不能为空",Toast.LENGTH_SHORT).show();
         }
     }
 
