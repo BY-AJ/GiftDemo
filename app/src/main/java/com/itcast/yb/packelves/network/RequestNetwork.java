@@ -6,6 +6,7 @@ import com.itcast.yb.packelves.bean.GameDetailsBean;
 import com.itcast.yb.packelves.bean.GiftInfoBean;
 import com.itcast.yb.packelves.bean.LoginBean;
 import com.itcast.yb.packelves.bean.OpenServiceInfoBean;
+import com.itcast.yb.packelves.bean.ReceiveBean;
 import com.itcast.yb.packelves.bean.WeekDetailsBean;
 import com.itcast.yb.packelves.module.DownloadClient;
 import com.itcast.yb.packelves.module.FeatureClient;
@@ -13,9 +14,8 @@ import com.itcast.yb.packelves.module.GiftClient;
 import com.itcast.yb.packelves.module.LoginClient;
 import com.itcast.yb.packelves.module.NewGameClient;
 import com.itcast.yb.packelves.module.OpenServiceClient;
+import com.itcast.yb.packelves.module.ReceiveClient;
 import com.itcast.yb.packelves.module.WeekDetailsClient;
-
-import java.util.Map;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
@@ -109,5 +109,25 @@ public class RequestNetwork {
         LoginClient client = retrofit.create(LoginClient.class);
         return client.login(name,pwd);
     }
+
+    //礼包领取
+    public static Call<ReceiveBean> getReceiveClient(String uid, String gid) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(SERVER_URL)
+                .addConverterFactory(gsonConverterFactory)
+                .client(httpClient.build())
+                .build();
+        ReceiveClient client = retrofit.create(ReceiveClient.class);
+        return client.receiveVerifyForServer(uid,gid);
+    }
+//    public static Call<ReceiveBean> getReceiveClient(Map<String,String> map) {
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .baseUrl(SERVER_URL)
+//                .addConverterFactory(gsonConverterFactory)
+//                .client(httpClient.build())
+//                .build();
+//        ReceiveClient client = retrofit.create(ReceiveClient.class);
+//        return client.receiveVerifyForServer(map);
+//    }
 
 }
